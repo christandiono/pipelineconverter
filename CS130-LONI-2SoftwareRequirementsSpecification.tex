@@ -1,0 +1,251 @@
+\documentclass[12pt]{article}
+\usepackage[letterpaper]{geometry}
+\usepackage{hyperref}
+\title{CS 130 LONI 2 Software Requirements Specification}
+\author{S. Achour, J. Ho, R. Sobrano, C. Tandiono,\\ N. van Hoogenstyn, J. Yoon}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+\subsection{Purpose}
+\subsubsection{Background} Taverna, Galaxy, LONI Pipeline are development tools that simplify data processing, with an emphasis on biological applications. In the previously mentioned workflow programs, researchers control the flow of data by linking together local processes and remote services in a workflow graph. These workflows can be run on the system or saved to a file.
+\subsubsection{Project} Implement a converter that translates between LONI Pipeline workflows and Taverna or Galaxy workflows.
+\subsubsection{Significance} Facilitates free exchange of workflows in the scientific community across different workflow tools.
+
+
+\subsection{Intended Audience}
+Scientists and researchers who would like to make their workflows in the LONI Pipeline available to users of Galaxy and Taverna and vice versa.
+
+
+\subsection{Additional Information}
+
+
+The LONI Pipeline is an application that allows users to easily create their workflows in a graphical user interface and create complex analysis tools without coding or understanding the operational details of a computer program.
+
+
+\subsection{Contact Information and SRS Team Members}
+\subsubsection{Clients}
+\begin{itemize}
+\item Ivo Dinov (\href{mailto:ivo.dinov@loni.ucla.edu}{ivo.dinov@loni.ucla.edu})
+\item Zhizhong Liu (\href{mailto:zliu@loni.ucla.edu}{zliu@loni.ucla.edu})
+\item Petros Petrosyan (\href{mailto:petros.petrosyan@loni.ucla.edu}{petros.petrosyan@loni.ucla.edu})
+\item Arthur Toga (\href{mailto:toga@loni.ucla.edu}{toga@loni.ucla.edu})
+\end{itemize}
+
+
+\subsubsection{Team}
+\begin{itemize}
+\item Sara Achour (\href{mailto:sarachour@gmail.com}{sarachour@gmail.com})
+\item Johnny Ho (\href{mailto:johnny5550822@gmail.com}{johnny5550822@gmail.com})
+\item Rouel Sobrano (\href{mailto:rsobrano@gmail.com}{rsobrano@gmail.com})
+\item Chris Tandiono (\href{mailto:chris.tandiono@gmail.com}{chris.tandiono@gmail.com})
+\item Nick Van Hoogenstyn (\href{mailto:nickvanhoog@gmail.com}{nickvanhoog@gmail.com})
+\item John Yoon (\href{mailto:seatpost@gmail.com}{seatpost@gmail.com})
+\end{itemize}
+
+
+\subsection{References}
+\begin{itemize}
+\item Taverna-Galaxy, a Ruby script that, given a Taverna workflow and server, produces a functionally identical Galaxy tool.
+\item Project specification: \url{http://www.loni.ucla.edu/twiki/bin/view/LONI/Pipeline_2011_2012_StudentProjects}
+\item Pipeline Workflow Comparison: \url{http://www.loni.ucla.edu/twiki/bin/view/LONI/Pipeline_ComparisonOtherWorkflowEnvironments}
+\end{itemize}
+
+
+\section{Overall Description}
+\subsection{Product Perspective}
+\subsubsection{Existing System}
+\begin{itemize}
+\item Taverna, LONI Pipeline and Galaxy are three workflow editors.
+\item Taverna-Galaxy converter written in Ruby exists.
+\end{itemize}
+\subsubsection{Our System}
+\begin{itemize}
+\item File conversion software that converts workflow files between Loni and Galaxy, as well as Loni and Taverna.
+\end{itemize}
+
+\subsection{Product Functions}
+\begin{itemize}
+\item Convert from LONI workflow format to functionally identical Taverna workflow format (section~\ref{sec:lonitaverna}).
+\item Convert from Taverna workflow format to functionally identical LONI workflow format (section~\ref{sec:tavernaloni}).
+\item Convert from LONI workflow format to functionally identical Galaxy workflow format (section~\ref{sec:lonigalaxy}).
+\item Convert from Galaxy workflow format to functionally identical LONI workflow format (section~\ref{sec:galaxyloni}).
+\item Automatically identify file type of input and present conversion options (section~\ref{sec:auto}).
+\end{itemize}
+
+\subsection{Operating environment}
+\begin{itemize}
+\item The program will be written in Java to make future integration into LONI tools easier.
+\item The program will be as platform independent as possible.
+\item Java 5 or higher Runtime Environment.
+\end{itemize}
+
+\subsection{Design and Implementation Constraints}
+\subsubsection{Workflow Format Files Requirement}
+Incompatibility list required for cases where some feature in one format is not present another format. Program will pause the conversation when a module is not found in both tools.
+
+
+\subsubsection{Language Requirement}
+The language of any user interface text, if present, is English.
+
+\subsection{Assumptions and Dependencies}
+\subsubsection{Dependencies}
+Program is dependent on the LONI Pipeline, Galaxy, and Taverna file format specifications. Program Maintenance is required for accommodating changes in the file format schemes.
+
+
+\subsubsection{Assumptions}
+All of the Galaxy modules are readily available.  If input data is required, it exists and the user has access to it.
+        
+\section{External Interface Requirements}
+\subsection{User Interface}
+\begin{itemize}
+\item command line interface
+\item automatic detection of specified file types
+\item presents conversion options for inputted file
+\end{itemize}
+
+\section{System Features}
+\subsection{Convert from LONI to Functionally Identical Taverna Workflow}
+\label{sec:lonitaverna}
+\subsubsection{Description/Rationale} Support converting LONI workflow files (\texttt{.pipe}) to Taverna workflow (\texttt{.t2flow})  files. One of the core file conversions for file converter. Resulting file should be functionally identical.
+
+
+\subsubsection{Use Cases}
+\begin{itemize}
+\item \textbf{Action}
+
+Input LONI workflow file, select Taverna workflow as output format, and include output directory if desired.
+\item \textbf{Result}
+
+\textit{Typical Case}
+
+Output Taverna workflow file. Save to path specified by user, or current directory if unspecified.
+
+\textit{Unsupported Operation Case}
+
+List the major and minor unsupported operation cases encountered. For each case, include the offending input file and affected output file. Do not output any files.
+\end{itemize}
+
+\subsection{Convert from Taverna to Functionally Identical LONI Workflow}
+\label{sec:tavernaloni}
+\subsubsection{Description/Rationale} Support converting Taverna workflow files (\texttt{.t2flow}) to LONI Workflow Files (\texttt{.pipe}). One of the core file conversions for file converter. Resulting file should be functionally identical.
+
+
+\subsubsection{Use Cases}
+\begin{itemize}
+\item \textbf{Action}
+
+Input Taverna workflow file, select LONI workflow as output format, and include output directory if desired.
+
+
+\item \textbf{Result}
+
+\textit{Typical Case}
+
+Output LONI workflow file. Save to path specified by user, or current directory if unspecified.
+
+\textit{Unsupported Operation Case}
+
+List the major and minor unsupported operation cases encountered. For each case, include the offending input file and affected output file. Do not output any files.
+\end{itemize}
+
+
+\subsection{Convert from LONI to Functionally Identical Galaxy Workflow}
+\label{sec:lonigalaxy}
+\subsubsection{Description/Rationale} Support converting LONI workflow files (\texttt{\texttt{.pipe}}) to Galaxy workflow files (\texttt{.ga}, \texttt{.xml}). One of the core file conversions for file converter. Resulting files should be functionally identical.
+
+\subsubsection{Use Cases}
+\begin{itemize}
+\item \textbf{Action}
+
+Input LONI workflow file, select Galaxy workflow as output format, and include output directory if desired.
+\item \textbf{Result}
+
+\textit{Typical Case}
+
+Output Galaxy workflow file (\texttt{.ga}) and Galaxy tool files (\texttt{.xml}). Save to path specified by user, or current directory if unspecified.
+
+\textit{Unsupported Operation Case}
+
+List the major and minor unsupported operation cases encountered. For each case, include the offending input file and affected output file. Only output unaffected output files. 
+\end{itemize}
+
+
+\subsection{Convert from Galaxy to Functionally Identical LONI Workflow}
+\label{sec:galaxyloni}
+\subsubsection{Description/Rationale} Support converting Galaxy workflow files (\texttt{.ga}, \texttt{.xml}) to LONI workflow files (\texttt{.pipe}). One of the core file conversions for file converter. Resulting file should be functionally identical.
+
+\subsubsection{Use Cases}
+\begin{itemize}
+\item \textbf{Action}
+
+Input Galaxy workflow file (\texttt{.ga}) and required Galaxy tool files (\texttt{.xml}), select LONI workflow as output format, and include output directory if desired. User can provide Galaxy Server directory instead of, or in addition to specifying Galaxy tool files.
+
+\item \textbf{Result}
+
+\textit{Typical Case}
+
+Output LONI workflow file (\texttt{.pipe}). Save to path specified by user, or current directory if unspecified.
+
+
+\textit{Missing Module Case}
+
+If the Galaxy workflow file references modules(s) whose \texttt{.xml} files were not included by the user or found in the Galaxy Server directory, report the name of the missing modules(s) and exit.
+
+\textit{Unsupported Operation Case}
+
+List the major and minor unsupported operation cases encountered. For each case, include the offending input file and affected output file. Only output unaffected output files. 
+\end{itemize}
+
+
+\subsection{Automatically Identify File Type and Present Conversion Options}
+\label{sec:auto}
+\subsubsection{Description/Rationale} Automatically identify the workflow format of the inputted files, present list of possible formats to convert to.
+
+\subsubsection{Use Cases}
+\begin{itemize}
+\item \textbf{Action}
+
+Input a file (or files for a Galaxy conversion) to convert.
+
+\item \textbf{Result}
+
+\textit{Typical Case}
+
+Report detected workflow format. List possible output formats and wait for user response.
+
+\textit{Unrecognized Workflow Case}
+
+Report that one or more inputted files are unrecognized. Exit program.
+\end{itemize}
+
+
+
+
+
+\section{Other Nonfunctional Requirements}
+\subsection{Performance Requirements}
+Convert provided input files in less than a minute.
+
+\subsection{Security Requirements}
+There are no security requirements because there is no interaction with the server or other third-party programs, therefore, there is no immediate hazard to the existing programs or systems.
+
+\subsection{Software Quality Attributes}
+\subsubsection{Implementation}
+\begin{itemize}
+\item Easy to modify converter to accommodate changes in document formats.
+\item Complete error reporting framework with support for logging file parsing and conversion errors.
+\end{itemize}
+
+\subsubsection{Testing}
+Write JUnit test suite for converter.
+
+\subsection{Project Documentation}
+Detailed Software Interface Documentation specifies different classes, definitions, and functions, in the converter and demonstrates the architectural design of the software.
+
+\subsection{User Interface Documentation}
+Provide user interface documentation with details and instructions for using the converter.
+
+
+\end{document}
