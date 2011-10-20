@@ -58,7 +58,7 @@ else
         edit=$EDITOR
     fi
     $edit $desctmpfile
-    
+
     read -p "Testing done: " testing
     read -p "Reviewers (comma separated usernames): " reviewers
     read -p "Trac tickets addressed (comma separated numbers): " bugs
@@ -66,7 +66,7 @@ else
     if [ -n "$branchname" ]; then
         branchoption="--branch=""$branchname"
     fi
-    
+
     post-review --publish --server="$server" --summary="$summary" --description-file="$desctmpfile" --testing-done="$testing" --target-people="$reviewers" --bugs-closed="$bugs" --diff-filename="$difftmpfile" "$branchoption" --repository-url="$repourl" -d
 
     rm $desctmpfile
