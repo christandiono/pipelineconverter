@@ -28,10 +28,9 @@ if [ -n "$isbranch" ] && [ "$isbranch" = "y" ]; then
         exit 1
     fi
     read -p "Branch name: " branchname
-    read -p "Trunk revision to diff with: " oldrev
+    read -p "Trunk revision to diff with [HEAD]: " oldrev
     if [ -z "$oldrev" ]; then
-        echo "Find out with: svn log --stop-on-copy, or look for the last time you pulled in changes from trunk (if you did so)."
-        exit 1
+        oldrev="HEAD"
     fi
     svn diff "$trunkurl"@"$oldrev" "$branchesurl/$branchname"@HEAD | sed -e '/^Property changes on/,/^$/d' > $difftmpfile
     repourl="$baserepourl"
