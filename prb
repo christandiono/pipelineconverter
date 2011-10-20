@@ -61,7 +61,7 @@ else
 
     read -p "Testing done: " testing
     read -p "Reviewers (comma separated usernames): " reviewers
-    read -p "Trac tickets addressed (comma separated numbers): " bugs
+    read -p "Bugs addressed (comma separated numbers): " bugs
 
     if [ -n "$branchname" ]; then
         branchoption="--branch=""$branchname"
