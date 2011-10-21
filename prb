@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+server="http://genenews.dyndns.org/rb"
+desctmpfile="$HOME/description.tmp"
+difftmpfile="$HOME/tmp.diff"
+baserepourl="https://pipelineconverter.googlecode.com/svn"
+trunkurl=$baserepourl/trunk
+branchesurl=$baserepourl/branches
+
+if [ "0" != "`svn status | grep -c '^\?'`" ]; then #wat...why is test needed here instead of [
+    echo "WARNING: You have unversioned files in the current working copy."
+fi
+
+read -p "Review request ID [default is new]: " id
+
+
+#DON'T RELY ON post-review TO HANDLE DIFFS!!!
+#It assumes pre-commit reviews which is nice but branching implies post-commit reviews
+#for trunk: do not commit untested code! post to review board first!
+#for branches: commit your branch before submitting to rb! otherwise it will make no sense.
+
+
+read -p "Is this code committed to a branch [y/N]: " isbranch
+
+if [ -n "$isbranch" ] && [ "$isbranch" = "y" ]; then
+    if [ "0" != "`svn status | grep -c -v '^\?'`" ]; then
+        echo "Your changes have not yet been committed. Aborting."
+        exit 1
+    fi
+    read -p "Branch name: " branchname
+    read -p "Trunk revision to diff with [HEAD]: " oldrev
+    if [ -z "$oldrev" ]; then
+        oldrev="HEAD"
+    fi
+    svn diff "$trunkurl"@"$oldrev" "$branchesurl/$branchname"@HEAD | sed -e '/^Property changes on/,/^$/d' > $difftmpfile
+    repourl="$baserepourl"
+elif [ -z "$isbranch" ] || [ "$isbranch" = "n" ] || [ "$isbranch" = "N" ]; then
+    if [ -z "`svn status`" ]; then
+        echo "You haven't changed any files yet! Are you sure this isn't a branch?"
+        exit 1
+    fi
+    svn diff > $difftmpfile
+    repourl="$trunkurl"
+else
+    echo "You didn't choose yes or no."
+    exit 1
+fi
+
+if [ -n "$id" ]; then
+    echo "Updating old request"
+    post-review --publish --server="$server" --review-request-id="$id" --diff-filename="$difftmpfile" --repository-url="$repourl"
+else
+    read -p "Summary: " summary
+
+    if [ -z $EDITOR ]; then
+        edit="vim"
+    else
+        edit=$EDITOR
+    fi
+    $edit $desctmpfile
+
+    read -p "Testing done: " testing
+    read -p "Reviewers (comma separated usernames): " reviewers
+    read -p "Bugs addressed (comma separated numbers): " bugs
+
+    if [ -n "$branchname" ]; then
+        branchoption="--branch=""$branchname"
+    fi
+
+    post-review --publish --server="$server" --summary="$summary" --description-file="$desctmpfile" --testing-done="$testing" --target-people="$reviewers" --bugs-closed="$bugs" --diff-filename="$difftmpfile" "$branchoption" --repository-url="$repourl" -d
+
+    rm $desctmpfile
+    rm $difftmpfile
+fi
+
+exit 0
