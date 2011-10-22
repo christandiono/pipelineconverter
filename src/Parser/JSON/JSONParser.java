@@ -10,14 +10,14 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
 import GalaxyData.JSON.GalaxyJSONLoader;
-import GalaxyData.Tree.Workflow;
+import GalaxyData.Tree.Workflow.Workflow;
 import Parser.Parser;
 
 public class JSONParser implements Parser {
 	
-		public static void parse(String filepath) {
+		public static Object parse(String filepath) {
 			
-			Gson gson = GalaxyJSONLoader.Loader;
+			Gson gson = GalaxyJSONLoader.getLoader();
 			//Parse workflow
 			Workflow egg = null;
 			try {
@@ -33,22 +33,12 @@ public class JSONParser implements Parser {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+			return egg;
 		}
 		
-		public static void generate(String path, Workflow w){
-			Gson gson = GalaxyJSONLoader.Loader;
+		public static void generate(String path, Object w){
+			Gson gson = GalaxyJSONLoader.getLoader();
 			String jsonText = gson.toJson(w);
-			try{
-				  // Create file 
-				  FileWriter fstream = new FileWriter(path);
-				  BufferedWriter out = new BufferedWriter(fstream);
-				  out.write(jsonText);
-				  //Close the output stream
-				  out.close();
-				  }catch (Exception e){//Catch exception if any
-				  System.err.println("Error: " + e.getMessage());
-				  }
-			
+			System.out.println(jsonText);
 		}
 }
