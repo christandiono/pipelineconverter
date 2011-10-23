@@ -179,7 +179,7 @@ public class PipelineConverterTest {
 	}
 	
 	/**
-	 * Simple test with simple arguments
+	 * Test that specified output format must match output filename
 	 * @throws ParseException if the test has been improperly configured
 	 */
 	@Test
@@ -196,7 +196,7 @@ public class PipelineConverterTest {
 	}
 	
 	/**
-	 * Tests output (force a specific format)
+	 * Tests output (don't allow forcing ridiculous file names)
 	 * @throws ParseException if the test has been improperly configured
 	 */
 	@Test
