@@ -8,7 +8,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
-public class WorkflowConverter {
+public class PipelineConverter {
 
 	public static void main(String[] args) {
 		Options options = makeOptions();
@@ -124,7 +124,7 @@ public class WorkflowConverter {
 	
 	private static void printHelp(Options options) {
 		HelpFormatter formatter = new HelpFormatter();
-		formatter.printHelp("java " + WorkflowConverter.class.getName(), options, true);
+		formatter.printHelp("java " + PipelineConverter.class.getName(), options, true);
 	}
 	
 }
