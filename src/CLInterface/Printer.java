@@ -21,20 +21,21 @@ public class Printer {
 		if (destination == null) { /* no point actually doing anything */
 			return;
 		}
-		String message;
-		for (int i = 0; i < messages.length; i++) {
-			message = messages[i];
-			if (message != null) { /* null: ignore */
-				try {
+		try {
+			String message;
+			for (int i = 0; i < messages.length; i++) {
+				message = messages[i];
+				if (message != null) { /* null: ignore */
 					destination.write(message.getBytes());
 					destination.write("\n".getBytes());
-				} catch (IOException e) {
-					e.printStackTrace();
 				}
 			}
+			destination.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		destination.flush();
 	}
+
 	
 	/**
 	 * Print to System.err, if so defined on the command-line.
