@@ -53,23 +53,20 @@ public class PipelineConverter {
 	 */
 	private static Format extToFormat(String inputExt) {
 		Format inputForm = null;
-		switch (inputExt) {
-		case "ga":
+		if (inputExt.equals("ga")) {
 			// TODO galaxy
 			inputForm = Format.GALAXY;
-			break;
-		case "t2flow":
+        } else if (inputExt.equals("t2flow")) {
 			// TODO taverna
 			inputForm = Format.TAVERNA;
-			break;
-		case "pipe":
+        } else if (inputExt.equals("pipe")) {
 			// TODO loni
 			inputForm = Format.LONI;
-			break;
-		default:
+        } else {
 			System.err.println("Invalid input file extension.");
 			System.exit(-1);
-		}
+        }
+		
 		return inputForm;
 	}
 	

@@ -1,4 +1,4 @@
-package GalaxyData.Tree.Workflow;
+package Galaxy.Tree.Workflow;
 
 import java.util.HashMap;
 import java.util.Map;

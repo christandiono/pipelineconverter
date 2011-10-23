@@ -1,4 +1,4 @@
-package GalaxyData.JSON.Strategies;
+package Galaxy.JSON.Strategies;
 
 
 import java.lang.reflect.Field;

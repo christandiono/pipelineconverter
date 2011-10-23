@@ -1,9 +1,10 @@
-package GalaxyData.JSON.Cases;
+package Galaxy.JSON.Cases;
 
 
 import java.lang.reflect.Type;
-import GalaxyData.Tree.*;
-import GalaxyData.Tree.Workflow.State;
+
+import Galaxy.Tree.*;
+import Galaxy.Tree.Workflow.State;
 
 
 import Parser.JSON.CaseHandler;

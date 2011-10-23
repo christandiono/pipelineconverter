@@ -1,8 +1,8 @@
-package GalaxyData.JSON;
+package Galaxy.JSON;
 
-import GalaxyData.JSON.Cases.StateCaseHandler;
-import GalaxyData.JSON.Strategies.GExclusionStrategy;
-import GalaxyData.JSON.Strategies.GFieldNamingStrategy;
+import Galaxy.JSON.Cases.StateCaseHandler;
+import Galaxy.JSON.Strategies.GExclusionStrategy;
+import Galaxy.JSON.Strategies.GFieldNamingStrategy;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;

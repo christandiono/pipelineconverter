@@ -1,4 +1,4 @@
-package GalaxyData.JSON.Strategies;
+package Galaxy.JSON.Strategies;
 
 
 import com.google.gson.ExclusionStrategy;

@@ -1,4 +1,4 @@
-package GalaxyData.Tree.Tool;
+package Galaxy.Tree.Tool;
 
 public class Tool {
 	private String name;

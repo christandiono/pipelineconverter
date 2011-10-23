@@ -9,8 +9,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
-import GalaxyData.JSON.GalaxyJSONLoader;
-import GalaxyData.Tree.Workflow.Workflow;
+import Galaxy.JSON.GalaxyJSONLoader;
+import Galaxy.Tree.Workflow.Workflow;
 import Parser.Parser;
 
 public class JSONParser implements Parser {
