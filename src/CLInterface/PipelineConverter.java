@@ -31,38 +31,43 @@ public class PipelineConverter {
 			System.exit(0);
 		}
 		
-		if (cmd.hasOption('f')) {
-			System.out.println("OK, forcing conversion...");
-			ConverterConfig.FORCE = true;
-		}
 		
 		if (cmd.hasOption('v')) {
-			System.out.println("OK, going to be very verbose...");
 			ConverterConfig.VERBOSE = true;
 			ConverterConfig.DEBUG = System.err;
+			Printer.log("OK, going to be very verbose...");
 		}
 		
-		configureOutput();
+		if (cmd.hasOption('f')) {
+			ConverterConfig.FORCE = true;
+			Printer.log("OK, forcing conversion...");			
+		}
+
 		
 		String inputFileName = cmd.getOptionValue('i');
-		String outputFileName = cmd.getOptionValue('o');
-		
 		File inputFile = new File(inputFileName);
-		File outputFile = new File(outputFileName);
-		if (inputFile.isDirectory() || outputFile.isDirectory()) {
+
+		if (inputFile.isDirectory()) {
 			throw new InvalidInputException("Don't specify directory, specify a file");
 		}
 		
 		String inputExt = extractExt(inputFileName);
 		ConverterConfig.INPUT_FORMAT = extToFormat(inputExt);
+		Printer.log("Input format detected as: " + ConverterConfig.INPUT_FORMAT.toString());
+		
+		configureOutput(cmd);
+		
+
 	}
 	
 	/**
 	 * Checks and configures output
+	 * @param cmd The CommandLine object that's been parsed already
 	 */
-	static void configureOutput() {
+	static void configureOutput(CommandLine cmd) {
 		// TODO Auto-generated method stub
-		
+		String outputFileName = cmd.getOptionValue('o');
+		File outputFile = new File(outputFileName);
 	}
 
 	/**
