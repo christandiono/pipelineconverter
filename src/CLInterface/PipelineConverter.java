@@ -34,6 +34,20 @@ public class PipelineConverter {
 			System.exit(0);
 		}
 		
+		configureSpecial(cmd);
+		
+		configureInput(cmd);
+		
+		configureOutput(cmd);
+		
+		Printer.log("Done processing command-line arguments");
+	}
+
+	/**
+	 * Checks and configures verbosity and force
+	 * @param cmd The CommandLine object that's been parsed already
+	 */
+	static void configureSpecial(CommandLine cmd) {
 		if (cmd.hasOption('v')) {
 			ConverterConfig.DEBUG = System.err;
 			Printer.log("OK, going to be very verbose...");
@@ -43,12 +57,6 @@ public class PipelineConverter {
 			ConverterConfig.FORCE = true;
 			Printer.log("OK, forcing conversion...");			
 		}
-		
-		configureInput(cmd);
-		
-		configureOutput(cmd);
-		
-		Printer.log("Done processing command-line arguments");
 	}
 
 	/**
@@ -105,12 +113,7 @@ public class PipelineConverter {
 		}
 		
 		if (cmd.hasOption('o') && cmd.hasOption("output-format") && !FilenameUtils.getExtension(cmd.getOptionValue('o')).equals(cmd.getOptionValue("output-format"))) {
-			String warning = "Selected output format doesn't match output file name";
-			if (ConverterConfig.FORCE) { 
-				Printer.log(warning + "; continuing...");
-			} else {
-				throw new InvalidInputException(warning);
-			}
+			throw new InvalidInputException("Selected output format doesn't match output file name");
 		}
 		
 		Printer.log("Output format detected as: " + ConverterConfig.OUTPUT_FORMAT);

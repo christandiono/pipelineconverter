@@ -39,6 +39,282 @@ public class PipelineConverterTest {
 	}
 	
 	/**
+	 * Tests Galaxy input (invalid command line: no input app dir)
+	 * @throws ParseException if the test has been improperly configured
+	 */
+	@Test
+	public final void testConfigureInputInvalidGalaxyIn() throws ParseException {
+		String[] args = {"-i", "foo.ga", "--output-format", "t2flow"};
+		CommandLine cmd;
+		cmd = parser.parse(options, args);
+		try {
+			PipelineConverter.configureInput(cmd);
+			fail("Failed to catch invalid input");
+		} catch (InvalidInputException e) {
+			/* do nothing: this is the expected result */
+		}
+	}
+	
+	/**
+	 * Simple test with simple arguments
+	 * @throws ParseException if the test has been improperly configured
+	 */
+	@Test
+	public final void testConfigureInputSimple() throws ParseException {
+		String[] args = {"-i", "foo.pipe", "-o", "bar.t2flow", "-v"};
+		CommandLine cmd = parser.parse(options, args);
+		PipelineConverter.configureInput(cmd);
+		
+		assertTrue(ConverterConfig.INPUT_FORMAT == Format.LONI);
+		assertTrue(ConverterConfig.INPUT_PATH.equals("foo.pipe"));
+		assertTrue(ConverterConfig.GALAXY_INPUT_DIR == null);
+	}
+	
+	/**
+	 * Tests -c option
+	 * @throws ParseException if the test has been improperly configured
+	 */
+	@Test
+	public final void testConfigureInputStdout() throws ParseException {
+		String[] args = {"-i", "foo.pipe", "--output-format", "t2flow", "-c"};
+		CommandLine cmd = parser.parse(options, args);
+		PipelineConverter.configureInput(cmd);
+		
+		assertTrue(ConverterConfig.INPUT_FORMAT == Format.LONI);
+		assertTrue(ConverterConfig.INPUT_PATH.equals("foo.pipe"));
+		assertTrue(ConverterConfig.GALAXY_INPUT_DIR == null);
+	}
+	
+	/**
+	 * Tests Galaxy input (valid command line)
+	 * @throws ParseException if the test has been improperly configured
+	 */
+	@Test
+	public final void testConfigureInputValidGalaxyIn() throws ParseException {
+		String[] args = {"-i", "foo.ga", "--galaxy-app-dir", ".", "--output-format", "t2flow"};
+		CommandLine cmd = parser.parse(options, args);
+		PipelineConverter.configureInput(cmd);
+		
+		assertTrue(ConverterConfig.INPUT_FORMAT == Format.GALAXY);
+		assertTrue(ConverterConfig.INPUT_PATH.equals("foo.ga"));
+		assertTrue(ConverterConfig.GALAXY_INPUT_DIR.equals("."));
+	}
+
+	/**
+	 * Tests Galaxy output (valid command line)
+	 * @throws ParseException if the test has been improperly configured
+	 */
+	@Test
+	public final void testConfigureInputValidGalaxyOut() throws ParseException {
+		String[] args = {"-i", "foo.t2flow", "--galaxy-output-app-dir", ".", "--output-format", "ga"};
+		CommandLine cmd = parser.parse(options, args);
+		PipelineConverter.configureInput(cmd);
+		
+		assertTrue(ConverterConfig.INPUT_FORMAT == Format.TAVERNA);
+		assertTrue(ConverterConfig.INPUT_PATH.equals("foo.t2flow"));
+		assertTrue(ConverterConfig.GALAXY_INPUT_DIR == null);
+	}
+	
+	/**
+	 * Tests Galaxy output (valid command line) again
+	 * @throws ParseException if the test has been improperly configured
+	 */
+	@Test
+	public final void testConfigureInputValidGalaxyOut2() throws ParseException {
+		String[] args = {"-i", "foo.t2flow", "--galaxy-output-app-dir", ".", "-o", "asdf.ga"};
+		CommandLine cmd = parser.parse(options, args);
+		PipelineConverter.configureInput(cmd);
+		
+		assertTrue(ConverterConfig.INPUT_FORMAT == Format.TAVERNA);
+		assertTrue(ConverterConfig.INPUT_PATH.equals("foo.t2flow"));
+		assertTrue(ConverterConfig.GALAXY_INPUT_DIR == null);
+	}
+	
+	/**
+	 * Tests Galaxy output (invalid command line: missing output app dir)
+	 * @throws ParseException if the test has been improperly configured
+	 */
+	@Test
+	public final void testConfigureOutputInvalidGalaxyOut() throws ParseException {
+		String[] args = {"-i", "foo.t2flow", "--output-format", "ga"};
+		CommandLine cmd = parser.parse(options, args);
+		try {
+			PipelineConverter.configureOutput(cmd);
+			fail("Failed to catch invalid input");
+		} catch (InvalidInputException e) {
+			/* do nothing */
+		}
+	}
+	
+	/**
+	 * Tests Galaxy output (invalid command line: missing output app dir) again
+	 * @throws ParseException if the test has been improperly configured
+	 */
+	@Test
+	public final void testConfigureOutputInvalidGalaxyOut2() throws ParseException {
+		String[] args = {"-i", "foo.t2flow", "-o", "asdf.ga"};
+		CommandLine cmd = parser.parse(options, args);
+		try {
+			PipelineConverter.configureOutput(cmd);
+			fail("Failed to catch invalid input");
+		} catch (InvalidInputException e) {
+			/* do nothing */
+		}
+	}
+	
+	/**
+	 * Tests output (invalid command line: missing output extension)
+	 * @throws ParseException if the test has been improperly configured
+	 */
+	@Test
+	public final void testConfigureOutputInvalidOutExtension() throws ParseException {
+		String[] args = {"-i", "foo.t2flow", "-o", "asdf.bar"};
+		CommandLine cmd = parser.parse(options, args);
+		try {
+			PipelineConverter.configureOutput(cmd);
+			fail("Failed to catch invalid input");
+		} catch (InvalidInputException e) {
+			/* do nothing */
+		}
+	}
+	
+	/**
+	 * Simple test with simple arguments
+	 * @throws ParseException if the test has been improperly configured
+	 */
+	@Test
+	public final void testConfigureOutputMatchOutExtension() throws ParseException {
+		String[] args = {"-i", "foo.pipe", "-o", "bar.t2flow", "-v", "--output-format", "t2flow"};
+		CommandLine cmd = parser.parse(options, args);
+		PipelineConverter.configureInput(cmd);
+		PipelineConverter.configureOutput(cmd);
+		
+		assertTrue(ConverterConfig.OUTPUT_FORMAT == Format.TAVERNA);
+		assertTrue(ConverterConfig.OUTPUT_PATH.equals("bar.t2flow"));
+		assertTrue(ConverterConfig.GALAXY_OUTPUT_DIR == null);
+		assertTrue(ConverterConfig.OUTPUT == null);
+	}
+	
+	/**
+	 * Tests output (force a specific format)
+	 * @throws ParseException if the test has been improperly configured
+	 */
+	@Test
+	public final void testConfigureOutputMismatchOutExtension() throws ParseException {
+		String[] args = {"-i", "foo.t2flow", "-o", "asdf.pipe", "-f", "--output-format", "ga"};
+		CommandLine cmd = parser.parse(options, args);
+		PipelineConverter.configureSpecial(cmd);
+		try {
+			PipelineConverter.configureOutput(cmd);
+			fail("Failed to catch invalid input");
+		} catch (InvalidInputException e) {
+			/* do nothing */
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Tests output (invalid command line: missing output extension)
+	 * @throws ParseException if the test has been improperly configured
+	 */
+	@Test
+	public final void testConfigureOutputMissingOutExtension() throws ParseException {
+		String[] args = {"-i", "foo.t2flow", "-o", "asdf.bar/foo"};
+		CommandLine cmd = parser.parse(options, args);
+		try {
+			PipelineConverter.configureOutput(cmd);
+			fail("Failed to catch invalid input");
+		} catch (InvalidInputException e) {
+			/* do nothing */
+		}
+	}
+	
+	/**
+	 * Simple test with simple arguments
+	 * @throws ParseException if the test has been improperly configured
+	 */
+	@Test
+	public final void testConfigureOutputSimple() throws ParseException {
+		String[] args = {"-i", "foo.pipe", "-o", "bar.t2flow", "-v"};
+		CommandLine cmd = parser.parse(options, args);
+		PipelineConverter.configureInput(cmd);
+		PipelineConverter.configureOutput(cmd);
+		
+		assertTrue(ConverterConfig.OUTPUT_FORMAT == Format.TAVERNA);
+		assertTrue(ConverterConfig.OUTPUT_PATH.equals("bar.t2flow"));
+		assertTrue(ConverterConfig.GALAXY_OUTPUT_DIR == null);
+		assertTrue(ConverterConfig.OUTPUT == null);
+	}
+	
+	/**
+	 * Tests -c option
+	 * @throws ParseException if the test has been improperly configured
+	 */
+	@Test
+	public final void testConfigureOutputStdout() throws ParseException {
+		String[] args = {"-i", "foo.pipe", "--output-format", "t2flow", "-c"};
+		CommandLine cmd = parser.parse(options, args);
+		PipelineConverter.configureInput(cmd);
+		PipelineConverter.configureOutput(cmd);
+		
+		assertTrue(ConverterConfig.OUTPUT_FORMAT == Format.TAVERNA);
+		assertTrue(ConverterConfig.OUTPUT_PATH == null);
+		assertTrue(ConverterConfig.GALAXY_OUTPUT_DIR == null);
+		assertTrue(ConverterConfig.OUTPUT != null);
+	}
+	
+	/**
+	 * Tests Galaxy input (valid command line)
+	 * @throws ParseException if the test has been improperly configured
+	 */
+	@Test
+	public final void testConfigureOutputValidGalaxyIn() throws ParseException {
+		String[] args = {"-i", "foo.ga", "--galaxy-app-dir", ".", "--output-format", "t2flow"};
+		CommandLine cmd = parser.parse(options, args);
+		PipelineConverter.configureInput(cmd);
+		PipelineConverter.configureOutput(cmd);
+		
+		assertTrue(ConverterConfig.OUTPUT_FORMAT == Format.TAVERNA);
+		assertTrue(ConverterConfig.OUTPUT_PATH.equals("foo.t2flow"));
+		assertTrue(ConverterConfig.GALAXY_OUTPUT_DIR == null);
+		assertTrue(ConverterConfig.OUTPUT == null);
+	}
+	
+	/**
+	 * Tests Galaxy output (valid command line)
+	 * @throws ParseException if the test has been improperly configured
+	 */
+	@Test
+	public final void testConfigureOutputValidGalaxyOut() throws ParseException {
+		String[] args = {"-i", "foo.t2flow", "--galaxy-output-app-dir", ".", "--output-format", "ga"};
+		CommandLine cmd = parser.parse(options, args);
+		PipelineConverter.configureInput(cmd);
+		PipelineConverter.configureOutput(cmd);
+		
+		assertTrue(ConverterConfig.OUTPUT_FORMAT == Format.GALAXY);
+		assertTrue(ConverterConfig.OUTPUT_PATH.equals("foo.ga"));
+		assertTrue(ConverterConfig.GALAXY_OUTPUT_DIR.equals("."));
+		assertTrue(ConverterConfig.OUTPUT == null);
+	}
+	
+	/**
+	 * Tests Galaxy output (valid command line) again
+	 * @throws ParseException if the test has been improperly configured
+	 */
+	@Test
+	public final void testConfigureOutputValidGalaxyOut2() throws ParseException {
+		String[] args = {"-i", "foo.t2flow", "--galaxy-output-app-dir", ".", "-o", "asdf.ga"};
+		CommandLine cmd = parser.parse(options, args);
+		PipelineConverter.configureInput(cmd);
+		PipelineConverter.configureOutput(cmd);
+		
+		assertTrue(ConverterConfig.OUTPUT_FORMAT == Format.GALAXY);
+		assertTrue(ConverterConfig.OUTPUT_PATH.equals("asdf.ga"));
+		assertTrue(ConverterConfig.GALAXY_OUTPUT_DIR.equals("."));
+		assertTrue(ConverterConfig.OUTPUT == null);
+	}
+	
+	/**
 	 * Tests conversion of file extension to Format enum
 	 */
 	@Test
@@ -65,222 +341,12 @@ public class PipelineConverterTest {
 	 * @throws ParseException if the test has been improperly configured
 	 */
 	@Test
-	public final void testConfigureOutputNoArgs() {
+	public final void testMakeOptionsNoArgs() {
 		String[] args = {"-i", "foo.pipe", "-o", "bar.t2flow", "-v"};
 		try {
 			@SuppressWarnings("unused")
 			CommandLine cmd = parser.parse(options, args);
 		} catch (ParseException e) {
-			/* do nothing */
-		}
-	}
-	
-	/**
-	 * Simple test with simple arguments
-	 * @throws ParseException if the test has been improperly configured
-	 */
-	@Test
-	public final void testConfigureInputSimple() throws ParseException {
-		String[] args = {"-i", "foo.pipe", "-o", "bar.t2flow", "-v"};
-		CommandLine cmd = parser.parse(options, args);
-		PipelineConverter.configureInput(cmd);
-		
-		assertTrue(ConverterConfig.INPUT_FORMAT == Format.LONI);
-		assertTrue(ConverterConfig.INPUT_PATH.equals("foo.pipe"));
-		assertTrue(ConverterConfig.GALAXY_INPUT_DIR == null);
-	}
-	
-	/**
-	 * Simple test with simple arguments
-	 * @throws ParseException if the test has been improperly configured
-	 */
-	@Test
-	public final void testConfigureOutputSimple() throws ParseException {
-		String[] args = {"-i", "foo.pipe", "-o", "bar.t2flow", "-v"};
-		CommandLine cmd = parser.parse(options, args);
-		PipelineConverter.configureInput(cmd);
-		PipelineConverter.configureOutput(cmd);
-		
-		assertTrue(ConverterConfig.OUTPUT_FORMAT == Format.TAVERNA);
-		assertTrue(ConverterConfig.OUTPUT_PATH.equals("bar.t2flow"));
-		assertTrue(ConverterConfig.GALAXY_OUTPUT_DIR == null);
-		assertTrue(ConverterConfig.OUTPUT == null);
-	}
-	
-	/**
-	 * Tests -c option
-	 * @throws ParseException if the test has been improperly configured
-	 */
-	@Test
-	public final void testConfigureInputStdout() throws ParseException {
-		String[] args = {"-i", "foo.pipe", "--output-format", "t2flow", "-c"};
-		CommandLine cmd = parser.parse(options, args);
-		PipelineConverter.configureInput(cmd);
-		
-		assertTrue(ConverterConfig.INPUT_FORMAT == Format.LONI);
-		assertTrue(ConverterConfig.INPUT_PATH.equals("foo.pipe"));
-		assertTrue(ConverterConfig.GALAXY_INPUT_DIR == null);
-	}
-	
-	/**
-	 * Tests -c option
-	 * @throws ParseException if the test has been improperly configured
-	 */
-	@Test
-	public final void testConfigureOutputStdout() throws ParseException {
-		String[] args = {"-i", "foo.pipe", "--output-format", "t2flow", "-c"};
-		CommandLine cmd = parser.parse(options, args);
-		PipelineConverter.configureInput(cmd);
-		PipelineConverter.configureOutput(cmd);
-		
-		assertTrue(ConverterConfig.OUTPUT_FORMAT == Format.TAVERNA);
-		assertTrue(ConverterConfig.OUTPUT_PATH == null);
-		assertTrue(ConverterConfig.GALAXY_OUTPUT_DIR == null);
-		assertTrue(ConverterConfig.OUTPUT != null);
-	}
-	
-	/**
-	 * Tests Galaxy input (valid command line)
-	 * @throws ParseException if the test has been improperly configured
-	 */
-	@Test
-	public final void testConfigureInputValidGalaxyIn() throws ParseException {
-		String[] args = {"-i", "foo.ga", "--galaxy-app-dir", ".", "--output-format", "t2flow"};
-		CommandLine cmd = parser.parse(options, args);
-		PipelineConverter.configureInput(cmd);
-		
-		assertTrue(ConverterConfig.INPUT_FORMAT == Format.GALAXY);
-		assertTrue(ConverterConfig.INPUT_PATH.equals("foo.ga"));
-		assertTrue(ConverterConfig.GALAXY_INPUT_DIR.equals("."));
-	}
-	
-	/**
-	 * Tests Galaxy input (valid command line)
-	 * @throws ParseException if the test has been improperly configured
-	 */
-	@Test
-	public final void testConfigureOutputValidGalaxyIn() throws ParseException {
-		String[] args = {"-i", "foo.ga", "--galaxy-app-dir", ".", "--output-format", "t2flow"};
-		CommandLine cmd = parser.parse(options, args);
-		PipelineConverter.configureInput(cmd);
-		PipelineConverter.configureOutput(cmd);
-		
-		assertTrue(ConverterConfig.OUTPUT_FORMAT == Format.TAVERNA);
-		assertTrue(ConverterConfig.OUTPUT_PATH.equals("foo.t2flow"));
-		assertTrue(ConverterConfig.GALAXY_OUTPUT_DIR == null);
-		assertTrue(ConverterConfig.OUTPUT == null);
-	}
-	
-	/**
-	 * Tests Galaxy input (invalid command line: no input app dir)
-	 * @throws ParseException if the test has been improperly configured
-	 */
-	@Test
-	public final void testConfigureOutputInvalidGalaxyIn() throws ParseException {
-		String[] args = {"-i", "foo.ga", "--output-format", "t2flow"};
-		CommandLine cmd;
-		try {
-			cmd = parser.parse(options, args);
-			PipelineConverter.configureInput(cmd);
-			PipelineConverter.configureOutput(cmd);
-			fail("Failed to catch invalid input");
-		} catch (InvalidInputException e) {
-			/* do nothing: this is the expected result */
-		}
-	}
-	
-	/**
-	 * Tests Galaxy output (valid command line)
-	 * @throws ParseException if the test has been improperly configured
-	 */
-	@Test
-	public final void testConfigureInputValidGalaxyOut() throws ParseException {
-		String[] args = {"-i", "foo.t2flow", "--galaxy-output-app-dir", ".", "--output-format", "ga"};
-		CommandLine cmd = parser.parse(options, args);
-		PipelineConverter.configureInput(cmd);
-		
-		assertTrue(ConverterConfig.INPUT_FORMAT == Format.TAVERNA);
-		assertTrue(ConverterConfig.INPUT_PATH.equals("foo.t2flow"));
-		assertTrue(ConverterConfig.GALAXY_INPUT_DIR == null);
-	}
-	
-	/**
-	 * Tests Galaxy output (valid command line)
-	 * @throws ParseException if the test has been improperly configured
-	 */
-	@Test
-	public final void testConfigureOutputValidGalaxyOut() throws ParseException {
-		String[] args = {"-i", "foo.t2flow", "--galaxy-output-app-dir", ".", "--output-format", "ga"};
-		CommandLine cmd = parser.parse(options, args);
-		PipelineConverter.configureInput(cmd);
-		PipelineConverter.configureOutput(cmd);
-		
-		assertTrue(ConverterConfig.OUTPUT_FORMAT == Format.GALAXY);
-		assertTrue(ConverterConfig.OUTPUT_PATH.equals("foo.ga"));
-		assertTrue(ConverterConfig.GALAXY_OUTPUT_DIR.equals("."));
-		assertTrue(ConverterConfig.OUTPUT == null);
-	}
-	
-	/**
-	 * Tests Galaxy output (valid command line) again
-	 * @throws ParseException if the test has been improperly configured
-	 */
-	@Test
-	public final void testConfigureInputValidGalaxyOut2() throws ParseException {
-		String[] args = {"-i", "foo.t2flow", "--galaxy-output-app-dir", ".", "-o", "asdf.ga"};
-		CommandLine cmd = parser.parse(options, args);
-		PipelineConverter.configureInput(cmd);
-		
-		assertTrue(ConverterConfig.INPUT_FORMAT == Format.TAVERNA);
-		assertTrue(ConverterConfig.INPUT_PATH.equals("foo.t2flow"));
-		assertTrue(ConverterConfig.GALAXY_INPUT_DIR == null);
-	}
-	
-	/**
-	 * Tests Galaxy output (valid command line) again
-	 * @throws ParseException if the test has been improperly configured
-	 */
-	@Test
-	public final void testConfigureOutputValidGalaxyOut2() throws ParseException {
-		String[] args = {"-i", "foo.t2flow", "--galaxy-output-app-dir", ".", "-o", "asdf.ga"};
-		CommandLine cmd = parser.parse(options, args);
-		PipelineConverter.configureInput(cmd);
-		PipelineConverter.configureOutput(cmd);
-		
-		assertTrue(ConverterConfig.OUTPUT_FORMAT == Format.GALAXY);
-		assertTrue(ConverterConfig.OUTPUT_PATH.equals("asdf.ga"));
-		assertTrue(ConverterConfig.GALAXY_OUTPUT_DIR.equals("."));
-		assertTrue(ConverterConfig.OUTPUT == null);
-	}
-	
-	/**
-	 * Tests Galaxy output (invalid command line: missing output app dir)
-	 * @throws ParseException if the test has been improperly configured
-	 */
-	@Test
-	public final void testConfigureOutputInvalidGalaxyOut() throws ParseException {
-		String[] args = {"-i", "foo.t2flow", "--output-format", "ga"};
-		try {
-			CommandLine cmd = parser.parse(options, args);
-			PipelineConverter.configureOutput(cmd);
-			fail("Failed to catch invalid input");
-		} catch (InvalidInputException e) {
-			/* do nothing */
-		}
-	}
-	
-	/**
-	 * Tests Galaxy output (invalid command line: missing output app dir) again
-	 * @throws ParseException if the test has been improperly configured
-	 */
-	@Test
-	public final void testConfigureOutputInvalidGalaxyOut2() throws ParseException {
-		String[] args = {"-i", "foo.t2flow", "-o", "asdf.ga"};
-		try {
-			CommandLine cmd = parser.parse(options, args);
-			PipelineConverter.configureOutput(cmd);
-			fail("Failed to catch invalid input");
-		} catch (InvalidInputException e) {
 			/* do nothing */
 		}
 	}
