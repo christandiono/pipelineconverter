@@ -1,4 +1,5 @@
 package CLInterface;
+
 import java.io.File;
 
 import org.apache.commons.cli.CommandLine;
@@ -8,6 +9,8 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
+
+import org.apache.commons.io.FilenameUtils;
 
 /**
  * PipelineConverter main class. Contains main method for converter program.
@@ -31,9 +34,7 @@ public class PipelineConverter {
 			System.exit(0);
 		}
 		
-		
 		if (cmd.hasOption('v')) {
-			ConverterConfig.VERBOSE = true;
 			ConverterConfig.DEBUG = System.err;
 			Printer.log("OK, going to be very verbose...");
 		}
@@ -42,8 +43,19 @@ public class PipelineConverter {
 			ConverterConfig.FORCE = true;
 			Printer.log("OK, forcing conversion...");			
 		}
-
 		
+		configureInput(cmd);
+		
+		configureOutput(cmd);
+		
+		Printer.log("Done processing command-line arguments");
+	}
+
+	/**
+	 * Checks and configures input
+	 * @param cmd The CommandLine object that's been parsed already
+	 */
+	static void configureInput(CommandLine cmd) {
 		String inputFileName = cmd.getOptionValue('i');
 		File inputFile = new File(inputFileName);
 
@@ -51,13 +63,18 @@ public class PipelineConverter {
 			throw new InvalidInputException("Don't specify directory, specify a file");
 		}
 		
-		String inputExt = extractExt(inputFileName);
+		String inputExt = FilenameUtils.getExtension(inputFileName);
 		ConverterConfig.INPUT_FORMAT = extToFormat(inputExt);
+		ConverterConfig.INPUT_PATH = inputFileName;
 		Printer.log("Input format detected as: " + ConverterConfig.INPUT_FORMAT.toString());
 		
-		configureOutput(cmd);
-		
-
+		if (ConverterConfig.INPUT_FORMAT == Format.GALAXY) {
+			if (!cmd.hasOption("galaxy-app-dir")) {
+				throw new InvalidInputException("Input format Galaxy requires option --galaxy-app-dir");
+			} else {
+				ConverterConfig.GALAXY_INPUT_DIR = cmd.getOptionValue("galaxy-app-dir");
+			}
+		}
 	}
 	
 	/**
@@ -65,9 +82,46 @@ public class PipelineConverter {
 	 * @param cmd The CommandLine object that's been parsed already
 	 */
 	static void configureOutput(CommandLine cmd) {
-		// TODO Auto-generated method stub
-		String outputFileName = cmd.getOptionValue('o');
-		File outputFile = new File(outputFileName);
+		String outputFileName = null;
+		
+		if (cmd.hasOption('c') && cmd.hasOption('o')) {
+			throw new InvalidInputException("Can't use mutually exclusive options -c and -o");
+		}
+		
+		if (cmd.hasOption('o')) {
+			outputFileName = cmd.getOptionValue('o');
+			ConverterConfig.OUTPUT_FORMAT = extToFormat(FilenameUtils.getExtension(outputFileName));
+			ConverterConfig.OUTPUT_PATH = outputFileName;
+		} else if (cmd.hasOption("output-format")) {
+			String outputExt = cmd.getOptionValue("output-format");
+			ConverterConfig.OUTPUT_FORMAT = extToFormat(outputExt);
+			String fileNameWithoutExt = FilenameUtils.removeExtension(cmd.getOptionValue('i'));
+			outputFileName = fileNameWithoutExt + "." + outputExt;
+			if (cmd.hasOption('c')) {
+				ConverterConfig.OUTPUT = System.out;
+			} else {
+				ConverterConfig.OUTPUT_PATH = outputFileName;
+			}
+		}
+		
+		if (cmd.hasOption('o') && cmd.hasOption("output-format") && !FilenameUtils.getExtension(cmd.getOptionValue('o')).equals(cmd.getOptionValue("output-format"))) {
+			String warning = "Selected output format doesn't match output file name";
+			if (ConverterConfig.FORCE) { 
+				Printer.log(warning + "; continuing...");
+			} else {
+				throw new InvalidInputException(warning);
+			}
+		}
+		
+		Printer.log("Output format detected as: " + ConverterConfig.OUTPUT_FORMAT);
+		
+		if (ConverterConfig.OUTPUT_FORMAT == Format.GALAXY) {
+			if (!cmd.hasOption("galaxy-output-app-dir")) {
+				throw new InvalidInputException("Output format Galaxy requires option --galaxy-output-app-dir");
+			} else {
+				ConverterConfig.GALAXY_OUTPUT_DIR = cmd.getOptionValue("galaxy-output-app-dir");
+			}
+		}
 	}
 
 	/**
@@ -89,21 +143,6 @@ public class PipelineConverter {
         }
 		
 		return inputForm;
-	}
-	
-	/**
-	 * Returns the last extension of a filename, without the leading period. For example, foo.tar.gz's last extension is "gz".
-	 * 
-	 * @param inputFileName A file name to get the last extension of
-	 * @return The last extension of the file
-	 */
-	static String extractExt(String inputFileName) {
-		int lastDot = inputFileName.lastIndexOf(".");
-		if (lastDot < 0) {
-			throw new InvalidInputException("Filename does not have an extension");
-		}
-		String ext = inputFileName.substring(lastDot+1,inputFileName.length());
-		return ext;
 	}
 	
 	/**
