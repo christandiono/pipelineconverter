@@ -31,7 +31,7 @@ public class GSONParser<T> implements JSONParser<T> {
 		
 	}
 	@Override
-	public T parse(File json){
+	public T parse(String json){
 		T obj = null;
 		Gson parser = builder.create();
 		//T obj = (T) parser.fromJson(json.getPath(), ref.getClass());

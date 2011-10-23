@@ -7,6 +7,6 @@ import java.io.File;
 public interface XMLParser<T> {
 	
 	
-	public T parse(File xml); 
+	public T parse(String xml); 
 
 }

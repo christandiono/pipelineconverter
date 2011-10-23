@@ -4,5 +4,5 @@ import java.io.File;
 
 public interface XMLGenerator<T> {
 	
-	public void generate(T object, File destination);
+	public void generate(T object, String destination);
 }
