@@ -28,12 +28,12 @@ public class Printer {
 				try {
 					destination.write(message.getBytes());
 					destination.write("\n".getBytes());
-					destination.flush();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
 		}
+		destination.flush();
 	}
 	
 	/**
