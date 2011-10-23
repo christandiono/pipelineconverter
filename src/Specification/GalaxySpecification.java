@@ -1,8 +1,8 @@
 package Specification;
 
+import FileOps.XML.XMLParser;
 import Galaxy.Tree.GalaxyNode;
-import Parser.JSON.JSONParser;
-import Parser.XML.XMLParser;
+import FileOps.JSON.JSONParser;
 
 public class GalaxySpecification {
 	public static XMLParser<GalaxyNode> xmlParser;
