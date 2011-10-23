@@ -1,3 +1,5 @@
+import java.io.File;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
@@ -53,8 +55,31 @@ public class WorkflowConverter {
 		if (cmd.hasOption("f")) {
 			System.out.println("OK, forcing conversion...");
 		}
-		String inputFile = cmd.getOptionValue('i');
-		String outputFile = cmd.getOptionValue('o');
-
+		String inputFileName = cmd.getOptionValue('i');
+		String outputFileName = cmd.getOptionValue('o');
+		
+		File inputFile = new File(inputFileName);
+		File outputFile = new File(outputFileName);
+		if (inputFile.isDirectory() || outputFile.isDirectory()) {
+			System.err.println("Don't specify directory, specify a file");
+			System.exit(-1);
+		}
+		
+		int lastDot = inputFileName.lastIndexOf(".");
+		String ext = inputFileName.substring(lastDot+1,inputFileName.length());
+		switch (ext) {
+		case "ga":
+			// TODO galaxy
+			break;
+		case "t2flow":
+			// TODO taverna
+			break;
+		case "pipe":
+			// TODO loni
+			break;
+		default:
+			System.err.println("Invalid input file extension.");
+			System.exit(-1);
+		}
 	}
 }
