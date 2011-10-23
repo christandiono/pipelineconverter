@@ -1,7 +1,8 @@
-package CLInterface;
 /**
  * ConverterConfig class. Only contains static variables for configuration of this conversion session.
  */
+package CLInterface;
+import java.io.PrintStream;
 
 /**
  * ConverterConfig class.
@@ -20,5 +21,12 @@ public class ConverterConfig {
 	 * Whether we should spit out a lot of messages
 	 */
 	public static boolean VERBOSE = false;
+
+	
+	/* temporarily here until changes from branch can be incorporated */
+	
+	public static PrintStream OUTPUT;
+	
+	public static PrintStream DEBUG;
 	
 }
