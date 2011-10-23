@@ -44,4 +44,24 @@ public class ConverterConfig {
 	 */
 	public static Format OUTPUT_FORMAT = null;
 	
+	/**
+	 * Path to input file
+	 */
+	public static String INPUT_PATH = null;
+	
+	/**
+	 * Path to output file (may be dynamically generated)
+	 */
+	public static String OUTPUT_PATH = null;
+	
+	/**
+	 * Path to place Galaxy .xml files, if necessary
+	 */
+	public static String GALAXY_OUTPUT_DIR = null;
+
+	/**
+	 * Path to find Galaxy .xml files, if necessary
+	 */
+	public static Object GALAXY_INPUT_DIR = null;
+	
 }
