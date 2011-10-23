@@ -1,10 +1,11 @@
 /**
- * 
+ * A file for the Format enum.
  */
 
 /**
- * @author chris
- *
+ * The Format enum contains all allowed formats.
+ * 
+ * @author Chris Tandiono
  */
 public enum Format {
 	LONI, GALAXY, TAVERNA

@@ -5,7 +5,7 @@
 /**
  * ConverterConfig class.
  * 
- * @author chris
+ * @author Chris Tandiono
  *
  */
 public class ConverterConfig {

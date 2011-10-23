@@ -8,6 +8,13 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
+/**
+ * PipelineConverter main class. Contains main method for converter program.
+ * 
+ * Help is provided by supplying the -h or --help options.
+ * 
+ * @author Chris Tandiono
+ */
 public class PipelineConverter {
 
 	public static void main(String[] args) {
@@ -20,7 +27,7 @@ public class PipelineConverter {
 			cmd = parser.parse(options, args);
 		} catch (ParseException e) {
 			printHelp(options);
-			System.exit(-1); /* error */
+			throw new InvalidInputException("One or more required arguments was not supplied");
 		}
 		
 		if (cmd.hasOption('h')) {
@@ -39,8 +46,7 @@ public class PipelineConverter {
 		File inputFile = new File(inputFileName);
 		File outputFile = new File(outputFileName);
 		if (inputFile.isDirectory() || outputFile.isDirectory()) {
-			System.err.println("Don't specify directory, specify a file");
-			System.exit(-1);
+			throw new InvalidInputException("Don't specify directory, specify a file");
 		}
 		
 		String inputExt = extractExt(inputFileName);
@@ -48,42 +54,47 @@ public class PipelineConverter {
 	}
 	
 	/**
-	 * @param inputExt Extension (.ga, .t2flow, .pipe)
+	 * Converts an extension (without the period) to a Format
+	 * 
+	 * @param inputExt Extension (ga, t2flow, pipe)
 	 * @return Format enum
 	 */
-	private static Format extToFormat(String inputExt) {
+	static Format extToFormat(String inputExt) {
 		Format inputForm = null;
 		if (inputExt.equals("ga")) {
-			// TODO galaxy
 			inputForm = Format.GALAXY;
         } else if (inputExt.equals("t2flow")) {
-			// TODO taverna
 			inputForm = Format.TAVERNA;
         } else if (inputExt.equals("pipe")) {
-			// TODO loni
 			inputForm = Format.LONI;
         } else {
-			System.err.println("Invalid input file extension.");
-			System.exit(-1);
+        	throw new InvalidInputException("Invalid file extension: " + inputExt);
         }
 		
 		return inputForm;
 	}
 	
 	/**
+	 * Returns the last extension of a filename, without the leading period. For example, foo.tar.gz's last extension is "gz".
+	 * 
 	 * @param inputFileName A file name to get the last extension of
 	 * @return The last extension of the file
 	 */
-	private static String extractExt(String inputFileName) {
+	static String extractExt(String inputFileName) {
 		int lastDot = inputFileName.lastIndexOf(".");
+		if (lastDot < 0) {
+			throw new InvalidInputException("Filename does not have an extension");
+		}
 		String ext = inputFileName.substring(lastDot+1,inputFileName.length());
 		return ext;
 	}
 	
 	/**
+	 * Set up the options for this program.
+	 * 
 	 * @return Options object with valid command-line arguments.
 	 */
-	private static Options makeOptions() {
+	static Options makeOptions() {
 		Options options = new Options();
 		
 		Option force = new Option("f", "force", false, "force (attempt to ignore errors)");
@@ -119,7 +130,12 @@ public class PipelineConverter {
 		return options;
 	}
 	
-	private static void printHelp(Options options) {
+	/**
+	 * Convenience method for printing help.
+	 * 
+	 * @param options Options object to print.
+	 */
+	static void printHelp(Options options) {
 		HelpFormatter formatter = new HelpFormatter();
 		formatter.printHelp("java " + PipelineConverter.class.getName(), options, true);
 	}
