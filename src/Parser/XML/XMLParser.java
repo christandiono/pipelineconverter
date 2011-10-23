@@ -8,9 +8,9 @@ import java.io.InputStream;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
-import GalaxyData.JSON.GalaxyJSONLoader;
-import GalaxyData.Tree.Tool.Tool;
-import GalaxyData.XML.GalaxyXMLLoader;
+import Galaxy.JSON.GalaxyJSONLoader;
+import Galaxy.Tree.Tool.Tool;
+import Galaxy.XML.GalaxyXMLLoader;
 import Parser.Parser;
 
 /*

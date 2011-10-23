@@ -1,3 +1,4 @@
+package CLInterface;
 import java.io.File;
 
 import org.apache.commons.cli.CommandLine;
@@ -8,6 +9,13 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
+/**
+ * PipelineConverter main class. Contains main method for converter program.
+ * 
+ * Help is provided by supplying the -h or --help options.
+ * 
+ * @author Chris Tandiono
+ */
 public class PipelineConverter {
 
 	public static void main(String[] args) {
@@ -20,11 +28,6 @@ public class PipelineConverter {
 			cmd = parser.parse(options, args);
 		} catch (ParseException e) {
 			printHelp(options);
-			System.exit(-1); /* error */
-		}
-		
-		if (cmd.hasOption('h')) {
-			printHelp(options);
 			System.exit(0);
 		}
 		
@@ -33,14 +36,18 @@ public class PipelineConverter {
 			ConverterConfig.FORCE = true;
 		}
 		
+		if (cmd.hasOption('v')) {
+			System.out.println("OK, going to be very verbose...");
+			ConverterConfig.VERBOSE = true;
+		}
+		
 		String inputFileName = cmd.getOptionValue('i');
 		String outputFileName = cmd.getOptionValue('o');
 		
 		File inputFile = new File(inputFileName);
 		File outputFile = new File(outputFileName);
 		if (inputFile.isDirectory() || outputFile.isDirectory()) {
-			System.err.println("Don't specify directory, specify a file");
-			System.exit(-1);
+			throw new InvalidInputException("Don't specify directory, specify a file");
 		}
 		
 		String inputExt = extractExt(inputFileName);
@@ -48,46 +55,50 @@ public class PipelineConverter {
 	}
 	
 	/**
-	 * @param inputExt Extension (.ga, .t2flow, .pipe)
+	 * Converts an extension (without the period) to a Format
+	 * 
+	 * @param inputExt Extension (ga, t2flow, pipe)
 	 * @return Format enum
 	 */
-	private static Format extToFormat(String inputExt) {
+	static Format extToFormat(String inputExt) {
 		Format inputForm = null;
-		switch (inputExt) {
-		case "ga":
-			// TODO galaxy
+		if (inputExt.equals("ga")) {
 			inputForm = Format.GALAXY;
-			break;
-		case "t2flow":
-			// TODO taverna
+        } else if (inputExt.equals("t2flow")) {
 			inputForm = Format.TAVERNA;
-			break;
-		case "pipe":
-			// TODO loni
+        } else if (inputExt.equals("pipe")) {
 			inputForm = Format.LONI;
-			break;
-		default:
-			System.err.println("Invalid input file extension.");
-			System.exit(-1);
-		}
+        } else {
+        	throw new InvalidInputException("Invalid file extension: " + inputExt);
+        }
+		
 		return inputForm;
 	}
 	
 	/**
+	 * Returns the last extension of a filename, without the leading period. For example, foo.tar.gz's last extension is "gz".
+	 * 
 	 * @param inputFileName A file name to get the last extension of
 	 * @return The last extension of the file
 	 */
-	private static String extractExt(String inputFileName) {
+	static String extractExt(String inputFileName) {
 		int lastDot = inputFileName.lastIndexOf(".");
+		if (lastDot < 0) {
+			throw new InvalidInputException("Filename does not have an extension");
+		}
 		String ext = inputFileName.substring(lastDot+1,inputFileName.length());
 		return ext;
 	}
 	
 	/**
+	 * Set up the options for this program.
+	 * 
 	 * @return Options object with valid command-line arguments.
 	 */
-	private static Options makeOptions() {
+	static Options makeOptions() {
 		Options options = new Options();
+		
+		Option toStdout = new Option("c", false, "print output to stdout instead of to file");
 		
 		Option force = new Option("f", "force", false, "force (attempt to ignore errors)");
 		
@@ -111,6 +122,7 @@ public class PipelineConverter {
 		
 		Option help = new Option("h", "help", false, "print this help");
 		
+		options.addOption(toStdout);
 		options.addOption(force);
 		options.addOption(input);
 		options.addOption(output);
@@ -122,9 +134,14 @@ public class PipelineConverter {
 		return options;
 	}
 	
-	private static void printHelp(Options options) {
+	/**	
+	 * Convenience method for printing help.
+	 * 
+	 * @param options Options object to print.
+	 */
+	static void printHelp(Options options) {
 		HelpFormatter formatter = new HelpFormatter();
-		formatter.printHelp("java " + PipelineConverter.class.getName(), options, true);
+		formatter.printHelp("java " + PipelineConverter.class.getSimpleName(), options, true);
 	}
 	
 }
