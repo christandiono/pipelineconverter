@@ -1,4 +1,7 @@
 package CLInterface;
+
+import java.io.OutputStream;
+
 /**
  * ConverterConfig class. Only contains static variables for configuration of this conversion session.
  */
@@ -20,5 +23,25 @@ public class ConverterConfig {
 	 * Whether we should spit out a lot of messages
 	 */
 	public static boolean VERBOSE = false;
+
+	/**
+	 * Where to send debug messages
+	 */
+	public static OutputStream DEBUG = null;
+	
+	/**
+	 * Where to send output (the converted file)
+	 */
+	public static OutputStream OUTPUT = null;
+	
+	/**
+	 * The format of the input file
+	 */
+	public static Format INPUT_FORMAT = null;
+	
+	/**
+	 * The format of the output file
+	 */
+	public static Format OUTPUT_FORMAT = null;
 	
 }

@@ -39,7 +39,10 @@ public class PipelineConverter {
 		if (cmd.hasOption('v')) {
 			System.out.println("OK, going to be very verbose...");
 			ConverterConfig.VERBOSE = true;
+			ConverterConfig.DEBUG = System.err;
 		}
+		
+		configureOutput();
 		
 		String inputFileName = cmd.getOptionValue('i');
 		String outputFileName = cmd.getOptionValue('o');
@@ -51,9 +54,17 @@ public class PipelineConverter {
 		}
 		
 		String inputExt = extractExt(inputFileName);
-		Format inputForm = extToFormat(inputExt);
+		ConverterConfig.INPUT_FORMAT = extToFormat(inputExt);
 	}
 	
+	/**
+	 * Checks and configures output
+	 */
+	static void configureOutput() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	/**
 	 * Converts an extension (without the period) to a Format
 	 * 
@@ -109,7 +120,7 @@ public class PipelineConverter {
 		Option output = new Option("o", "output", true, "output file (if --output-format not specified)");
 		output.setArgs(1);
 		
-		Option outputFormat = new Option("k", "output-format", false, "output file format (if --output not specified)");
+		Option outputFormat = new Option("p", "output-format", false, "output file format (if --output not specified)");
 		outputFormat.setArgs(1);
 		
 		Option galaxyDir = new Option("g", "galaxy-app-dir", true, "input directory for Galaxy .xml files");

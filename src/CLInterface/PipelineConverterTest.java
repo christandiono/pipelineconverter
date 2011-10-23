@@ -50,5 +50,13 @@ public class PipelineConverterTest {
 			fail("Failed to avoid invalid input");
 		} catch (InvalidInputException e) { }
 	}
+	
+	/**
+	 * Tests valid and invalid output configurations (stdout, multiple files, Galaxy directories, etc.)
+	 */
+	@Test
+	public final void testConfigureOutput() {
+		fail("Not yet implemented");
+	}
 
 }
