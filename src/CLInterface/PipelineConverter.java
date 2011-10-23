@@ -1,3 +1,4 @@
+package CLInterface;
 import java.io.File;
 
 import org.apache.commons.cli.CommandLine;
@@ -27,17 +28,17 @@ public class PipelineConverter {
 			cmd = parser.parse(options, args);
 		} catch (ParseException e) {
 			printHelp(options);
-			throw new InvalidInputException("One or more required arguments was not supplied");
-		}
-		
-		if (cmd.hasOption('h')) {
-			printHelp(options);
 			System.exit(0);
 		}
 		
 		if (cmd.hasOption('f')) {
 			System.out.println("OK, forcing conversion...");
 			ConverterConfig.FORCE = true;
+		}
+		
+		if (cmd.hasOption('v')) {
+			System.out.println("OK, going to be very verbose...");
+			ConverterConfig.VERBOSE = true;
 		}
 		
 		String inputFileName = cmd.getOptionValue('i');
@@ -97,6 +98,8 @@ public class PipelineConverter {
 	static Options makeOptions() {
 		Options options = new Options();
 		
+		Option toStdout = new Option("c", false, "print output to stdout instead of to file");
+		
 		Option force = new Option("f", "force", false, "force (attempt to ignore errors)");
 		
 		Option input = new Option("i", "input", true, "input file");
@@ -119,6 +122,7 @@ public class PipelineConverter {
 		
 		Option help = new Option("h", "help", false, "print this help");
 		
+		options.addOption(toStdout);
 		options.addOption(force);
 		options.addOption(input);
 		options.addOption(output);
@@ -130,14 +134,14 @@ public class PipelineConverter {
 		return options;
 	}
 	
-	/**
+	/**	
 	 * Convenience method for printing help.
 	 * 
 	 * @param options Options object to print.
 	 */
 	static void printHelp(Options options) {
 		HelpFormatter formatter = new HelpFormatter();
-		formatter.printHelp("java " + PipelineConverter.class.getName(), options, true);
+		formatter.printHelp("java " + PipelineConverter.class.getSimpleName(), options, true);
 	}
 	
 }

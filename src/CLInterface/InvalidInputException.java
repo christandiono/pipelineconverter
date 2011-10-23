@@ -1,3 +1,4 @@
+package CLInterface;
 
 /**
  * A generic class for invalid input.

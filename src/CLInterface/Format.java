@@ -1,3 +1,4 @@
+package CLInterface;
 /**
  * A file for the Format enum.
  */
