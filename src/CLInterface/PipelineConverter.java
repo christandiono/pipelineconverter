@@ -138,6 +138,7 @@ public class PipelineConverter {
 		for (int i = 0; i < Format.values().length; i++) {
 			if (inputExt.equals(Format.values()[i].getExtension())) {
 				inputForm = Format.values()[i];
+				break;
 			}
 		}
         if (inputForm == null) {

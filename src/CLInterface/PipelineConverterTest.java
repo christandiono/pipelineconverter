@@ -381,18 +381,13 @@ public class PipelineConverterTest {
 	}
 	
 	/**
-	 * Tests conversion of file extension to Format enum
+	 * Tests conversion of file extension to Format enum. Kind of a silly test...
 	 */
 	@Test
 	public final void testExtToFormat() {
-		Format galaxy = Format.GALAXY;
-		assertTrue(PipelineConverter.extToFormat(galaxy.getExtension()) == galaxy);
-		
-		Format loni = Format.LONI;
-		assertTrue(PipelineConverter.extToFormat(loni.getExtension()) == loni);
-		
-		Format taverna = Format.TAVERNA;
-		assertTrue(PipelineConverter.extToFormat(taverna.getExtension()) == taverna);
+		for (int i = 0; i < Format.values().length; i++) {
+			assertTrue(PipelineConverter.extToFormat(Format.values()[i].getExtension()) == Format.values()[i]);
+		}
 		
 		try {
 			PipelineConverter.extToFormat(".ga");
