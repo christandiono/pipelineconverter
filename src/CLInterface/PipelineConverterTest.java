@@ -381,6 +381,22 @@ public class PipelineConverterTest {
 	}
 	
 	/**
+	 * Tests output (invalid command line: no output configuration)
+	 * @throws ParseException if the test has been improperly configured
+	 */
+	@Test
+	public final void testConfigureOutputMissingOutput() throws ParseException {
+		String[] args = {"-i", "foo.t2flow"};
+		CommandLine cmd = parser.parse(options, args);
+		try {
+			PipelineConverter.configureOutput(cmd);
+			fail("Failed to catch invalid input");
+		} catch (InvalidInputException e) {
+			/* do nothing */
+		}
+	}
+	
+	/**
 	 * Tests conversion of file extension to Format enum. Kind of a silly test...
 	 */
 	@Test
