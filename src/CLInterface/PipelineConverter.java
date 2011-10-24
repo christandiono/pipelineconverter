@@ -1,4 +1,5 @@
 package CLInterface;
+
 import java.io.File;
 
 import org.apache.commons.cli.CommandLine;
@@ -8,6 +9,8 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
+
+import org.apache.commons.io.FilenameUtils;
 
 /**
  * PipelineConverter main class. Contains main method for converter program.
@@ -31,29 +34,99 @@ public class PipelineConverter {
 			System.exit(0);
 		}
 		
-		if (cmd.hasOption('f')) {
-			System.out.println("OK, forcing conversion...");
-			ConverterConfig.FORCE = true;
-		}
+		configureSpecial(cmd);
 		
+		configureInput(cmd);
+		
+		configureOutput(cmd);
+		
+		Printer.log("Done processing command-line arguments");
+	}
+
+	/**
+	 * Checks and configures verbosity and force
+	 * @param cmd The CommandLine object that's been parsed already
+	 */
+	static void configureSpecial(CommandLine cmd) {
 		if (cmd.hasOption('v')) {
-			System.out.println("OK, going to be very verbose...");
-			ConverterConfig.VERBOSE = true;
+			ConverterConfig.DEBUG = System.err;
+			Printer.log("OK, going to be very verbose...");
 		}
 		
+		if (cmd.hasOption('f')) {
+			ConverterConfig.FORCE = true;
+			Printer.log("OK, forcing conversion...");			
+		}
+	}
+
+	/**
+	 * Checks and configures input
+	 * @param cmd The CommandLine object that's been parsed already
+	 */
+	static void configureInput(CommandLine cmd) {
 		String inputFileName = cmd.getOptionValue('i');
-		String outputFileName = cmd.getOptionValue('o');
-		
 		File inputFile = new File(inputFileName);
-		File outputFile = new File(outputFileName);
-		if (inputFile.isDirectory() || outputFile.isDirectory()) {
+
+		if (inputFile.isDirectory()) {
 			throw new InvalidInputException("Don't specify directory, specify a file");
 		}
 		
-		String inputExt = extractExt(inputFileName);
-		Format inputForm = extToFormat(inputExt);
+		String inputExt = FilenameUtils.getExtension(inputFileName);
+		ConverterConfig.INPUT_FORMAT = extToFormat(inputExt);
+		ConverterConfig.INPUT_PATH = inputFileName;
+		Printer.log("Input format detected as: " + ConverterConfig.INPUT_FORMAT.toString());
+		
+		if (ConverterConfig.INPUT_FORMAT == Format.GALAXY) {
+			if (!cmd.hasOption("galaxy-app-dir")) {
+				throw new InvalidInputException("Input format Galaxy requires option --galaxy-app-dir");
+			} else {
+				ConverterConfig.GALAXY_INPUT_DIR = cmd.getOptionValue("galaxy-app-dir");
+			}
+		}
 	}
 	
+	/**
+	 * Checks and configures output
+	 * @param cmd The CommandLine object that's been parsed already
+	 */
+	static void configureOutput(CommandLine cmd) {
+		String outputFileName = null;
+		
+		if (cmd.hasOption('c') && cmd.hasOption('o')) {
+			throw new InvalidInputException("Can't use mutually exclusive options -c and -o");
+		}
+		
+		if (cmd.hasOption('o')) {
+			outputFileName = cmd.getOptionValue('o');
+			ConverterConfig.OUTPUT_FORMAT = extToFormat(FilenameUtils.getExtension(outputFileName));
+			ConverterConfig.OUTPUT_PATH = outputFileName;
+		} else if (cmd.hasOption("output-format")) {
+			String outputExt = cmd.getOptionValue("output-format");
+			ConverterConfig.OUTPUT_FORMAT = extToFormat(outputExt);
+			String fileNameWithoutExt = FilenameUtils.removeExtension(cmd.getOptionValue('i'));
+			outputFileName = fileNameWithoutExt + "." + outputExt;
+			if (cmd.hasOption('c')) {
+				ConverterConfig.OUTPUT = System.out;
+			} else {
+				ConverterConfig.OUTPUT_PATH = outputFileName;
+			}
+		}
+		
+		if (cmd.hasOption('o') && cmd.hasOption("output-format") && !FilenameUtils.getExtension(cmd.getOptionValue('o')).equals(cmd.getOptionValue("output-format"))) {
+			throw new InvalidInputException("Selected output format doesn't match output file name");
+		}
+		
+		Printer.log("Output format detected as: " + ConverterConfig.OUTPUT_FORMAT);
+		
+		if (ConverterConfig.OUTPUT_FORMAT == Format.GALAXY) {
+			if (!cmd.hasOption("galaxy-output-app-dir")) {
+				throw new InvalidInputException("Output format Galaxy requires option --galaxy-output-app-dir");
+			} else {
+				ConverterConfig.GALAXY_OUTPUT_DIR = cmd.getOptionValue("galaxy-output-app-dir");
+			}
+		}
+	}
+
 	/**
 	 * Converts an extension (without the period) to a Format
 	 * 
@@ -62,32 +135,17 @@ public class PipelineConverter {
 	 */
 	static Format extToFormat(String inputExt) {
 		Format inputForm = null;
-		if (inputExt.equals("ga")) {
-			inputForm = Format.GALAXY;
-        } else if (inputExt.equals("t2flow")) {
-			inputForm = Format.TAVERNA;
-        } else if (inputExt.equals("pipe")) {
-			inputForm = Format.LONI;
-        } else {
+		for (int i = 0; i < Format.values().length; i++) {
+			if (inputExt.equals(Format.values()[i].getExtension())) {
+				inputForm = Format.values()[i];
+				break;
+			}
+		}
+        if (inputForm == null) {
         	throw new InvalidInputException("Invalid file extension: " + inputExt);
         }
 		
 		return inputForm;
-	}
-	
-	/**
-	 * Returns the last extension of a filename, without the leading period. For example, foo.tar.gz's last extension is "gz".
-	 * 
-	 * @param inputFileName A file name to get the last extension of
-	 * @return The last extension of the file
-	 */
-	static String extractExt(String inputFileName) {
-		int lastDot = inputFileName.lastIndexOf(".");
-		if (lastDot < 0) {
-			throw new InvalidInputException("Filename does not have an extension");
-		}
-		String ext = inputFileName.substring(lastDot+1,inputFileName.length());
-		return ext;
 	}
 	
 	/**
@@ -109,7 +167,7 @@ public class PipelineConverter {
 		Option output = new Option("o", "output", true, "output file (if --output-format not specified)");
 		output.setArgs(1);
 		
-		Option outputFormat = new Option("k", "output-format", false, "output file format (if --output not specified)");
+		Option outputFormat = new Option("p", "output-format", false, "output file format (if --output not specified)");
 		outputFormat.setArgs(1);
 		
 		Option galaxyDir = new Option("g", "galaxy-app-dir", true, "input directory for Galaxy .xml files");
@@ -120,6 +178,7 @@ public class PipelineConverter {
 		
 		Option verbose = new Option("v", "verbose", false, "verbose");
 		
+		/* help option is actually ignored, because other options are required--missing a required option results in printing help */
 		Option help = new Option("h", "help", false, "print this help");
 		
 		options.addOption(toStdout);

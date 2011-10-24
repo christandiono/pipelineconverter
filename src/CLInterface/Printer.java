@@ -3,6 +3,7 @@
  */
 package CLInterface;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
 /**
@@ -11,28 +12,47 @@ import java.io.OutputStream;
  */
 public class Printer {
 	
-	public static void log(String message) {
-		if (ConverterConfig.DEBUG != null && message != null) {
-			ConverterConfig.DEBUG.println(message);
+	/**
+	 * Prints messages to destination.
+	 * @param destination OutputStream to write to. If null, doesn't actually write anything to anywhere.
+	 * @param messages Strings to write. Doesn't write null strings at all (as opposed to outputting a blank line, for example).
+	 */
+	private static void actuallyPrint(OutputStream destination, String[] messages) {
+		if (destination == null) { /* no point actually doing anything */
+			return;
+		}
+		try {
+			String message;
+			for (int i = 0; i < messages.length; i++) {
+				message = messages[i];
+				if (message != null) { /* null: ignore */
+					destination.write(message.getBytes());
+					destination.write("\n".getBytes());
+				}
+			}
+			destination.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
+
 	
-	public static void log(String... args) {
-		for (int i = 0; i < args.length; i++) {
-			log(args[i]);
-		}
+	/**
+	 * Print to System.err, if so defined on the command-line.
+	 * 
+	 * @param messages Message(s) to write.
+	 */
+	public static void log(String... messages) {
+		actuallyPrint(ConverterConfig.DEBUG, messages);
 	}
 	
-	public static void output(String message) {
-		if (ConverterConfig.OUTPUT != null && message != null) {
-			ConverterConfig.OUTPUT.println(message);
-		}
-	}
-	
-	public static void output(String... args) {
-		for (int i = 0; i < args.length; i++) {
-			output(args[i]);
-		}
+	/**
+	 * Print to output as configured on the command-line.
+	 * 
+	 * @param messages Message(s) to write.
+	 */
+	public static void output(String... messages) {
+		actuallyPrint(ConverterConfig.OUTPUT, messages);
 	}
 	
 	/**
@@ -42,7 +62,7 @@ public class Printer {
 	 * @param messages Message(s) to write.
 	 */
 	public static void output(OutputStream destination, String... messages) {
-		// TODO Not actually implemented in trunk (yet)
+		actuallyPrint(destination, messages);
 	}
 	
 }
