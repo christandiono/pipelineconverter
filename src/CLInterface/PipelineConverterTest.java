@@ -25,7 +25,7 @@ public class PipelineConverterTest {
 	 * @throws Exception if setUp was unsuccessful
 	 */
 	@Before
-	public void setUp() throws Exception {
+	public final void setUp() throws Exception {
 		options = PipelineConverter.makeOptions();
 		parser = new PosixParser();
 	}
@@ -34,7 +34,7 @@ public class PipelineConverterTest {
 	 * @throws Exception if tearDown was unsuccessful
 	 */
 	@After
-	public void tearDown() throws Exception {
+	public final void tearDown() throws Exception {
 		ConverterConfig.reset();
 	}
 	
@@ -44,7 +44,10 @@ public class PipelineConverterTest {
 	 */
 	@Test
 	public final void testConfigureInputInvalidGalaxyIn() throws ParseException {
-		String[] args = {"-i", "foo.ga", "--output-format", "t2flow"};
+		Format inFormat = Format.GALAXY;
+		Format outFormat = Format.TAVERNA;
+		
+		String[] args = {"-i", "foo."+inFormat.getExtension(), "--output-format", outFormat.getExtension()};
 		CommandLine cmd;
 		cmd = parser.parse(options, args);
 		try {
@@ -61,12 +64,17 @@ public class PipelineConverterTest {
 	 */
 	@Test
 	public final void testConfigureInputSimple() throws ParseException {
-		String[] args = {"-i", "foo.pipe", "-o", "bar.t2flow", "-v"};
+		Format inFormat = Format.LONI;
+		String inFile = "foo." + inFormat.getExtension();
+		Format outFormat = Format.TAVERNA;
+		String outFile = "bar." + outFormat.getExtension();
+		
+		String[] args = {"-i", inFile, "-o", outFile, "-v"};
 		CommandLine cmd = parser.parse(options, args);
 		PipelineConverter.configureInput(cmd);
 		
-		assertTrue(ConverterConfig.INPUT_FORMAT == Format.LONI);
-		assertTrue(ConverterConfig.INPUT_PATH.equals("foo.pipe"));
+		assertTrue(ConverterConfig.INPUT_FORMAT == inFormat);
+		assertTrue(ConverterConfig.INPUT_PATH.equals(inFile));
 		assertTrue(ConverterConfig.GALAXY_INPUT_DIR == null);
 	}
 	
@@ -76,12 +84,16 @@ public class PipelineConverterTest {
 	 */
 	@Test
 	public final void testConfigureInputStdout() throws ParseException {
-		String[] args = {"-i", "foo.pipe", "--output-format", "t2flow", "-c"};
+		Format inFormat = Format.LONI;
+		String inFile = "foo." + inFormat.getExtension();
+		Format outFormat = Format.TAVERNA;
+		
+		String[] args = {"-i", inFile, "--output-format", outFormat.getExtension(), "-c"};
 		CommandLine cmd = parser.parse(options, args);
 		PipelineConverter.configureInput(cmd);
 		
-		assertTrue(ConverterConfig.INPUT_FORMAT == Format.LONI);
-		assertTrue(ConverterConfig.INPUT_PATH.equals("foo.pipe"));
+		assertTrue(ConverterConfig.INPUT_FORMAT == inFormat);
+		assertTrue(ConverterConfig.INPUT_PATH.equals(inFile));
 		assertTrue(ConverterConfig.GALAXY_INPUT_DIR == null);
 	}
 	
@@ -91,12 +103,16 @@ public class PipelineConverterTest {
 	 */
 	@Test
 	public final void testConfigureInputValidGalaxyIn() throws ParseException {
-		String[] args = {"-i", "foo.ga", "--galaxy-app-dir", ".", "--output-format", "t2flow"};
+		Format inFormat = Format.GALAXY;
+		String inFile = "foo." + inFormat.getExtension();
+		Format outFormat = Format.TAVERNA;
+		
+		String[] args = {"-i", inFile, "--galaxy-app-dir", ".", "--output-format", outFormat.getExtension()};
 		CommandLine cmd = parser.parse(options, args);
 		PipelineConverter.configureInput(cmd);
 		
-		assertTrue(ConverterConfig.INPUT_FORMAT == Format.GALAXY);
-		assertTrue(ConverterConfig.INPUT_PATH.equals("foo.ga"));
+		assertTrue(ConverterConfig.INPUT_FORMAT == inFormat);
+		assertTrue(ConverterConfig.INPUT_PATH.equals(inFile));
 		assertTrue(ConverterConfig.GALAXY_INPUT_DIR.equals("."));
 	}
 
@@ -106,12 +122,16 @@ public class PipelineConverterTest {
 	 */
 	@Test
 	public final void testConfigureInputValidGalaxyOut() throws ParseException {
-		String[] args = {"-i", "foo.t2flow", "--galaxy-output-app-dir", ".", "--output-format", "ga"};
+		Format inFormat = Format.TAVERNA;
+		String inFile = "foo." + inFormat.getExtension();
+		Format outFormat = Format.GALAXY;
+		
+		String[] args = {"-i", inFile, "--galaxy-output-app-dir", ".", "--output-format", outFormat.getExtension()};
 		CommandLine cmd = parser.parse(options, args);
 		PipelineConverter.configureInput(cmd);
 		
-		assertTrue(ConverterConfig.INPUT_FORMAT == Format.TAVERNA);
-		assertTrue(ConverterConfig.INPUT_PATH.equals("foo.t2flow"));
+		assertTrue(ConverterConfig.INPUT_FORMAT == inFormat);
+		assertTrue(ConverterConfig.INPUT_PATH.equals(inFile));
 		assertTrue(ConverterConfig.GALAXY_INPUT_DIR == null);
 	}
 	
@@ -121,12 +141,17 @@ public class PipelineConverterTest {
 	 */
 	@Test
 	public final void testConfigureInputValidGalaxyOut2() throws ParseException {
-		String[] args = {"-i", "foo.t2flow", "--galaxy-output-app-dir", ".", "-o", "asdf.ga"};
+		Format inFormat = Format.TAVERNA;
+		String inFile = "foo." + inFormat.getExtension();
+		Format outFormat = Format.GALAXY;
+		String outFile = "asdf." + outFormat.getExtension();
+		
+		String[] args = {"-i", inFile, "--galaxy-output-app-dir", ".", "-o", outFile};
 		CommandLine cmd = parser.parse(options, args);
 		PipelineConverter.configureInput(cmd);
 		
-		assertTrue(ConverterConfig.INPUT_FORMAT == Format.TAVERNA);
-		assertTrue(ConverterConfig.INPUT_PATH.equals("foo.t2flow"));
+		assertTrue(ConverterConfig.INPUT_FORMAT == inFormat);
+		assertTrue(ConverterConfig.INPUT_PATH.equals(inFile));
 		assertTrue(ConverterConfig.GALAXY_INPUT_DIR == null);
 	}
 	
@@ -136,7 +161,11 @@ public class PipelineConverterTest {
 	 */
 	@Test
 	public final void testConfigureOutputInvalidGalaxyOut() throws ParseException {
-		String[] args = {"-i", "foo.t2flow", "--output-format", "ga"};
+		Format inFormat = Format.TAVERNA;
+		String inFile = "foo." + inFormat.getExtension();
+		Format outFormat = Format.GALAXY;
+		
+		String[] args = {"-i", inFile, "--output-format", outFormat.getExtension()};
 		CommandLine cmd = parser.parse(options, args);
 		try {
 			PipelineConverter.configureOutput(cmd);
@@ -152,7 +181,12 @@ public class PipelineConverterTest {
 	 */
 	@Test
 	public final void testConfigureOutputInvalidGalaxyOut2() throws ParseException {
-		String[] args = {"-i", "foo.t2flow", "-o", "asdf.ga"};
+		Format inFormat = Format.TAVERNA;
+		String inFile = "foo." + inFormat.getExtension();
+		Format outFormat = Format.GALAXY;
+		String outFile = "asdf." + outFormat.getExtension();
+		
+		String[] args = {"-i", inFile, "-o", outFile};
 		CommandLine cmd = parser.parse(options, args);
 		try {
 			PipelineConverter.configureOutput(cmd);
@@ -168,7 +202,11 @@ public class PipelineConverterTest {
 	 */
 	@Test
 	public final void testConfigureOutputInvalidOutExtension() throws ParseException {
-		String[] args = {"-i", "foo.t2flow", "-o", "asdf.bar"};
+		Format inFormat = Format.TAVERNA;
+		String inFile = "foo." + inFormat.getExtension();
+		String outFile = "asdf.bar";
+		
+		String[] args = {"-i", inFile, "-o", outFile};
 		CommandLine cmd = parser.parse(options, args);
 		try {
 			PipelineConverter.configureOutput(cmd);
@@ -184,13 +222,18 @@ public class PipelineConverterTest {
 	 */
 	@Test
 	public final void testConfigureOutputMatchOutExtension() throws ParseException {
-		String[] args = {"-i", "foo.pipe", "-o", "bar.t2flow", "-v", "--output-format", "t2flow"};
+		Format inFormat = Format.LONI;
+		String inFile = "foo." + inFormat.getExtension();
+		Format outFormat = Format.TAVERNA;
+		String outFile = "bar." + outFormat.getExtension();
+		
+		String[] args = {"-i", inFile, "-o", outFile, "-v", "--output-format", outFormat.getExtension()};
 		CommandLine cmd = parser.parse(options, args);
 		PipelineConverter.configureInput(cmd);
 		PipelineConverter.configureOutput(cmd);
 		
-		assertTrue(ConverterConfig.OUTPUT_FORMAT == Format.TAVERNA);
-		assertTrue(ConverterConfig.OUTPUT_PATH.equals("bar.t2flow"));
+		assertTrue(ConverterConfig.OUTPUT_FORMAT == outFormat);
+		assertTrue(ConverterConfig.OUTPUT_PATH.equals(outFile));
 		assertTrue(ConverterConfig.GALAXY_OUTPUT_DIR == null);
 		assertTrue(ConverterConfig.OUTPUT == null);
 	}
@@ -201,7 +244,12 @@ public class PipelineConverterTest {
 	 */
 	@Test
 	public final void testConfigureOutputMismatchOutExtension() throws ParseException {
-		String[] args = {"-i", "foo.t2flow", "-o", "asdf.pipe", "-f", "--output-format", "ga"};
+		Format inFormat = Format.TAVERNA;
+		String inFile = "foo." + inFormat.getExtension();
+		Format outFormat = Format.LONI;
+		String outFile = "asdf." + outFormat.getExtension();
+		
+		String[] args = {"-i", inFile, "-o", outFile, "-f", "--output-format", Format.GALAXY.getExtension()};
 		CommandLine cmd = parser.parse(options, args);
 		PipelineConverter.configureSpecial(cmd);
 		try {
@@ -209,7 +257,6 @@ public class PipelineConverterTest {
 			fail("Failed to catch invalid input");
 		} catch (InvalidInputException e) {
 			/* do nothing */
-			e.printStackTrace();
 		}
 	}
 	
@@ -235,13 +282,16 @@ public class PipelineConverterTest {
 	 */
 	@Test
 	public final void testConfigureOutputSimple() throws ParseException {
-		String[] args = {"-i", "foo.pipe", "-o", "bar.t2flow", "-v"};
+		Format outFormat = Format.TAVERNA;
+		String outFile = "bar." + outFormat.getExtension();
+		
+		String[] args = {"-i", "foo.pipe", "-o", outFile, "-v"};
 		CommandLine cmd = parser.parse(options, args);
 		PipelineConverter.configureInput(cmd);
 		PipelineConverter.configureOutput(cmd);
 		
-		assertTrue(ConverterConfig.OUTPUT_FORMAT == Format.TAVERNA);
-		assertTrue(ConverterConfig.OUTPUT_PATH.equals("bar.t2flow"));
+		assertTrue(ConverterConfig.OUTPUT_FORMAT == outFormat);
+		assertTrue(ConverterConfig.OUTPUT_PATH.equals(outFile));
 		assertTrue(ConverterConfig.GALAXY_OUTPUT_DIR == null);
 		assertTrue(ConverterConfig.OUTPUT == null);
 	}
@@ -252,12 +302,14 @@ public class PipelineConverterTest {
 	 */
 	@Test
 	public final void testConfigureOutputStdout() throws ParseException {
-		String[] args = {"-i", "foo.pipe", "--output-format", "t2flow", "-c"};
+		Format outFormat = Format.TAVERNA;
+		
+		String[] args = {"-i", "foo.pipe", "--output-format", outFormat.getExtension(), "-c"};
 		CommandLine cmd = parser.parse(options, args);
 		PipelineConverter.configureInput(cmd);
 		PipelineConverter.configureOutput(cmd);
 		
-		assertTrue(ConverterConfig.OUTPUT_FORMAT == Format.TAVERNA);
+		assertTrue(ConverterConfig.OUTPUT_FORMAT == outFormat);
 		assertTrue(ConverterConfig.OUTPUT_PATH == null);
 		assertTrue(ConverterConfig.GALAXY_OUTPUT_DIR == null);
 		assertTrue(ConverterConfig.OUTPUT != null);
@@ -269,13 +321,19 @@ public class PipelineConverterTest {
 	 */
 	@Test
 	public final void testConfigureOutputValidGalaxyIn() throws ParseException {
-		String[] args = {"-i", "foo.ga", "--galaxy-app-dir", ".", "--output-format", "t2flow"};
+		Format inFormat = Format.GALAXY;
+		String name = "foo.";
+		String inFile = name + inFormat.getExtension();
+		Format outFormat = Format.TAVERNA;
+		String outFile = name + outFormat.getExtension();
+		
+		String[] args = {"-i", inFile, "--galaxy-app-dir", ".", "--output-format", outFormat.getExtension()};
 		CommandLine cmd = parser.parse(options, args);
 		PipelineConverter.configureInput(cmd);
 		PipelineConverter.configureOutput(cmd);
 		
-		assertTrue(ConverterConfig.OUTPUT_FORMAT == Format.TAVERNA);
-		assertTrue(ConverterConfig.OUTPUT_PATH.equals("foo.t2flow"));
+		assertTrue(ConverterConfig.OUTPUT_FORMAT == outFormat);
+		assertTrue(ConverterConfig.OUTPUT_PATH.equals(outFile));
 		assertTrue(ConverterConfig.GALAXY_OUTPUT_DIR == null);
 		assertTrue(ConverterConfig.OUTPUT == null);
 	}
@@ -286,14 +344,18 @@ public class PipelineConverterTest {
 	 */
 	@Test
 	public final void testConfigureOutputValidGalaxyOut() throws ParseException {
-		String[] args = {"-i", "foo.t2flow", "--galaxy-output-app-dir", ".", "--output-format", "ga"};
+		String name = "foo.";
+		Format outFormat = Format.GALAXY;
+		
+		String outputDir = ".";
+		String[] args = {"-i", name + Format.TAVERNA.getExtension(), "--galaxy-output-app-dir", outputDir, "--output-format", outFormat.getExtension()};
 		CommandLine cmd = parser.parse(options, args);
 		PipelineConverter.configureInput(cmd);
 		PipelineConverter.configureOutput(cmd);
 		
-		assertTrue(ConverterConfig.OUTPUT_FORMAT == Format.GALAXY);
-		assertTrue(ConverterConfig.OUTPUT_PATH.equals("foo.ga"));
-		assertTrue(ConverterConfig.GALAXY_OUTPUT_DIR.equals("."));
+		assertTrue(ConverterConfig.OUTPUT_FORMAT == outFormat);
+		assertTrue(ConverterConfig.OUTPUT_PATH.equals(name + outFormat.getExtension()));
+		assertTrue(ConverterConfig.GALAXY_OUTPUT_DIR.equals(outputDir));
 		assertTrue(ConverterConfig.OUTPUT == null);
 	}
 	
@@ -303,14 +365,18 @@ public class PipelineConverterTest {
 	 */
 	@Test
 	public final void testConfigureOutputValidGalaxyOut2() throws ParseException {
-		String[] args = {"-i", "foo.t2flow", "--galaxy-output-app-dir", ".", "-o", "asdf.ga"};
+		Format outFormat = Format.GALAXY;
+		String outFile = "asdf." + outFormat.getExtension();
+		
+		String inputDir = ".";
+		String[] args = {"-i", "foo.t2flow", "--galaxy-output-app-dir", inputDir, "-o", outFile};
 		CommandLine cmd = parser.parse(options, args);
 		PipelineConverter.configureInput(cmd);
 		PipelineConverter.configureOutput(cmd);
 		
-		assertTrue(ConverterConfig.OUTPUT_FORMAT == Format.GALAXY);
-		assertTrue(ConverterConfig.OUTPUT_PATH.equals("asdf.ga"));
-		assertTrue(ConverterConfig.GALAXY_OUTPUT_DIR.equals("."));
+		assertTrue(ConverterConfig.OUTPUT_FORMAT == outFormat);
+		assertTrue(ConverterConfig.OUTPUT_PATH.equals(outFile));
+		assertTrue(ConverterConfig.GALAXY_OUTPUT_DIR.equals(inputDir));
 		assertTrue(ConverterConfig.OUTPUT == null);
 	}
 	
@@ -319,9 +385,15 @@ public class PipelineConverterTest {
 	 */
 	@Test
 	public final void testExtToFormat() {
-		assertTrue(PipelineConverter.extToFormat("ga") == Format.GALAXY);
-		assertTrue(PipelineConverter.extToFormat("pipe") == Format.LONI);
-		assertTrue(PipelineConverter.extToFormat("t2flow") == Format.TAVERNA);
+		Format galaxy = Format.GALAXY;
+		assertTrue(PipelineConverter.extToFormat(galaxy.getExtension()) == galaxy);
+		
+		Format loni = Format.LONI;
+		assertTrue(PipelineConverter.extToFormat(loni.getExtension()) == loni);
+		
+		Format taverna = Format.TAVERNA;
+		assertTrue(PipelineConverter.extToFormat(taverna.getExtension()) == taverna);
+		
 		try {
 			PipelineConverter.extToFormat(".ga");
 			fail("Failed to catch invalid input");

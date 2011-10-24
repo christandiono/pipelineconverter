@@ -135,13 +135,12 @@ public class PipelineConverter {
 	 */
 	static Format extToFormat(String inputExt) {
 		Format inputForm = null;
-		if (inputExt.equals("ga")) {
-			inputForm = Format.GALAXY;
-        } else if (inputExt.equals("t2flow")) {
-			inputForm = Format.TAVERNA;
-        } else if (inputExt.equals("pipe")) {
-			inputForm = Format.LONI;
-        } else {
+		for (int i = 0; i < Format.values().length; i++) {
+			if (inputExt.equals(Format.values()[i].getExtension())) {
+				inputForm = Format.values()[i];
+			}
+		}
+        if (inputForm == null) {
         	throw new InvalidInputException("Invalid file extension: " + inputExt);
         }
 		
@@ -178,6 +177,7 @@ public class PipelineConverter {
 		
 		Option verbose = new Option("v", "verbose", false, "verbose");
 		
+		/* help option is actually ignored, because other options are required--missing a required option results in printing help */
 		Option help = new Option("h", "help", false, "print this help");
 		
 		options.addOption(toStdout);
