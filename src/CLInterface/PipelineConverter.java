@@ -125,6 +125,10 @@ public class PipelineConverter {
 				ConverterConfig.GALAXY_OUTPUT_DIR = cmd.getOptionValue("galaxy-output-app-dir");
 			}
 		}
+		
+		if ((ConverterConfig.OUTPUT == null && ConverterConfig.OUTPUT_PATH == null) || ConverterConfig.OUTPUT_FORMAT == null) {
+			throw new InvalidInputException("You didn't specify an output path or format");
+		}
 	}
 
 	/**
