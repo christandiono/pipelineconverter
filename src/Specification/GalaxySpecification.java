@@ -2,13 +2,13 @@ package Specification;
 
 import FileOps.Generator;
 import FileOps.Parser;
-import FileOps.GSON.GSONFileHandler;
+import FileOps.GSON.GSONWrapper;
 import Galaxy.Tree.GalaxyNode;
 import Galaxy.Tree.Workflow.*;
 
 
 public class GalaxySpecification {
-	private static GSONFileHandler<Workflow> gson = new GSONFileHandler<Workflow>(Workflow.class);
+	private static GSONWrapper<Workflow> gson = new GSONWrapper<Workflow>(Workflow.class);
 	private static Parser<Workflow> jsonParser = gson;
 	private static Generator<Workflow> jsonGenerator = gson; 
 	private static boolean initialized = false;

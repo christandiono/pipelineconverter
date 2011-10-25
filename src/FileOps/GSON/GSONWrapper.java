@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -59,9 +60,11 @@ public class GSONWrapper<T extends Object> implements Parser<T>, Generator<T>  {
 	public void generate(T object, String path) throws IOException {
 		// TODO Auto-generated method stub
 		builder.setPrettyPrinting();
-		Writer writer = new BufferedWriter( new FileWriter(path));
-		writer.write(builder.create().toJson(object));
-		writer.close();
+		String jsonString = builder.create().toJson(object);
+		FileOutputStream destination = new FileOutputStream(new File(path));
+		Printer.output(destination, jsonString);
+		destination.flush();
+		destination.close();
 	}
 	
 	@Override
