@@ -1,43 +1,59 @@
 package Specification;
 
-import FileOps.JSON.JSONGenerator;
-import FileOps.JSON.JSONParser;
-import FileOps.JSON.GSON.GSONFileHandler;
+import FileOps.Generator;
+import FileOps.Parser;
+import FileOps.GSON.GSONFileHandler;
 import Galaxy.Tree.GalaxyNode;
 import Galaxy.Tree.Workflow.*;
 
 
 public class GalaxySpecification {
-	private static GSONFileHandler<GalaxyNode> gson = new GSONFileHandler<GalaxyNode>();
-	private static JSONParser<GalaxyNode> jsonParser = gson;
-	private static JSONGenerator<GalaxyNode> jsonGenerator = gson; 
+	private static GSONFileHandler<Workflow> gson = new GSONFileHandler<Workflow>(Workflow.class);
+	private static Parser<Workflow> jsonParser = gson;
+	private static Generator<Workflow> jsonGenerator = gson; 
 	private static boolean initialized = false;
 	
 	private static void init(){
-		initJSONParser();
-		initJSONGenerator();
+		initJSON();
 		initialized = true;
 		
 	}
 
-	private static void initJSONGenerator(){
+	
+	private static void initJSON(){
+		gson.bindTag(Workflow.class, "Name", "name");
+		gson.bindTag(Workflow.class, "FormatVersion", "format-version");
+		gson.bindTag(Workflow.class, "Annotation", "annotation");
+		gson.bindTag(Workflow.class, "isGalaxyWorkflow", "a_galaxy_workflow");
+		gson.bindTag(Workflow.class, "Steps", "steps");
+		
+		gson.bindTag(Step.class, "Name", "name");
+		gson.bindTag(Step.class, "Annotation", "annotation");
+		gson.bindTag(Step.class, "Id", "id");
+		gson.bindTag(Step.class, "ToolId", "tool_id");
+		gson.bindTag(Step.class, "Connections", "input_connections");
+		gson.bindTag(Step.class, "ExternalInputs", "inputs");
+		gson.bindTag(Step.class, "ExternalOutputs", "outputs");
+		gson.bindTag(Step.class, "StepPosition", "position");
+		gson.bindTag(Step.class, "ToolVersion", "tool_version");
+		
+		
+		gson.bindTag(Position.class, "UnitsFromLeftMargin", "left");
+		gson.bindTag(Position.class, "UnitsFromTopMargin", "top");
+		gson.bindTag(ExternalOutput.class, "Name", "name");
+		gson.bindTag(ExternalOutput.class, "Type", "type");
+		gson.bindTag(InputConnection.class, "SourceId", "id");
+		gson.bindTag(InputConnection.class, "OutputName", "output_name");
 		
 	}
 	
-	private static void initJSONParser(){
-		jsonParser.bindTag(Workflow.class, "name", "name");
-		jsonParser.bindTag(Workflow.class, "id", "ID");
-		
 	
-	}
-	
-	
-	public static JSONParser<GalaxyNode> getJSONParser(){
+	public static Parser<Workflow> getJSONParser(){
 		if(!initialized)
 			init();
 		return jsonParser;
 	}
-	public static JSONGenerator<GalaxyNode> getJSONGenerator(){
+	public static Generator<Workflow> getJSONGenerator(){
 		if(!initialized)
 			init();
 		return jsonGenerator;
