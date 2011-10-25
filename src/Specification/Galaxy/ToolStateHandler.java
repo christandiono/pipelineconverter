@@ -7,7 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 
-import FileOps.GSON.GSONFileHandler;
+import FileOps.GSON.GSONWrapper;
 import FileOps.GSON.GSONHandler;
 import Galaxy.Tree.Workflow.ToolState;
 
@@ -17,7 +17,7 @@ public class ToolStateHandler extends GSONHandler{
 	public JsonElement serialize(Object arg0, Type arg1,
 			JsonSerializationContext arg2) {
 		// TODO Auto-generated method stub
-		GSONFileHandler<ToolState> gson = new GSONFileHandler<ToolState>(ToolState.class);
+		GSONWrapper<ToolState> gson = new GSONWrapper<ToolState>(ToolState.class);
 		
 		return null;
 	}
