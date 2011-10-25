@@ -13,7 +13,6 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import Galaxy.Tree.Workflow.Workflow;
@@ -65,7 +64,6 @@ public class PipelineConverter {
 			try {
 				G = GalaxySpecification.getJSONParser().parse(new File(ConverterConfig.INPUT_PATH));
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				Printer.log("What, FileNotFoundException not caught by configureInput?");
 			}
 		} else {

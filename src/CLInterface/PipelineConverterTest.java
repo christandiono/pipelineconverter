@@ -9,7 +9,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
-import org.apache.commons.io.FileSystemUtils;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,13 +16,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import sun.management.FileSystem;
-
-
 /**
  * Test cases for PipelineConverter
- * 
- * TODO Fix test cases. Use @BeforeClass and @AfterClass to create temporary files.
  * 
  * @author Chris Tandiono
  */
