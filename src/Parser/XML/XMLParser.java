@@ -8,6 +8,7 @@ import java.io.InputStream;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
+import CLInterface.Printer;
 import Galaxy.JSON.GalaxyJSONLoader;
 import Galaxy.Tree.Tool.Tool;
 import Galaxy.XML.GalaxyXMLLoader;
@@ -26,7 +27,7 @@ public class XMLParser implements Parser{
 		// TODO Auto-generated method stub
 		//Use XStream
 		XStream xstream = GalaxyXMLLoader.getLoader();
-		System.out.println(xstream.toXML(dump));
+		Printer.output(xstream.toXML(dump));
 	}
 
 	public static Object parse(String path) {

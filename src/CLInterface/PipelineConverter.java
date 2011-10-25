@@ -127,7 +127,20 @@ public class PipelineConverter {
 		}
 		
 		if ((ConverterConfig.OUTPUT == null && ConverterConfig.OUTPUT_PATH == null) || ConverterConfig.OUTPUT_FORMAT == null) {
-			throw new InvalidInputException("You didn't specify an output path or format");
+			throw new InvalidInputException("You didn't specify an output path and/or format");
+		}
+		
+		if (ConverterConfig.INPUT_PATH.equals(ConverterConfig.OUTPUT_PATH)) {
+			throw new InvalidInputException("I won't let you overwrite your input file");
+		}
+		
+		if (ConverterConfig.INPUT_FORMAT == ConverterConfig.OUTPUT_FORMAT) {
+			String sameFormatErrorString = "Input and output formats are the same";
+			if (ConverterConfig.FORCE) {
+				Printer.log(sameFormatErrorString);
+			} else {
+				throw new InvalidInputException(sameFormatErrorString);
+			}
 		}
 	}
 

@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
+import CLInterface.Printer;
 import Galaxy.JSON.GalaxyJSONLoader;
 import Galaxy.Tree.Workflow.Workflow;
 import Parser.Parser;
@@ -39,6 +40,6 @@ public class JSONParser implements Parser {
 		public static void generate(String path, Object w){
 			Gson gson = GalaxyJSONLoader.getLoader();
 			String jsonText = gson.toJson(w);
-			System.out.println(jsonText);
+			Printer.output(jsonText);
 		}
 }

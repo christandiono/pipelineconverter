@@ -7,7 +7,18 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Quick and dirty Logger class that accepts messages to log and either logs them if possible, or else discards them 
+ * Quick and dirty Printer class that accepts messages to log and either logs them if possible, or else discards them. It uses varargs to support an arbitrary amount of messages sent to whatever output.
+ * 
+ * Here's some example usage:
+ * <pre> 
+ * {@code
+ * Printer.output("A message on a single line");
+ * Printer.log("A message on a single line that gets sent to stderr");
+ * Printer.output("A message on", "two lines");
+ * Printer.output({"Also a message on", "two lines"});
+ * Printer.output(new FileOutputStream(new File("./some_file")), "A message on", "two lines");
+ * }
+ * </pre>
  * @author Chris Tandiono
  */
 public class Printer {

@@ -3,13 +3,16 @@ package FileOps.JSON.GSON;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Type;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import CLInterface.Printer;
 import Core.Node;
 import FileOps.JSON.JSONGenerator;
 import FileOps.JSON.JSONHandler;
@@ -52,10 +55,31 @@ public class GSONFileHandler<T extends Object> implements JSONParser<T>, JSONGen
 	}
 
 	@Override
+	public void generate(T object) {
+		// TODO Auto-generated method stub
+		String jsonString = builder.create().toJson(object);
+		Printer.output(jsonString);
+	}
+	
+	@Override
 	public void generate(T object, String path) {
 		// TODO Auto-generated method stub
 		String jsonString = builder.create().toJson(object);
-		System.out.println(jsonString);
+		try {
+			File output = new File(path);
+			boolean created = output.createNewFile();
+			// FIXME what to do with created variable?
+			if (!created) {
+				throw new IOException("File exists");
+			}
+			Printer.output(new FileOutputStream(new File(path)), jsonString);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -67,6 +91,8 @@ public class GSONFileHandler<T extends Object> implements JSONParser<T>, JSONGen
 		
 		return object;
 	}
+
+
 
 	
 

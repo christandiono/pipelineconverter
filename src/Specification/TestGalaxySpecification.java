@@ -12,7 +12,7 @@ public class TestGalaxySpecification {
 		GalaxyNode G;
 		try {
 			G = GalaxySpecification.getJSONParser().parse(new File(path));
-			GalaxySpecification.getJSONGenerator().generate(G, "");
+			GalaxySpecification.getJSONGenerator().generate(G);
 		
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

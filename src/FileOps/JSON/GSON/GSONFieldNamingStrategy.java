@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
+import CLInterface.Printer;
+
 import com.google.gson.FieldNamingStrategy;
 
 public class GSONFieldNamingStrategy implements FieldNamingStrategy{
@@ -31,9 +33,9 @@ public class GSONFieldNamingStrategy implements FieldNamingStrategy{
 		Class fieldClass = arg0.getClass();
 		String fieldName=  arg0.getName();
 		String tag = getTag(fieldClass, fieldName);
-		System.out.println(fieldName + " -> " + tag);
+		Printer.log(fieldName + " -> " + tag);
 		if(tag == null){
-			System.err.println("PARSE ERROR: Could not find mapping from Object to Tag");
+			Printer.output(System.err, "PARSE ERROR: Could not find mapping from Object to Tag");
 			
 		}
 		return tag;
