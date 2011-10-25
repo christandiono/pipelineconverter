@@ -1,29 +1,34 @@
-package FileOps.JSON.GSON;
+package FileOps.GSON;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Reader;
+import java.io.Writer;
 import java.lang.reflect.Type;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import Core.Node;
-import FileOps.JSON.JSONGenerator;
-import FileOps.JSON.JSONHandler;
-import FileOps.JSON.JSONParser;
+import FileOps.Generator;
+import FileOps.Parser;
 import Galaxy.Tree.Workflow.Workflow;
 
-public class GSONFileHandler<T extends Object> implements JSONParser<T>, JSONGenerator<T>  {
+public class GSONFileHandler<T extends Object> implements Parser<T>, Generator<T>  {
 	GsonBuilder builder;
 	GSONFieldNamingStrategy strategy;
+	Class root;
 	
-	public GSONFileHandler(){
-		builder = new GsonBuilder();
-		strategy = new GSONFieldNamingStrategy();
-		builder.setFieldNamingStrategy(strategy);
+	public GSONFileHandler(Class root){
+		this.builder = new GsonBuilder();
+		this.strategy = new GSONFieldNamingStrategy();
+		this.builder.setFieldNamingStrategy(strategy);
+		this.root = root;
 		
 	}
 	
@@ -35,7 +40,7 @@ public class GSONFileHandler<T extends Object> implements JSONParser<T>, JSONGen
 	public T parse(String json){
 		T obj = null;
 		Gson parser = builder.create();
-		obj = (T) parser.fromJson(json, Workflow.class );
+		obj = (T) parser.fromJson(json,root );
 		return obj;
 	}
 
@@ -45,17 +50,25 @@ public class GSONFileHandler<T extends Object> implements JSONParser<T>, JSONGen
 		
 	}
 
-	@Override
-	public void bindHandler(JSONHandler handler) {
+	public void bindHandler(GSONHandler handler) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void generate(T object, String path) {
+	public void generate(T object, String path) throws IOException {
+		// TODO Auto-generated method stub
+		builder.setPrettyPrinting();
+		Writer writer = new BufferedWriter( new FileWriter(path));
+		writer.write(builder.create().toJson(object));
+		writer.close();
+	}
+	
+	@Override
+	public String generate(T object) {
 		// TODO Auto-generated method stub
 		String jsonString = builder.create().toJson(object);
-		System.out.println(jsonString);
+		return jsonString;
 	}
 
 	@Override
@@ -63,7 +76,7 @@ public class GSONFileHandler<T extends Object> implements JSONParser<T>, JSONGen
 		Class<T> clazz = null;
 		// TODO Auto-generated method stub
 		Reader reader = new BufferedReader( new FileReader(json.getPath()));
-		T object= (T) builder.create().fromJson(reader, Workflow.class);
+		T object= (T) builder.create().fromJson(reader, root);
 		
 		return object;
 	}
