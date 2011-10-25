@@ -70,7 +70,6 @@ public class GSONFileHandler<T extends Object> implements Parser<T>, Generator<T
 		// TODO Auto-generated method stub
 		builder.setPrettyPrinting();
 		String jsonString = builder.create().toJson(object);
-		Printer.output(jsonString);
 		return jsonString;
 	}
 

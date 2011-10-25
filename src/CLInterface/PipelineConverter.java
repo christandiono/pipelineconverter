@@ -70,10 +70,17 @@ public class PipelineConverter {
 			Printer.log("Well, I tried, but I can't understand your input");
 		}
 		
+		String outputString = null;
+		
 		if (ConverterConfig.OUTPUT_FORMAT == Format.GALAXY) {
-			GalaxySpecification.getJSONGenerator().generate(G);
+			outputString = GalaxySpecification.getJSONGenerator().generate(G);
+			
 		} else {
 			Printer.log("Well, I tried, but I don't know how to make that kind of a file");
+		}
+		
+		if (outputString != null) {
+			Printer.output(outputString);
 		}
 		
 		if (ConverterConfig.OUTPUT != null) {
