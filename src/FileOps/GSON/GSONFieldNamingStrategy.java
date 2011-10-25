@@ -1,12 +1,9 @@
-package FileOps.JSON.GSON;
+package FileOps.GSON;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.Map.Entry;
-
-import CLInterface.Printer;
 
 import com.google.gson.FieldNamingStrategy;
 
@@ -30,12 +27,11 @@ public class GSONFieldNamingStrategy implements FieldNamingStrategy{
 	@Override
 	public String translateName(Field arg0) {
 		// TODO Auto-generated method stub
-		Class fieldClass = arg0.getClass();
+		Class fieldClass = arg0.getDeclaringClass();
 		String fieldName=  arg0.getName();
 		String tag = getTag(fieldClass, fieldName);
-		Printer.log(fieldName + " -> " + tag);
 		if(tag == null){
-			Printer.output(System.err, "PARSE ERROR: Could not find mapping from Object to Tag");
+			System.err.println("PARSE ERROR: Could not find mapping from "+fieldClass.toString() +":" + fieldName+" to Tag");
 			
 		}
 		return tag;
