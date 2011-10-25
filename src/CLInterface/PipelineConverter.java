@@ -65,11 +65,7 @@ public class PipelineConverter {
 	 */
 	static void configureInput(CommandLine cmd) {
 		String inputFileName = cmd.getOptionValue('i');
-		File inputFile = new File(inputFileName);
 
-		if (inputFile.isDirectory()) {
-			throw new InvalidInputException("Don't specify directory, specify a file");
-		}
 		
 		String inputExt = FilenameUtils.getExtension(inputFileName);
 		ConverterConfig.INPUT_FORMAT = extToFormat(inputExt);
@@ -83,6 +79,18 @@ public class PipelineConverter {
 				ConverterConfig.GALAXY_INPUT_DIR = cmd.getOptionValue("galaxy-app-dir");
 			}
 		}
+		
+		File inputFile = new File(inputFileName);
+
+		if (inputFile.isDirectory()) {
+			throw new InvalidInputException("Don't specify directory, specify a file");
+		}
+		
+		if (!inputFile.exists()) {
+			throw new InvalidInputException("No such file: " + ConverterConfig.INPUT_PATH);
+		}
+
+		
 	}
 	
 	/**
@@ -130,8 +138,8 @@ public class PipelineConverter {
 			throw new InvalidInputException("You didn't specify an output path and/or format");
 		}
 		
-		if (ConverterConfig.INPUT_PATH.equals(ConverterConfig.OUTPUT_PATH)) {
-			throw new InvalidInputException("I won't let you overwrite your input file");
+		if (ConverterConfig.INPUT_PATH.equals(ConverterConfig.OUTPUT_PATH) || (ConverterConfig.INPUT_FORMAT == Format.GALAXY && ConverterConfig.OUTPUT_FORMAT == Format.GALAXY && ConverterConfig.GALAXY_INPUT_DIR.equals(ConverterConfig.GALAXY_OUTPUT_DIR))) {
+			throw new InvalidInputException("I won't let you overwrite your input file(s)");
 		}
 		
 		if (ConverterConfig.INPUT_FORMAT == ConverterConfig.OUTPUT_FORMAT) {
@@ -141,6 +149,10 @@ public class PipelineConverter {
 			} else {
 				throw new InvalidInputException(sameFormatErrorString);
 			}
+		}
+		
+		if ((new File(ConverterConfig.OUTPUT_PATH)).exists()) {
+			throw new InvalidInputException("Output file already exists"); /* also detects directories by the same name, which is ok in Windows but not in Unix */
 		}
 	}
 
