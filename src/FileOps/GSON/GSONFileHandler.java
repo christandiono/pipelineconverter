@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.lang.reflect.Type;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import CLInterface.Printer;
 import Core.Node;
 import FileOps.Generator;
 import FileOps.Parser;
@@ -59,15 +61,16 @@ public class GSONFileHandler<T extends Object> implements Parser<T>, Generator<T
 	public void generate(T object, String path) throws IOException {
 		// TODO Auto-generated method stub
 		builder.setPrettyPrinting();
-		Writer writer = new BufferedWriter( new FileWriter(path));
-		writer.write(builder.create().toJson(object));
-		writer.close();
+		String jsonString = builder.create().toJson(object);
+		Printer.output(new FileOutputStream(new File(path)), jsonString);
 	}
 	
 	@Override
 	public String generate(T object) {
 		// TODO Auto-generated method stub
+		builder.setPrettyPrinting();
 		String jsonString = builder.create().toJson(object);
+		Printer.output(jsonString);
 		return jsonString;
 	}
 

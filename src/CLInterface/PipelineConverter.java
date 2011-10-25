@@ -1,6 +1,9 @@
 package CLInterface;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -10,7 +13,11 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+
+import Galaxy.Tree.Workflow.Workflow;
+import Specification.GalaxySpecification;
 
 /**
  * PipelineConverter main class. Contains main method for converter program.
@@ -21,7 +28,7 @@ import org.apache.commons.io.FilenameUtils;
  */
 public class PipelineConverter {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		Options options = makeOptions();
 		
 		CommandLineParser parser = new PosixParser();
@@ -41,6 +48,40 @@ public class PipelineConverter {
 		configureOutput(cmd);
 		
 		Printer.log("Done processing command-line arguments");
+		
+		if (ConverterConfig.OUTPUT == null && ConverterConfig.OUTPUT_PATH != null) {
+			File output = new File(ConverterConfig.OUTPUT_PATH);
+			output.createNewFile();
+			try {
+				ConverterConfig.OUTPUT = new FileOutputStream(output);
+			} catch (FileNotFoundException e) {
+				/* how would this have happened...? */
+				Printer.log("Got a weird error: " + e.getMessage());
+			}
+		}
+		
+		Workflow G = null;
+		if (ConverterConfig.INPUT_FORMAT == Format.GALAXY) {
+			try {
+				G = GalaxySpecification.getJSONParser().parse(new File(ConverterConfig.INPUT_PATH));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				Printer.log("What, FileNotFoundException not caught by configureInput?");
+			}
+		} else {
+			Printer.log("Well, I tried, but I can't understand your input");
+		}
+		
+		if (ConverterConfig.OUTPUT_FORMAT == Format.GALAXY) {
+			GalaxySpecification.getJSONGenerator().generate(G);
+		} else {
+			Printer.log("Well, I tried, but I don't know how to make that kind of a file");
+		}
+		
+		if (ConverterConfig.OUTPUT != null) {
+			ConverterConfig.OUTPUT.flush();
+			ConverterConfig.OUTPUT.close();
+		}
 	}
 
 	/**
@@ -81,21 +122,20 @@ public class PipelineConverter {
 		}
 		
 		File inputFile = new File(inputFileName);
-
-		if (inputFile.isDirectory()) {
-			throw new InvalidInputException("Don't specify directory, specify a file");
-		}
 		
 		if (!inputFile.exists()) {
 			throw new InvalidInputException("No such file: " + ConverterConfig.INPUT_PATH);
 		}
 
-		
+		if (inputFile.isDirectory()) {
+			throw new InvalidInputException("Don't specify directory, specify a file");
+		}
 	}
 	
 	/**
 	 * Checks and configures output
 	 * @param cmd The CommandLine object that's been parsed already
+	 * @throws IOException 
 	 */
 	static void configureOutput(CommandLine cmd) {
 		String outputFileName = null;
@@ -152,8 +192,14 @@ public class PipelineConverter {
 		}
 		
 		if ((new File(ConverterConfig.OUTPUT_PATH)).exists()) {
-			throw new InvalidInputException("Output file already exists"); /* also detects directories by the same name, which is ok in Windows but not in Unix */
+			String outputExistsErrorString = "Output file already exists";
+			if (ConverterConfig.FORCE) {
+				Printer.log(outputExistsErrorString);
+			} else {
+				throw new InvalidInputException(outputExistsErrorString); /* also detects directories by the same name, which is ok in Windows but not in Unix */
+			}
 		}
+		
 	}
 
 	/**

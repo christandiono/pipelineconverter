@@ -10,7 +10,7 @@ import Galaxy.Tree.Workflow.Workflow;
 public class TestGalaxySpecification {
 
 	public static void main(String[] args){
-		String path = "data/test2.ga";
+		String path = "data/test.ga";
 		Workflow G;
 		try {
 			G = GalaxySpecification.getJSONParser().parse(new File(path));
