@@ -19,12 +19,12 @@ import FileOps.Generator;
 import FileOps.Parser;
 import Galaxy.Tree.Workflow.Workflow;
 
-public class GSONFileHandler<T extends Object> implements Parser<T>, Generator<T>  {
+public class GSONWrapper<T extends Object> implements Parser<T>, Generator<T>  {
 	GsonBuilder builder;
 	GSONFieldNamingStrategy strategy;
 	Class root;
 	
-	public GSONFileHandler(Class root){
+	public GSONWrapper(Class root){
 		this.builder = new GsonBuilder();
 		this.strategy = new GSONFieldNamingStrategy();
 		this.builder.setFieldNamingStrategy(strategy);
