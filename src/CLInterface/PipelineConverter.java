@@ -191,7 +191,7 @@ public class PipelineConverter {
 			}
 		}
 		
-		if ((new File(ConverterConfig.OUTPUT_PATH)).exists()) {
+		if (ConverterConfig.OUTPUT_PATH != null && (new File(ConverterConfig.OUTPUT_PATH)).exists()) {
 			String outputExistsErrorString = "Output file already exists";
 			if (ConverterConfig.FORCE) {
 				Printer.log(outputExistsErrorString);
