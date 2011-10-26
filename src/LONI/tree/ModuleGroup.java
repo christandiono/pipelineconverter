@@ -2,7 +2,7 @@ package LONI.tree;
 
 import java.util.List;
 
-public class ModuleGroup {
+public class ModuleGroup extends LoniNode{
 	String Name;
 	String ID;
 	String Package;
