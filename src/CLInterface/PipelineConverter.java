@@ -23,23 +23,23 @@ public class PipelineConverter {
 
 	public static void main(String[] args) {
 		Options options = makeOptions();
-		
+
 		CommandLineParser parser = new PosixParser();
 		CommandLine cmd = null;
-		
+
 		try {
 			cmd = parser.parse(options, args);
 		} catch (ParseException e) {
 			printHelp(options);
 			System.exit(0);
 		}
-		
+
 		configureSpecial(cmd);
-		
+
 		configureInput(cmd);
-		
+
 		configureOutput(cmd);
-		
+
 		Printer.log("Done processing command-line arguments");
 	}
 
@@ -52,7 +52,7 @@ public class PipelineConverter {
 			ConverterConfig.DEBUG = System.err;
 			Printer.log("OK, going to be very verbose...");
 		}
-		
+
 		if (cmd.hasOption('f')) {
 			ConverterConfig.FORCE = true;
 			Printer.log("OK, forcing conversion...");			
@@ -70,12 +70,12 @@ public class PipelineConverter {
 		if (inputFile.isDirectory()) {
 			throw new InvalidInputException("Don't specify directory, specify a file");
 		}
-		
+
 		String inputExt = FilenameUtils.getExtension(inputFileName);
 		ConverterConfig.INPUT_FORMAT = extToFormat(inputExt);
 		ConverterConfig.INPUT_PATH = inputFileName;
 		Printer.log("Input format detected as: " + ConverterConfig.INPUT_FORMAT.toString());
-		
+
 		if (ConverterConfig.INPUT_FORMAT == Format.GALAXY) {
 			if (!cmd.hasOption("galaxy-app-dir")) {
 				throw new InvalidInputException("Input format Galaxy requires option --galaxy-app-dir");
@@ -84,18 +84,18 @@ public class PipelineConverter {
 			}
 		}
 	}
-	
+
 	/**
 	 * Checks and configures output
 	 * @param cmd The CommandLine object that's been parsed already
 	 */
 	static void configureOutput(CommandLine cmd) {
 		String outputFileName = null;
-		
+
 		if (cmd.hasOption('c') && cmd.hasOption('o')) {
 			throw new InvalidInputException("Can't use mutually exclusive options -c and -o");
 		}
-		
+
 		if (cmd.hasOption('o')) {
 			outputFileName = cmd.getOptionValue('o');
 			ConverterConfig.OUTPUT_FORMAT = extToFormat(FilenameUtils.getExtension(outputFileName));
@@ -111,13 +111,13 @@ public class PipelineConverter {
 				ConverterConfig.OUTPUT_PATH = outputFileName;
 			}
 		}
-		
+
 		if (cmd.hasOption('o') && cmd.hasOption("output-format") && !FilenameUtils.getExtension(cmd.getOptionValue('o')).equals(cmd.getOptionValue("output-format"))) {
 			throw new InvalidInputException("Selected output format doesn't match output file name");
 		}
-		
+
 		Printer.log("Output format detected as: " + ConverterConfig.OUTPUT_FORMAT);
-		
+
 		if (ConverterConfig.OUTPUT_FORMAT == Format.GALAXY) {
 			if (!cmd.hasOption("galaxy-output-app-dir")) {
 				throw new InvalidInputException("Output format Galaxy requires option --galaxy-output-app-dir");
@@ -125,7 +125,7 @@ public class PipelineConverter {
 				ConverterConfig.GALAXY_OUTPUT_DIR = cmd.getOptionValue("galaxy-output-app-dir");
 			}
 		}
-		
+
 		if ((ConverterConfig.OUTPUT == null && ConverterConfig.OUTPUT_PATH == null) || ConverterConfig.OUTPUT_FORMAT == null) {
 			throw new InvalidInputException("You didn't specify an output path or format");
 		}
@@ -145,13 +145,13 @@ public class PipelineConverter {
 				break;
 			}
 		}
-        if (inputForm == null) {
-        	throw new InvalidInputException("Invalid file extension: " + inputExt);
-        }
-		
+		if (inputForm == null) {
+			throw new InvalidInputException("Invalid file extension: " + inputExt);
+		}
+
 		return inputForm;
 	}
-	
+
 	/**
 	 * Set up the options for this program.
 	 * 
@@ -159,32 +159,32 @@ public class PipelineConverter {
 	 */
 	static Options makeOptions() {
 		Options options = new Options();
-		
+
 		Option toStdout = new Option("c", false, "print output to stdout instead of to file");
-		
+
 		Option force = new Option("f", "force", false, "force (attempt to ignore errors)");
-		
+
 		Option input = new Option("i", "input", true, "input file");
 		input.setArgs(1);
 		input.setRequired(true);
-		
+
 		Option output = new Option("o", "output", true, "output file (if --output-format not specified)");
 		output.setArgs(1);
-		
+
 		Option outputFormat = new Option("p", "output-format", false, "output file format (if --output not specified)");
 		outputFormat.setArgs(1);
-		
+
 		Option galaxyDir = new Option("g", "galaxy-app-dir", true, "input directory for Galaxy .xml files");
 		galaxyDir.setArgs(1);
-		
+
 		Option galaxyOutputDir = new Option("j", "galaxy-output-app-dir", true, "output directory for Galaxy .xml files");
 		galaxyOutputDir.setArgs(1);
-		
+
 		Option verbose = new Option("v", "verbose", false, "verbose");
-		
+
 		/* help option is actually ignored, because other options are required--missing a required option results in printing help */
 		Option help = new Option("h", "help", false, "print this help");
-		
+
 		options.addOption(toStdout);
 		options.addOption(force);
 		options.addOption(input);
@@ -196,7 +196,7 @@ public class PipelineConverter {
 		options.addOption(help);
 		return options;
 	}
-	
+
 	/**	
 	 * Convenience method for printing help.
 	 * 
@@ -206,5 +206,5 @@ public class PipelineConverter {
 		HelpFormatter formatter = new HelpFormatter();
 		formatter.printHelp("java " + PipelineConverter.class.getSimpleName(), options, true);
 	}
-	
+
 }
