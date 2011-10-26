@@ -1,0 +1,94 @@
+{
+  "name": "test",
+  "annotation": "",
+  "format-version": 0.1,
+  "a_galaxy_workflow": true,
+  "steps": {
+    "0": {
+      "id": 0,
+      "name": "Get Microbial Data",
+      "annotation": "",
+      "tool_id": "microbial_import1",
+      "tool_version": "1.0.0",
+      "position": {
+        "left": 124,
+        "top": 200
+      },
+      "input_connections": {},
+      "outputs": [
+        {
+          "name": "output",
+          "type": "bed"
+        }
+      ],
+      "inputs": []
+    },
+    "1": {
+      "id": 1,
+      "name": "Maf to BED",
+      "annotation": "",
+      "tool_id": "MAF_To_BED1",
+      "tool_version": "1.0.0",
+      "position": {
+        "left": 121,
+        "top": 359
+      },
+      "input_connections": {},
+      "outputs": [
+        {
+          "name": "out_file1",
+          "type": "bed"
+        }
+      ],
+      "inputs": []
+    },
+    "2": {
+      "id": 2,
+      "name": "BED-to-bigBed",
+      "annotation": "",
+      "tool_id": "bed_to_bigBed",
+      "tool_version": "1.0.0",
+      "position": {
+        "left": 335,
+        "top": 219
+      },
+      "input_connections": {
+        "input1": {
+          "id": 0,
+          "output_name": "output"
+        }
+      },
+      "outputs": [
+        {
+          "name": "out_file1",
+          "type": "bigbed"
+        }
+      ],
+      "inputs": []
+    },
+    "3": {
+      "id": 3,
+      "name": "BED-to-bigBed",
+      "annotation": "",
+      "tool_id": "bed_to_bigBed",
+      "tool_version": "1.0.0",
+      "position": {
+        "left": 344,
+        "top": 355
+      },
+      "input_connections": {
+        "input1": {
+          "id": 1,
+          "output_name": "out_file1"
+        }
+      },
+      "outputs": [
+        {
+          "name": "out_file1",
+          "type": "bigbed"
+        }
+      ],
+      "inputs": []
+    }
+  }
+}

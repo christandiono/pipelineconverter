@@ -1,0 +1,114 @@
+{
+    "a_galaxy_workflow": "true", 
+    "annotation": "", 
+    "format-version": "0.1", 
+    "name": "test", 
+    "steps": {
+        "0": {
+            "annotation": "", 
+            "id": 0, 
+            "input_connections": {}, 
+            "inputs": [], 
+            "name": "Get Microbial Data", 
+            "outputs": [
+                {
+                    "name": "output", 
+                    "type": "bed"
+                }
+            ], 
+            "position": {
+                "left": 124, 
+                "top": 200
+            }, 
+            "post_job_actions": {}, 
+            "tool_errors": null, 
+            "tool_id": "microbial_import1", 
+            "tool_state": "{\"GeneMark\": \"null\", \"kingdom\": \"null\", \"__page__\": 0, \"rRNA\": \"null\", \"sequence\": \"null\", \"Glimmer3\": \"null\", \"tRNA\": \"null\", \"GeneMarkHMM\": \"null\", \"CDS\": \"null\", \"org\": \"null\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "1": {
+            "annotation": "", 
+            "id": 1, 
+            "input_connections": {}, 
+            "inputs": [], 
+            "name": "Maf to BED", 
+            "outputs": [
+                {
+                    "name": "out_file1", 
+                    "type": "bed"
+                }
+            ], 
+            "position": {
+                "left": 121, 
+                "top": 359
+            }, 
+            "post_job_actions": {}, 
+            "tool_errors": null, 
+            "tool_id": "MAF_To_BED1", 
+            "tool_state": "{\"__page__\": 0, \"input1\": \"null\", \"complete_blocks\": \"\\\"partial_allowed\\\"\", \"species\": \"{\\\"__class__\\\": \\\"UnvalidatedValue\\\", \\\"value\\\": null}\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "2": {
+            "annotation": "", 
+            "id": 2, 
+            "input_connections": {
+                "input1": {
+                    "id": 0, 
+                    "output_name": "output"
+                }
+            }, 
+            "inputs": [], 
+            "name": "BED-to-bigBed", 
+            "outputs": [
+                {
+                    "name": "out_file1", 
+                    "type": "bigbed"
+                }
+            ], 
+            "position": {
+                "left": 335, 
+                "top": 219
+            }, 
+            "post_job_actions": {}, 
+            "tool_errors": null, 
+            "tool_id": "bed_to_bigBed", 
+            "tool_state": "{\"__page__\": 0, \"input1\": \"null\", \"settings\": \"{\\\"settingsType\\\": \\\"preset\\\", \\\"__current_case__\\\": 0}\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }, 
+        "3": {
+            "annotation": "", 
+            "id": 3, 
+            "input_connections": {
+                "input1": {
+                    "id": 1, 
+                    "output_name": "out_file1"
+                }
+            }, 
+            "inputs": [], 
+            "name": "BED-to-bigBed", 
+            "outputs": [
+                {
+                    "name": "out_file1", 
+                    "type": "bigbed"
+                }
+            ], 
+            "position": {
+                "left": 344, 
+                "top": 355
+            }, 
+            "post_job_actions": {}, 
+            "tool_errors": null, 
+            "tool_id": "bed_to_bigBed", 
+            "tool_state": "{\"__page__\": 0, \"input1\": \"null\", \"settings\": \"{\\\"settingsType\\\": \\\"preset\\\", \\\"__current_case__\\\": 0}\"}", 
+            "tool_version": "1.0.0", 
+            "type": "tool", 
+            "user_outputs": []
+        }
+    }
+}

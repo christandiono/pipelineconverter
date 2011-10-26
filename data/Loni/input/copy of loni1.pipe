@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".1">
+        <moduleGroup id="MyWorkflow_1" name="MyWorkflow" package="THEPACKAGE" version="1.1.1" description="DESCRIPTION" posX="0" posY="0">
+                <tag>TAG1</tag>
+                <tag>TAG2</tag>
+                <tag>TAG3</tag>
+                <uri>WEBSITE</uri>
+                <module id="_1" location="pipeline://localhost/" sourceCode="" posX="190" posY="65" />
+                <module id="_2" location="pipeline://localhost/" sourceCode="" posX="354" posY="186" />
+                <metadata>
+                        <data key="__creationDateKey" value="Tue Oct 25 14:45:14 PDT 2011" />
+                </metadata>
+        </moduleGroup>
+</pipeline>
+
