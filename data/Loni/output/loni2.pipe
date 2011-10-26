@@ -1,0 +1,1 @@
+<?xml version="1.0" ?><pipeline version="0.1"><moduleGroup name="MyWorkflow" id="MyWorkflow_1" package="THEPACKAGE" version="1.1.1" description="DESCRIPTION" posX="0" posY="0"><module id="_1" location="pipeline://localhost/" posX="190" posY="65"></module><module id="_2" location="pipeline://localhost/" posX="354" posY="186"></module></moduleGroup></pipeline>

@@ -3,22 +3,33 @@ package Specification;
 import FileOps.Generator;
 import FileOps.Parser;
 import FileOps.GSON.GSONWrapper;
+import FileOps.XStream.XStreamWrapper;
 import Galaxy.Tree.GalaxyNode;
+import Galaxy.Tree.Tool.Tool;
 import Galaxy.Tree.Workflow.*;
 
 
 public class GalaxySpecification {
 	private static GSONWrapper<Workflow> gson = new GSONWrapper<Workflow>(Workflow.class);
-	private static Parser<Workflow> jsonParser = gson;
-	private static Generator<Workflow> jsonGenerator = gson; 
+	private static XStreamWrapper<Tool> xstream = new XStreamWrapper<Tool>();
+	
+	
 	private static boolean initialized = false;
 	
 	private static void init(){
 		initJSON();
+		initXML();
 		initialized = true;
 		
 	}
 
+	private static void initXML(){
+		xstream.bindElementToClass(Tool.class, "tool");
+		xstream.bindElementToClassField(Tool.class, "Description", "description");
+		xstream.bindAttributeToClassField(Tool.class, "ID", "id");
+		xstream.bindAttributeToClassField(Tool.class, "FullName", "name");
+		xstream.bindAttributeToClassField(Tool.class, "Version", "version");
+	}
 	
 	private static void initJSON(){
 		gson.bindTag(Workflow.class, "Name", "name");
@@ -51,12 +62,23 @@ public class GalaxySpecification {
 	public static Parser<Workflow> getJSONParser(){
 		if(!initialized)
 			init();
-		return jsonParser;
+		return gson;
 	}
 	public static Generator<Workflow> getJSONGenerator(){
 		if(!initialized)
 			init();
-		return jsonGenerator;
+		return gson;
+	}
+	
+	public static Parser<Tool> getXMLParser(){
+		if(!initialized)
+			init();
+		return xstream;
+	}
+	public static Generator<Tool> getXMLGenerator(){
+		if(!initialized)
+			init();
+		return xstream;
 	}
 	
 

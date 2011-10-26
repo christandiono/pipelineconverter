@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,7 +14,6 @@ import java.lang.reflect.Type;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import CLInterface.Printer;
 import Core.Node;
 import FileOps.Generator;
 import FileOps.Parser;
@@ -61,11 +59,9 @@ public class GSONWrapper<T extends Object> implements Parser<T>, Generator<T>  {
 	public void generate(T object, String path) throws IOException {
 		// TODO Auto-generated method stub
 		builder.setPrettyPrinting();
-		String jsonString = builder.create().toJson(object);
-		FileOutputStream destination = new FileOutputStream(new File(path));
-		Printer.output(destination, jsonString);
-		destination.flush();
-		destination.close();
+		Writer writer = new BufferedWriter( new FileWriter(path));
+		writer.write(builder.create().toJson(object));
+		writer.close();
 	}
 	
 	@Override
@@ -77,7 +73,7 @@ public class GSONWrapper<T extends Object> implements Parser<T>, Generator<T>  {
 
 	@Override
 	public T parse(File json) throws FileNotFoundException {
-		Class<T> clazz = null;
+		
 		// TODO Auto-generated method stub
 		Reader reader = new BufferedReader( new FileReader(json.getPath()));
 		T object= (T) builder.create().fromJson(reader, root);
