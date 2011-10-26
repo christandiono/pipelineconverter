@@ -15,8 +15,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import Core.Node;
-import FileOpsNew.Generator;
-import FileOpsNew.Parser;
+import FileOps.Generator;
+import FileOps.Parser;
 import Galaxy.Tree.Workflow.Workflow;
 
 public class GSONWrapper<T extends Object> implements Parser<T>, Generator<T>  {

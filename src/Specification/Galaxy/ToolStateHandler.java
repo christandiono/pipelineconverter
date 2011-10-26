@@ -7,8 +7,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 
-import FileOpsNew.GSON.GSONHandler;
-import FileOpsNew.GSON.GSONWrapper;
+import FileOps.GSON.GSONHandler;
+import FileOps.GSON.GSONWrapper;
 import Galaxy.Tree.Workflow.ToolState;
 
 public class ToolStateHandler extends GSONHandler{

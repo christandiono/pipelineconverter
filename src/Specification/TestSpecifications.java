@@ -9,7 +9,7 @@ import Galaxy.Tree.Tool.Tool;
 import Galaxy.Tree.Workflow.Workflow;
 import LONI.tree.Pipeline;
 
-public class TestGalaxySpecification {
+public class TestSpecifications {
 
 	public static void testGalaxyJSON(String path, String output){
 		System.out.println("==="+path+"===");
