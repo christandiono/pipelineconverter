@@ -1,8 +1,8 @@
-package SpecificationNew;
+package Specification;
 
-import FileOpsNew.Generator;
-import FileOpsNew.Parser;
-import FileOpsNew.XStream.XStreamWrapper;
+import FileOps.Generator;
+import FileOps.Parser;
+import FileOps.XStream.XStreamWrapper;
 import Galaxy.Tree.Tool.Tool;
 import LONI.tree.Module;
 import LONI.tree.ModuleGroup;

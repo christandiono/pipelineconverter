@@ -1,4 +1,4 @@
-package FileOpsNew.XStream;
+package FileOps.XStream;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,8 +14,8 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.reflection.AbstractReflectionConverter.UnknownFieldException;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
-import FileOpsNew.Generator;
-import FileOpsNew.Parser;
+import FileOps.Generator;
+import FileOps.Parser;
 
 public class XStreamWrapper<T> implements Parser<T>, Generator<T>{
 	XStream xstream;

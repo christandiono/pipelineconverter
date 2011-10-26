@@ -1,4 +1,4 @@
-package SpecificationNew;
+package Specification;
 
 import java.io.File;
 import java.io.FileNotFoundException;

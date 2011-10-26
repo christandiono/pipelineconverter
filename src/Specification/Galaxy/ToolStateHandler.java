@@ -1,4 +1,4 @@
-package SpecificationNew.Galaxy;
+package Specification.Galaxy;
 
 import java.lang.reflect.Type;
 
