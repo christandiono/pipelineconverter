@@ -10,5 +10,5 @@ public class ModuleGroup extends LoniNode{
 	String Description;
 	Integer PositionX;
 	Integer PositionY;
-	List<Module> Modules;
+	List<Module> Modules;	// How do judge to creat this? because it's group?
 }
