@@ -11,6 +11,8 @@ public class Step extends GalaxyNode{
 	String Annotation;
 	String ToolId;
 	String ToolVersion;
+	String ToolState;
+	String ToolType;
 	Position StepPosition;
 	Map<String, InputConnection> Connections;
 	List<ExternalOutput> ExternalOutputs;

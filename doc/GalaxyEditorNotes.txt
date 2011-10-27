@@ -1,0 +1,23 @@
+/------------------------------------------------------/
+			Galaxy Editor Notes
+/------------------------------------------------------/
+
+Case: Importing a file that contains an unknown module.
+Result: 'Unknown Module' block in place of unknown module,
+workflow editor hangs.
+
+Case: Importing a file that does not wrap ids as strings.
+Result: Items with unwrapped ids ignored.
+
+Case: File has ids wrapped as string, nothing else wrapped as strings.
+Result: Error importing, enable debug.
+
+
+---------------------------------------
+Troubleshooting
+
+The currently running galaxy is hogging the port. What do i do?
+
+Get the process with: netstat -pln | grep 8080
+Kill that process
+

@@ -47,7 +47,8 @@ public class GalaxySpecification {
 		gson.bindTag(Step.class, "ExternalOutputs", "outputs");
 		gson.bindTag(Step.class, "StepPosition", "position");
 		gson.bindTag(Step.class, "ToolVersion", "tool_version");
-		
+		gson.bindTag(Step.class, "ToolState", "tool_state");
+		gson.bindTag(Step.class, "ToolType", "type");
 		
 		gson.bindTag(Position.class, "UnitsFromLeftMargin", "left");
 		gson.bindTag(Position.class, "UnitsFromTopMargin", "top");

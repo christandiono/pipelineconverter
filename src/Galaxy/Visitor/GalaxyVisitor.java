@@ -11,5 +11,6 @@ public interface GalaxyVisitor<T> {
 	public T visit(InputConnection inputConnection);
 	public T visit(Position position);
 	
+	
 
 }

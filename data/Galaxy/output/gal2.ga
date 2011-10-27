@@ -8,8 +8,10 @@
       "id": 0,
       "name": "Get Microbial Data",
       "annotation": "",
-      "tool_id": "microbial_import1",
+      "tool_id": "microbia2l_import1",
       "tool_version": "1.0.0",
+      "tool_state": "{\"GeneMark\": \"null\", \"kingdom\": \"null\", \"__page__\": 0, \"rRNA\": \"null\", \"sequence\": \"null\", \"Glimmer3\": \"null\", \"tRNA\": \"null\", \"GeneMarkHMM\": \"null\", \"CDS\": \"null\", \"org\": \"null\"}",
+      "type": "tool",
       "position": {
         "left": 124,
         "top": 200
@@ -29,6 +31,8 @@
       "annotation": "",
       "tool_id": "MAF_To_BED1",
       "tool_version": "1.0.0",
+      "tool_state": "{\"__page__\": 0, \"input1\": \"null\", \"complete_blocks\": \"\\\"partial_allowed\\\"\", \"species\": \"{\\\"__class__\\\": \\\"UnvalidatedValue\\\", \\\"value\\\": null}\"}",
+      "type": "tool",
       "position": {
         "left": 121,
         "top": 359
@@ -48,6 +52,8 @@
       "annotation": "",
       "tool_id": "bed_to_bigBed",
       "tool_version": "1.0.0",
+      "tool_state": "{\"__page__\": 0, \"input1\": \"null\", \"settings\": \"{\\\"settingsType\\\": \\\"preset\\\", \\\"__current_case__\\\": 0}\"}",
+      "type": "tool",
       "position": {
         "left": 335,
         "top": 219
@@ -72,6 +78,8 @@
       "annotation": "",
       "tool_id": "bed_to_bigBed",
       "tool_version": "1.0.0",
+      "tool_state": "{\"__page__\": 0, \"input1\": \"null\", \"settings\": \"{\\\"settingsType\\\": \\\"preset\\\", \\\"__current_case__\\\": 0}\"}",
+      "type": "tool",
       "position": {
         "left": 344,
         "top": 355
