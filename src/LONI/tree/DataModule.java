@@ -1,3 +1,5 @@
+package LONI.tree;
+
 
 public class DataModule extends LoniNode {
 	
@@ -9,11 +11,11 @@ public class DataModule extends LoniNode {
 	String Type;
 	Integer PositionX;
 	Integer PositionY;
-	Interger Rotation;
+	Integer Rotation;
 	Integer DirSourceFilterType;
 	Boolean Source;
 	Boolean DirSource;
-	Boolean D irDump;
+	Boolean DirDump;
 	Boolean UseDirSourceFilters;
 	Boolean Recursive;
 

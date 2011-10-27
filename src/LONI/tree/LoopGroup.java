@@ -1,3 +1,5 @@
+package LONI.tree;
+
 
 public class LoopGroup extends LoniNode{
 	String Name;
