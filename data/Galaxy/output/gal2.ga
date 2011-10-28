@@ -8,7 +8,7 @@
       "id": 0,
       "name": "Get Microbial Data",
       "annotation": "",
-      "tool_id": "microbia2l_import1",
+      "tool_id": "microbial_import1",
       "tool_version": "1.0.0",
       "tool_state": "{\"GeneMark\": \"null\", \"kingdom\": \"null\", \"__page__\": 0, \"rRNA\": \"null\", \"sequence\": \"null\", \"Glimmer3\": \"null\", \"tRNA\": \"null\", \"GeneMarkHMM\": \"null\", \"CDS\": \"null\", \"org\": \"null\"}",
       "type": "tool",

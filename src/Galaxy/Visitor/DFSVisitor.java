@@ -47,5 +47,14 @@ public class DFSVisitor<T> implements GalaxyVisitor<T> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	class StepVisitor{
+			public Object visit(Step s){
+				return null;
+			}
+		
+	};
+	StepVisitor stepVisitor;
+	
 
 }
