@@ -1,6 +1,5 @@
 package LONI.tree;
-
-public class DataModule extends LoniNode {
+public class StudyModule extends LoniNode {
 
 String	ID;
 String	Name;
@@ -9,11 +8,12 @@ String	Version;
 String	Description;
 Integer	PosX;
 Integer	PosY;
+Boolean	IsGroupAsOutput;
 Integer	Rotation;
 String	Type;
-Boolean	Source;
 Boolean	DirSource;
-Boolean	DirDump;
+String	ImportStudyRule;
+String	DerivedDataTag;
 Boolean	UseDirSourceFilters;
 Integer	DirSourceFilterType;
 Boolean	Recursive;
