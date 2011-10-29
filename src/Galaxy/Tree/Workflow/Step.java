@@ -9,23 +9,30 @@ import java.util.TreeMap;
 import Galaxy.Tree.GalaxyNode;
 
 public class Step extends GalaxyNode{
-	int id;
-	String name;
-	String annotation;
-	String toolId;
-	String toolVersion;
-	String toolState;
-	String toolType;
-	Position stepPosition;
-	Map<String, InputConnection> connections;
-	List<ExternalOutput> externalOutputs;
-	List<ExternalInput> externalInputs;
+	private final int id;
+	private final String name;
+	private final String annotation;
+	private final String toolId;
+	private final String toolVersion;
+	private final String toolState;
+	private final String toolType;
+	private final Position stepPosition;
+	private final Map<String, InputConnection> connections;
+	private final List<ExternalOutput> externalOutputs;
+	private final List<ExternalInput> externalInputs;
 	
-	public Step(){
-		toolState = "";
-		toolType = "";
-		toolVersion = "0.1";
-		name = "";
+	public Step(int id, String name, String annotation, 
+			String toolId,  String toolVersion, 
+			String toolState, String toolType, 
+			Position stepPosition){
+		this.id =id;
+		this.name = name;
+		this.annotation = annotation;
+		this.toolId = toolId;
+		this.toolVersion = toolVersion;
+		this.toolState = toolState;
+		this.toolType = toolType;
+		this.stepPosition = stepPosition;
 		externalOutputs = new ArrayList<ExternalOutput>();
 		externalInputs = new ArrayList<ExternalInput>();
 		connections = new TreeMap<String, InputConnection>();

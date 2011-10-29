@@ -1,7 +1,7 @@
 {
   "name": "test",
   "annotation": "",
-  "format-version": 0.1,
+  "format-version": "0.1",
   "a_galaxy_workflow": true,
   "steps": {
     "0": {

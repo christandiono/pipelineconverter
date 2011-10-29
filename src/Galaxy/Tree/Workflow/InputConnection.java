@@ -1,9 +1,13 @@
 package Galaxy.Tree.Workflow;
 
 public class InputConnection {
-	int sourceId;
-	String outputName;
+	private final int sourceId;
+	private final String outputName;
 	
+	public InputConnection(int sourceId, String outputName){
+		this.sourceId = sourceId;
+		this.outputName = outputName;
+	}
 	public String getSourceName(){
 		return outputName;
 		
