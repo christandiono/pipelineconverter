@@ -1,10 +1,39 @@
 \documentclass[12pt]{article}
 \usepackage[letterpaper]{geometry}
 \usepackage{hyperref}
-\title{CS 130 LONI 2 Design Document}
+\usepackage{listings}
+\lstset{language=C}
+\title{CS 130 LONI 2: Pipeline Converter Design Document}
 \author{S. Achour, K. C. Ho, R. Soberano, C. Tandiono,\\ N. Van Hoogenstyn, J. Yoon}
 \begin{document}
 \maketitle
 \tableofcontents
+\section{Introduction}
+\subsection{Purpose}
+This software design document describes the architecture and system design of the Laboratory of Neuro Imaging (LONI) Pipeline Converter. It provides a general overview of its structure, interface, and functionality. This intended audiences for this document are LONI Stakeholders, the project developers, and the testers.
+
+\subsection{Scope}
+
+The LONI Pipeline Workflow Converter is for researchers in the life sciences that wish to share their work and utilize the work of others in the form of workflows made in the LONI Pipeline, Taverna, or Galaxy workflow editors. The goal of the project is to provide a simple way for researchers working with different workflow editors to examine and reenact each other's experiments. It allows the researchers to access all the possible experiments in LONI, Taverna, and Galaxy.
+
+\subsection{Overview}
+
+The overall organization of the document's contents are laid out in the Table of Contents above.        
+
+\subsection{Reference Material}
+\begin{itemize}
+\item GSON reference: \url{http://code.google.com/p/google-gson/}
+\item XStream reference: \url{http://xstream.codehaus.org/}
+\item Pipeline documentation: \url{http://pipeline.loni.ucla.edu/support/xml-overview/}
+\item Taverna documentation: \url{http://taverna.googlecode.com/svn/taverna/dev/xsd/trunk/t2flow/}
+\item Galaxy documentation: \url{http://wiki.g2.bx.psu.edu/Admin/Tools/Tool\%20Config\%20Syntax}
+\end{itemize}
+
+\subsection{Definitions and Acronyms}
+\begin{itemize}
+\item \textbf{LONI}--Laboratory of Neuro Imaging
+\item \textbf{OTS}--object tree structure (explained further below)
+\item \textbf{Converter}--the LONI Pipeline Workflow Converter
+\end{itemize}
 
 \end{document}
