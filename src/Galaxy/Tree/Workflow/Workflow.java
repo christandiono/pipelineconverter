@@ -12,20 +12,34 @@ import Galaxy.Tree.Tool.Tool;
 public class Workflow extends GalaxyNode {
 	private String name;
 	private String annotation;
-	private Float formatVersion;
-	private Boolean isGalaxyWorkflow;
+	private String formatVersion;
+	private boolean isGalaxyWorkflow;
 	private Map<Integer,Step> steps;
 	
 	public Workflow(){
 		steps = new TreeMap<Integer, Step>();
+		isGalaxyWorkflow = true;
+		formatVersion =  "0.1";
+		name = "";
+		annotation = "";
 	}
+	public void setName(String name){
+		this.name = name;
+	}
+	public void setAnnotation(String annotation){
+		this.annotation = annotation;
+	}
+	public void setFormatVersion(String version){
+		this.formatVersion = version;
+	}
+	
 	public String getName(){
 		return name;
 	}
 	public String getAnnotation(){
 		return annotation;
 	}
-	public float getFormatVersion(){
+	public String getFormatVersion(){
 		return formatVersion;
 	}
 	public boolean isGalaxyWorkflow(){

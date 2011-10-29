@@ -19,6 +19,7 @@ public class Step extends GalaxyNode{
 	List<ExternalOutput> externalOutputs;
 	List<ExternalInput> externalInputs;
 	
+	
 	public int getId(){
 		return id;
 	}
