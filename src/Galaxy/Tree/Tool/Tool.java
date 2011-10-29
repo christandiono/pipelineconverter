@@ -7,5 +7,12 @@ public class Tool extends GalaxyNode{
 	String ID;
 	String FullName;
 	String Version;
+	Inputs ToolInputs;
+	Command ToolCommand;
+	String Help;
+	
+	public String getID(){
+		return ID;
+	}
 
 }

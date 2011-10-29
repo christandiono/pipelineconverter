@@ -13,6 +13,12 @@ public class Pair<U,V>{
 	public V getElem2(){
 		return elem2;
 	}
+	public void setElem2( V e2){
+		this.elem2 = e2;
+	}
+	public void setElem1( U e1){
+		this.elem1 = e1;
+	}
 	
 	
 

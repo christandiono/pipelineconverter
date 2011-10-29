@@ -47,6 +47,7 @@ public class XStreamWrapper<T> implements Parser<T>, Generator<T>{
 		T parsedObject=(T) xstream.fromXML(xml);
 		return parsedObject;
 	}
+	
 
 	@Override
 	public T parse(File xml) throws FileNotFoundException {

@@ -1,18 +1,26 @@
 package Specification;
 
+
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import FileOps.Generator;
 import FileOps.Parser;
 import FileOps.GSON.GSONWrapper;
 import FileOps.XStream.XStreamWrapper;
 import Galaxy.Tree.GalaxyNode;
+import Galaxy.Tree.Tool.Command;
+import Galaxy.Tree.Tool.Inputs;
+import Galaxy.Tree.Tool.Parameter;
 import Galaxy.Tree.Tool.Tool;
 import Galaxy.Tree.Workflow.*;
-
+import Galaxy.Toolbox.GalaxyToolDatabase;
 
 public class GalaxySpecification {
 	private static GSONWrapper<Workflow> gson = new GSONWrapper<Workflow>(Workflow.class);
 	private static XStreamWrapper<Tool> xstream = new XStreamWrapper<Tool>();
-	
+	private static GalaxyToolDatabase tooldb;
 	
 	private static boolean initialized = false;
 	
@@ -29,6 +37,11 @@ public class GalaxySpecification {
 		xstream.bindAttributeToClassField(Tool.class, "ID", "id");
 		xstream.bindAttributeToClassField(Tool.class, "FullName", "name");
 		xstream.bindAttributeToClassField(Tool.class, "Version", "version");
+		xstream.bindElementToClass(Command.class, "command");
+		xstream.bindElementToClass(Inputs.class, "inputs");
+		xstream.bindGroupToArray(Inputs.class, "InputList");
+		xstream.bindElementToClass(Parameter.class, "param");
+		
 	}
 	
 	private static void initJSON(){
@@ -81,6 +94,7 @@ public class GalaxySpecification {
 			init();
 		return xstream;
 	}
+	
 	
 
 }
