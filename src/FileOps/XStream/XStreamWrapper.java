@@ -19,6 +19,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.reflection.AbstractReflectionConverter.UnknownFieldException;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.StreamException;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import com.thoughtworks.xstream.io.xml.StaxWriter;
@@ -30,18 +31,7 @@ public class XStreamWrapper<T> implements Parser<T>, Generator<T>{
 	XStream xstream;
 	
 	public XStreamWrapper(){
-		xstream =new XStream(new StaxDriver() { 
-		    public HierarchicalStreamWriter createWriter(OutputStream out) { 
-		        try { 
-		            return new StaxWriter(getQnameMap(), new 
-		                IndentingXMLStreamWriter( 
-		        getOutputFactory().createXMLStreamWriter(out)), true, 
-		        isRepairingNamespace()); } catch (XMLStreamException e) { 
-		            throw new StreamException(e); 
-		            
-		        } 
-		    } 
-		}); 
+		xstream =new XStream(new DomDriver()); 
 	}
 	/**
 	 * Bind an element in the XML file to a class.
@@ -143,7 +133,6 @@ public class XStreamWrapper<T> implements Parser<T>, Generator<T>{
 	public void generate(T object, String path) throws IOException {
 		// TODO Auto-generated method stub
 		Writer writer = new BufferedWriter( new FileWriter(path));
-		writer.write(xstream.toXML(object));
 		xstream.toXML(object, writer);
 		writer.close();
 		
