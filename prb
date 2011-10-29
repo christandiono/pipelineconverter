@@ -40,7 +40,7 @@ elif [ -z "$isbranch" ] || [ "$isbranch" = "n" ] || [ "$isbranch" = "N" ]; then
         exit 1
     fi
     svn diff > $difftmpfile
-    repourl="$trunkurl"
+    repourl="$baserepourl"
 else
     echo "You didn't choose yes or no."
     exit 1
