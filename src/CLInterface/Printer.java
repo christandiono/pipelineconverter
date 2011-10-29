@@ -49,7 +49,7 @@ public class Printer {
 
 
 	/**
-	 * Print to System.err, if so defined on the command-line.
+	 * Print to System.err, if so defined on the command-line with the -v option.
 	 *
 	 * @param messages Message(s) to write.
 	 */
