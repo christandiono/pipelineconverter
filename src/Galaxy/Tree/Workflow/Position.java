@@ -1,14 +1,14 @@
 package Galaxy.Tree.Workflow;
 
 public class Position {
-	int UnitsFromLeftMargin;
-	int UnitsFromTopMargin;
+	int unitsFromLeftMargin;
+	int unitsFromTopMargin;
 	
 	public Integer getFromLeft(){
-		return UnitsFromLeftMargin;
+		return unitsFromLeftMargin;
 	}
 	public Integer getFromTop(){
-		return UnitsFromTopMargin;
+		return unitsFromTopMargin;
 	}
 	
 }

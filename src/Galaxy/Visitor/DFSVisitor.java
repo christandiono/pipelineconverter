@@ -7,54 +7,23 @@ import Galaxy.Tree.Workflow.Position;
 import Galaxy.Tree.Workflow.Step;
 import Galaxy.Tree.Workflow.Workflow;
 
-public class DFSVisitor<T> implements GalaxyVisitor<T> {
+public class DFSVisitor {
 
-	@Override
-	public T visit(Workflow workflow) {
+	public Object visit(Workflow workflow) {
 		// TODO Auto-generated method stub
 		for(Step s : workflow.getSteps()){
-			visit(s);
+			stepVisitor.visit(s);
 		}
 		return null;
 	}
-
-	@Override
-	public T visit(Step step) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public T visit(ExternalInput externalInput) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public T visit(ExternalOutput externalOutput) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public T visit(InputConnection inputConnection) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public T visit(Position position) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public StepVisitor stepVisitor = new StepVisitor();
 	
-	class StepVisitor{
+	public class StepVisitor{
 			public Object visit(Step s){
 				return null;
 			}
 		
 	};
-	StepVisitor stepVisitor;
 	
 
 }

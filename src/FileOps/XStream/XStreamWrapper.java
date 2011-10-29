@@ -7,12 +7,21 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
 
+import javax.xml.stream.XMLStreamException;
+
+import com.sun.xml.internal.txw2.output.IndentingXMLStreamWriter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.reflection.AbstractReflectionConverter.UnknownFieldException;
+import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
+import com.thoughtworks.xstream.io.StreamException;
+import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
+import com.thoughtworks.xstream.io.xml.StaxWriter;
 
 import FileOps.Generator;
 import FileOps.Parser;
@@ -21,23 +30,89 @@ public class XStreamWrapper<T> implements Parser<T>, Generator<T>{
 	XStream xstream;
 	
 	public XStreamWrapper(){
-		xstream = new XStream(new StaxDriver());
+		xstream =new XStream(new StaxDriver() { 
+		    public HierarchicalStreamWriter createWriter(OutputStream out) { 
+		        try { 
+		            return new StaxWriter(getQnameMap(), new 
+		                IndentingXMLStreamWriter( 
+		        getOutputFactory().createXMLStreamWriter(out)), true, 
+		        isRepairingNamespace()); } catch (XMLStreamException e) { 
+		            throw new StreamException(e); 
+		            
+		        } 
+		    } 
+		}); 
 	}
-	//Bind the class name to some piece of text in the xml file.
+	/**
+	 * Bind an element in the XML file to a class.
+	 * For example:
+	 * XML Snippet:
+	 * 		<tool id ...></tool>
+	 * Class Snippet:
+	 * 		class Tool{ }
+	 * bindElementToClass(Tool.class, "tool")
+	 * 
+	 * @param classToBind class to bind the element tag to.
+	 * @param alias name of the tag to bind to.
+	 */
 	public void bindElementToClass(Class classToBind, String alias){
 		xstream.alias(alias, classToBind);
 	}
+	/**
+	 * Bind an element in the xml file to the field of a class.
+	 * For example:
+	 * XML Snippet:
+	 * 		<tool><description>hello</description></tool>
+	 * Class Snippet:
+	 * 		class Tool{
+	 * 			String desc;
+	 * 		}
+	 * bindElementToClassField(Tool.class, "desc", "description");
+	 * @param classToBind Class the field to bind belongs to.
+	 * @param field Field in class to bind.
+	 * @param alias Element tag to bind field in class to.
+	 */
 	public void bindElementToClassField(Class classToBind, String field, String alias){
 		xstream.aliasField(alias,  classToBind, field);
 	}
+	/***
+	 * Bind an attribute of an element to a class.
+	 * XML Example:
+	 * 		<tool id="hello"></tool>
+	 * Class Example:
+	 * 		class Tool{
+	 * 			String id;
+	 *		} 	
+	 *
+	 *bindAttributeToClassField(Tool.class, "id", "id");
+	 * @param classToBind Class field belongs to.
+	 * @param attributeName name of field to bind.
+	 * @param alias attribute tag belonging to some element.
+	 */
 	public void bindAttributeToClassField(Class classToBind, String attributeName, String alias){
 		xstream.aliasAttribute(classToBind, attributeName, alias);
 	}
-	public void bindAttributeToUniversalField(String attributeName, String alias){
-		xstream.aliasAttribute(alias, attributeName);
-	}
 	
-	public void bindGroupToArray(Class classWithArray, String arrayFieldName){
+	/**
+	 * Mark a field in a Class as a List of elements.
+	 * Example:
+	 * 	XML Snippet:
+	 * 		<modulegroup>
+	 * 			<module></module>
+	 * 			<module></module>
+	 * 		</modulegroup>
+	 * 	Class Snippet:
+	 * 		class Module{}
+	 * 		class ModuleGroup{
+	 * 			List<Module> modules;
+	 * 		}
+	 * bindElementToClass("module", Module.class);
+	 * bindElementToClass("modulegroup", Module.class);
+	 * bindGroupToList<ModuleGroup.class, "modules");
+	 * @param classWithArray Class the list of objects belongs to.
+	 * @param arrayFieldName Name of field that holds a listof objects.
+	 */
+	public void bindGroupToList(Class classWithArray, String arrayFieldName){
 		xstream.addImplicitArray(classWithArray, arrayFieldName);
 	}
 	
@@ -69,6 +144,7 @@ public class XStreamWrapper<T> implements Parser<T>, Generator<T>{
 		// TODO Auto-generated method stub
 		Writer writer = new BufferedWriter( new FileWriter(path));
 		writer.write(xstream.toXML(object));
+		xstream.toXML(object, writer);
 		writer.close();
 		
 	}

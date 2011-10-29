@@ -1,6 +1,6 @@
 package LONI.tree;
 
-public class Studygroup extends LoniNode {
+public class StudyGroup extends LoniNode {
 
 String	Name;
 String	Query;

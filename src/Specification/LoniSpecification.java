@@ -20,8 +20,8 @@ public class LoniSpecification {
 	
 	private static void initXML(){
 		xstream.bindElementToClass(Pipeline.class, "pipeline");
-		xstream.bindAttributeToClassField(Pipeline.class, "Version", "version");
-		xstream.bindAttributeToClassField(Pipeline.class, "Workflow", "moduleGroup");
+		xstream.bindAttributeToClassField(Pipeline.class, "version", "version");
+		xstream.bindAttributeToClassField(Pipeline.class, "workflow", "moduleGroup");
 		xstream.bindElementToClass(ModuleGroup.class, "moduleGroup");
 		xstream.bindAttributeToClassField(ModuleGroup.class, "ID", "id");
 		xstream.bindAttributeToClassField(ModuleGroup.class, "Name", "name");
@@ -30,7 +30,7 @@ public class LoniSpecification {
 		xstream.bindAttributeToClassField(ModuleGroup.class, "Description", "description");
 		xstream.bindAttributeToClassField(ModuleGroup.class, "PositionX", "posX");
 		xstream.bindAttributeToClassField(ModuleGroup.class, "PositionY", "posY");
-		xstream.bindGroupToArray(ModuleGroup.class, "Modules");
+		xstream.bindGroupToList(ModuleGroup.class, "Modules");
 		xstream.bindElementToClass(Module.class, "module");
 		xstream.bindAttributeToClassField(Module.class, "PositionY", "posY");
 		xstream.bindAttributeToClassField(Module.class, "PositionX", "posX");

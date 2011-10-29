@@ -7,41 +7,41 @@ import java.util.Set;
 import Galaxy.Tree.GalaxyNode;
 
 public class Step extends GalaxyNode{
-	int Id;
-	String Name;
-	String Annotation;
-	String ToolId;
-	String ToolVersion;
-	String ToolState;
-	String ToolType;
-	Position StepPosition;
-	Map<String, InputConnection> Connections;
-	List<ExternalOutput> ExternalOutputs;
-	List<ExternalInput> ExternalInputs;
+	int id;
+	String name;
+	String annotation;
+	String toolId;
+	String toolVersion;
+	String toolState;
+	String toolType;
+	Position stepPosition;
+	Map<String, InputConnection> connections;
+	List<ExternalOutput> externalOutputs;
+	List<ExternalInput> externalInputs;
 	
 	public int getId(){
-		return Id;
+		return id;
 	}
 	public String getName(){
-		return Name;
+		return name;
 	}
 	public String getAnnotation(){
-		return Annotation;
+		return annotation;
 	}
 	public String getToolId(){
-		return ToolId;
+		return toolId;
 	}
 	public String getToolVersion(){
-		return ToolVersion;
+		return toolVersion;
 	}
 	public Position getPosition(){
-		return StepPosition;
+		return stepPosition;
 	}
 	public Set<String> getConnectionSinks(){
-		return Connections.keySet();
+		return connections.keySet();
 	}
 	public InputConnection getConnectionSource(String Sink){
-		return Connections.get(Sink);
+		return connections.get(Sink);
 	}
 
 }

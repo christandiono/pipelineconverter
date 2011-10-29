@@ -1,8 +1,8 @@
 package Galaxy.Tree.Tool;
 
 public class Parameter extends Input{
-	String Name;
-	String Type;
-	String Label;
-	String Help;
+	String name;
+	String type;
+	String label;
+	String help;
 }

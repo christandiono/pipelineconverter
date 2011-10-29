@@ -10,35 +10,35 @@ import Galaxy.Tree.GalaxyNode;
 import Galaxy.Tree.Tool.Tool;
 
 public class Workflow extends GalaxyNode {
-	private String Name;
-	private String Annotation;
-	private Float FormatVersion;
+	private String name;
+	private String annotation;
+	private Float formatVersion;
 	private Boolean isGalaxyWorkflow;
-	private Map<Integer,Step> Steps;
+	private Map<Integer,Step> steps;
 	
 	public Workflow(){
-		Steps = new TreeMap<Integer, Step>();
+		steps = new TreeMap<Integer, Step>();
 	}
 	public String getName(){
-		return Name;
+		return name;
 	}
 	public String getAnnotation(){
-		return Annotation;
+		return annotation;
 	}
 	public float getFormatVersion(){
-		return FormatVersion;
+		return formatVersion;
 	}
 	public boolean isGalaxyWorkflow(){
 		return isGalaxyWorkflow;
 		
 	}
 	public Step getStep(int i){
-		if(Steps.containsKey(i))
-			return Steps.get(i);
+		if(steps.containsKey(i))
+			return steps.get(i);
 		return null;
 	}
 	public Collection<Step> getSteps(){
-		return Steps.values();
+		return steps.values();
 	}
 	
 	

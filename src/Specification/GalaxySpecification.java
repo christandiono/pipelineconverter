@@ -20,7 +20,6 @@ import Galaxy.Toolbox.GalaxyToolDatabase;
 public class GalaxySpecification {
 	private static GSONWrapper<Workflow> gson = new GSONWrapper<Workflow>(Workflow.class);
 	private static XStreamWrapper<Tool> xstream = new XStreamWrapper<Tool>();
-	private static GalaxyToolDatabase tooldb;
 	
 	private static boolean initialized = false;
 	
@@ -33,42 +32,42 @@ public class GalaxySpecification {
 
 	private static void initXML(){
 		xstream.bindElementToClass(Tool.class, "tool");
-		xstream.bindElementToClassField(Tool.class, "Description", "description");
-		xstream.bindAttributeToClassField(Tool.class, "ID", "id");
-		xstream.bindAttributeToClassField(Tool.class, "FullName", "name");
-		xstream.bindAttributeToClassField(Tool.class, "Version", "version");
+		xstream.bindElementToClassField(Tool.class, "description", "description");
+		xstream.bindAttributeToClassField(Tool.class, "id", "id");
+		xstream.bindAttributeToClassField(Tool.class, "fullName", "name");
+		xstream.bindAttributeToClassField(Tool.class, "version", "version");
 		xstream.bindElementToClass(Command.class, "command");
 		xstream.bindElementToClass(Inputs.class, "inputs");
-		xstream.bindGroupToArray(Inputs.class, "InputList");
+		xstream.bindGroupToList(Inputs.class, "inputList");
 		xstream.bindElementToClass(Parameter.class, "param");
 		
 	}
 	
 	private static void initJSON(){
-		gson.bindTag(Workflow.class, "Name", "name");
-		gson.bindTag(Workflow.class, "FormatVersion", "format-version");
-		gson.bindTag(Workflow.class, "Annotation", "annotation");
+		gson.bindTag(Workflow.class, "name", "name");
+		gson.bindTag(Workflow.class, "formatVersion", "format-version");
+		gson.bindTag(Workflow.class, "annotation", "annotation");
 		gson.bindTag(Workflow.class, "isGalaxyWorkflow", "a_galaxy_workflow");
-		gson.bindTag(Workflow.class, "Steps", "steps");
+		gson.bindTag(Workflow.class, "steps", "steps");
 		
-		gson.bindTag(Step.class, "Name", "name");
-		gson.bindTag(Step.class, "Annotation", "annotation");
-		gson.bindTag(Step.class, "Id", "id");
-		gson.bindTag(Step.class, "ToolId", "tool_id");
-		gson.bindTag(Step.class, "Connections", "input_connections");
-		gson.bindTag(Step.class, "ExternalInputs", "inputs");
-		gson.bindTag(Step.class, "ExternalOutputs", "outputs");
-		gson.bindTag(Step.class, "StepPosition", "position");
-		gson.bindTag(Step.class, "ToolVersion", "tool_version");
-		gson.bindTag(Step.class, "ToolState", "tool_state");
-		gson.bindTag(Step.class, "ToolType", "type");
+		gson.bindTag(Step.class, "name", "name");
+		gson.bindTag(Step.class, "annotation", "annotation");
+		gson.bindTag(Step.class, "id", "id");
+		gson.bindTag(Step.class, "toolId", "tool_id");
+		gson.bindTag(Step.class, "connections", "input_connections");
+		gson.bindTag(Step.class, "externalInputs", "inputs");
+		gson.bindTag(Step.class, "externalOutputs", "outputs");
+		gson.bindTag(Step.class, "stepPosition", "position");
+		gson.bindTag(Step.class, "toolVersion", "tool_version");
+		gson.bindTag(Step.class, "toolState", "tool_state");
+		gson.bindTag(Step.class, "toolType", "type");
 		
-		gson.bindTag(Position.class, "UnitsFromLeftMargin", "left");
-		gson.bindTag(Position.class, "UnitsFromTopMargin", "top");
-		gson.bindTag(ExternalOutput.class, "Name", "name");
-		gson.bindTag(ExternalOutput.class, "Type", "type");
-		gson.bindTag(InputConnection.class, "SourceId", "id");
-		gson.bindTag(InputConnection.class, "OutputName", "output_name");
+		gson.bindTag(Position.class, "unitsFromLeftMargin", "left");
+		gson.bindTag(Position.class, "unitsFromTopMargin", "top");
+		gson.bindTag(ExternalOutput.class, "name", "name");
+		gson.bindTag(ExternalOutput.class, "type", "type");
+		gson.bindTag(InputConnection.class, "sourceId", "id");
+		gson.bindTag(InputConnection.class, "outputName", "output_name");
 		
 	}
 	

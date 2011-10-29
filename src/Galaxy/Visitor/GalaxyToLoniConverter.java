@@ -13,60 +13,33 @@ import Galaxy.Tree.Workflow.Workflow;
 
 import LONI.tree.*;
 
-public class GalaxyToLoniConverter extends DFSVisitor{
+public class GalaxyToLoniConverter extends DFSVisitor
+{
 
-	@Override
-	public Pipeline visit(Workflow workflow) {
-		Pipeline genPipeline= new Pipeline();
-		ModuleGroup rootGroup = genPipeline.getRootModuleGroup();
-		
-		for(Step s : workflow.getSteps()){
-			Pair<Module, List<Connection>> pr= visit(s);
-			rootGroup.addModule(pr.getElem1());
-		}
-		// TODO Auto-generated method stub
-		return genPipeline;
+
+	public Pipeline visit(Workflow workflow) 
+	{
+		Pipeline pipeline = new Pipeline();
+		return pipeline;
 	}
-
-	@Override
-	public Pair<Module, List<Connection>> visit(Step step){
-		Module genModule;
-		List<Connection> genConnection = new LinkedList<Connection>();
-		genModule = new Module(step.getName(),
-							   "",
-							   step.getPosition().getFromLeft(),
-							   step.getPosition().getFromTop());
-	
-		for(String sink : step.getConnectionSinks()){
-			InputConnection src = step.getConnectionSource(sink);
-			genConnection.add(new Connection(
-					src.getSourceId()+"_"+src.getSourceName(),
-					sink));
-		}
-		return new Pair(genModule, genConnection);
-	}
-
-	@Override
-	public Object visit(ExternalInput externalInput) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object visit(ExternalOutput externalOutput) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object visit(InputConnection inputConnection) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object visit(Position position) {
-		// TODO Auto-generated method stub
-		return null;
+	{
+		stepVisitor = new StepVisitor() {
+			public Pair<Module, List<Connection>> visit(Step step){
+				Module genModule;
+				List<Connection> genConnection = new LinkedList<Connection>();
+				genModule = new Module(step.getName(),
+									   "",
+									   step.getPosition().getFromLeft(),
+									   step.getPosition().getFromTop());
+			
+				for(String sink : step.getConnectionSinks()){
+					InputConnection src = step.getConnectionSource(sink);
+					genConnection.add(new Connection(
+							src.getSourceId()+"_"+src.getSourceName(),
+							sink));
+				}
+				return new Pair(genModule, genConnection);
+			}
+		};
 	}
 }

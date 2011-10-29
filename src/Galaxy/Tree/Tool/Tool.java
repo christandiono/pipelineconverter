@@ -3,16 +3,16 @@ package Galaxy.Tree.Tool;
 import Galaxy.Tree.GalaxyNode;
 
 public class Tool extends GalaxyNode{
-	String Description;
-	String ID;
-	String FullName;
-	String Version;
-	Inputs ToolInputs;
-	Command ToolCommand;
-	String Help;
+	String description;
+	String id;
+	String fullName;
+	String version;
+	Inputs toolInputs;
+	Command toolCommand;
+	String help;
 	
 	public String getID(){
-		return ID;
+		return id;
 	}
 
 }

@@ -4,5 +4,5 @@ import java.util.List;
 
 public class Inputs {
 	Boolean nginxUpload;
-	List<Input> InputList;
+	List<Input> inputList;
 }

@@ -73,10 +73,13 @@ public class TestSpecifications {
 	public static void main(String[] args){
 		//testJSON("data/test2.ga");
 		ConverterConfig.GALAXY_INPUT_DIR = "/home/viper/documents/CS130/galaxy/galaxy-dist/";
+		ConverterConfig.GALAXY_OUTPUT_DIR = "/home/viper/workspace/pipelineconverter/data/Galaxy/output/db/";
 		
 		testGalaxyJSON("data/Galaxy/input/gal1.ga", "data/Galaxy/output/gal1.ga");
 		GalaxyToolDatabase tooldb;
 		tooldb = new GalaxyToolDatabase();
+		tooldb.loadDatabase();
+		tooldb.dumpDatabase();
 		testGalaxyJSON("data/Galaxy/input/gal2.ga", "data/Galaxy/output/gal2.ga");
 		
 		testGalaxyXML("data/Galaxy/input/tool1.xml", "data/Galaxy/output/tool1.xml");
