@@ -51,9 +51,15 @@ if [ -n "$id" ]; then
     post-review --publish --server="$server" --review-request-id="$id" --diff-filename="$difftmpfile" --repository-url="$repourl"
 else
     read -p "Summary: " summary
+    
+    echo "Your description here" >> $desctmpfile # guarantee creation of file
 
     if [ -z $EDITOR ]; then
-        edit="vim"
+        if [ -z "`which vim`" ]; then
+            edit="vi"
+        else
+            edit="vim"
+        fi
     else
         edit=$EDITOR
     fi
