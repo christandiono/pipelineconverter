@@ -20,9 +20,9 @@ import Specification.GalaxySpecification;
 
 /**
  * PipelineConverter main class. Contains main method for converter program.
- * 
+ *
  * Help is provided by supplying the -h or --help options.
- * 
+ *
  * @author Chris Tandiono
  */
 public class PipelineConverter {
@@ -209,7 +209,7 @@ public class PipelineConverter {
 
 	/**
 	 * Converts an extension (without the period) to a Format
-	 * 
+	 *
 	 * @param inputExt Extension (ga, t2flow, pipe)
 	 * @return Format enum
 	 */
@@ -230,7 +230,7 @@ public class PipelineConverter {
 
 	/**
 	 * Set up the options for this program.
-	 * 
+	 *
 	 * @return Options object with valid command-line arguments.
 	 */
 	static Options makeOptions() {
@@ -256,7 +256,7 @@ public class PipelineConverter {
 		Option galaxyOutputDir = new Option("j", "galaxy-output-app-dir", true, "output directory for Galaxy .xml files");
 		galaxyOutputDir.setArgs(1);
 
-		Option verbose = new Option("v", "verbose", false, "verbose");
+		Option verbose = new Option("v", "verbose", false, "be verbose (print debug messages)");
 
 		/* help option is actually ignored, because other options are required--missing a required option results in printing help */
 		Option help = new Option("h", "help", false, "print this help");
@@ -275,7 +275,7 @@ public class PipelineConverter {
 
 	/**
 	 * Convenience method for printing help.
-	 * 
+	 *
 	 * @param options Options object to print.
 	 */
 	static void printHelp(Options options) {
