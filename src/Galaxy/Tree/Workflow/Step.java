@@ -1,8 +1,10 @@
 package Galaxy.Tree.Workflow;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import Galaxy.Tree.GalaxyNode;
 
@@ -19,7 +21,15 @@ public class Step extends GalaxyNode{
 	List<ExternalOutput> externalOutputs;
 	List<ExternalInput> externalInputs;
 	
-	
+	public Step(){
+		toolState = "";
+		toolType = "";
+		toolVersion = "0.1";
+		name = "";
+		externalOutputs = new ArrayList<ExternalOutput>();
+		externalInputs = new ArrayList<ExternalInput>();
+		connections = new TreeMap<String, InputConnection>();
+	}
 	public int getId(){
 		return id;
 	}
