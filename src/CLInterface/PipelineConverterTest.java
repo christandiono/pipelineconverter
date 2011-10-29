@@ -1,15 +1,20 @@
 package CLInterface;
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
+import org.apache.commons.io.FileUtils;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
-
 
 /**
  * Test cases for PipelineConverter
@@ -36,6 +41,21 @@ public class PipelineConverterTest {
 	@After
 	public final void tearDown() throws Exception {
 		ConverterConfig.reset();
+	}
+
+	@BeforeClass
+	public static final void setUpClass() throws Exception {
+		for (Format f: Format.values()) {
+			File file = new File("foo." + f.getExtension());
+			file.createNewFile();
+		}
+	}
+
+	@AfterClass
+	public static final void tearDownClasS() throws Exception {
+		for (Format f: Format.values()) {
+			FileUtils.deleteQuietly(new File("foo." + f.getExtension()));
+		}
 	}
 
 	/**
@@ -318,9 +338,10 @@ public class PipelineConverterTest {
 	/**
 	 * Tests Galaxy input (valid command line)
 	 * @throws ParseException if the test has been improperly configured
+	 * @throws IOException
 	 */
 	@Test
-	public final void testConfigureOutputValidGalaxyIn() throws ParseException {
+	public final void testConfigureOutputValidGalaxyIn() throws ParseException, IOException {
 		Format inFormat = Format.GALAXY;
 		String name = "foo.";
 		String inFile = name + inFormat.getExtension();
@@ -330,7 +351,9 @@ public class PipelineConverterTest {
 		String[] args = {"-i", inFile, "--galaxy-app-dir", ".", "--output-format", outFormat.getExtension()};
 		CommandLine cmd = parser.parse(options, args);
 		PipelineConverter.configureInput(cmd);
+		FileUtils.deleteQuietly(new File(outFile));
 		PipelineConverter.configureOutput(cmd);
+		(new File(outFile)).createNewFile();
 
 		assertTrue(ConverterConfig.OUTPUT_FORMAT == outFormat);
 		assertTrue(ConverterConfig.OUTPUT_PATH.equals(outFile));
@@ -341,9 +364,10 @@ public class PipelineConverterTest {
 	/**
 	 * Tests Galaxy output (valid command line)
 	 * @throws ParseException if the test has been improperly configured
+	 * @throws IOException
 	 */
 	@Test
-	public final void testConfigureOutputValidGalaxyOut() throws ParseException {
+	public final void testConfigureOutputValidGalaxyOut() throws ParseException, IOException {
 		String name = "foo.";
 		Format outFormat = Format.GALAXY;
 
@@ -351,7 +375,9 @@ public class PipelineConverterTest {
 		String[] args = {"-i", name + Format.TAVERNA.getExtension(), "--galaxy-output-app-dir", outputDir, "--output-format", outFormat.getExtension()};
 		CommandLine cmd = parser.parse(options, args);
 		PipelineConverter.configureInput(cmd);
+		FileUtils.deleteQuietly(new File("foo.ga"));
 		PipelineConverter.configureOutput(cmd);
+		(new File("foo.ga")).createNewFile();
 
 		assertTrue(ConverterConfig.OUTPUT_FORMAT == outFormat);
 		assertTrue(ConverterConfig.OUTPUT_PATH.equals(name + outFormat.getExtension()));

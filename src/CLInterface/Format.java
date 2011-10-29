@@ -5,13 +5,13 @@ package CLInterface;
 
 /**
  * The Format enum contains all allowed formats.
- *
+ * 
  * @author Chris Tandiono
  */
 public enum Format {
 	LONI("pipe"), GALAXY("ga"), TAVERNA("t2flow");
 
-	private String extension = null;
+	private final String extension;
 
 	/**
 	 * Constructor that sets the extension of this item.

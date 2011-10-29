@@ -1,6 +1,9 @@
 package CLInterface;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -12,6 +15,9 @@ import org.apache.commons.cli.PosixParser;
 
 import org.apache.commons.io.FilenameUtils;
 
+import Galaxy.Tree.Workflow.Workflow;
+import Specification.GalaxySpecification;
+
 /**
  * PipelineConverter main class. Contains main method for converter program.
  * 
@@ -21,7 +27,7 @@ import org.apache.commons.io.FilenameUtils;
  */
 public class PipelineConverter {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		Options options = makeOptions();
 
 		CommandLineParser parser = new PosixParser();
@@ -41,6 +47,46 @@ public class PipelineConverter {
 		configureOutput(cmd);
 
 		Printer.log("Done processing command-line arguments");
+
+		if (ConverterConfig.OUTPUT == null && ConverterConfig.OUTPUT_PATH != null) {
+			File output = new File(ConverterConfig.OUTPUT_PATH);
+			output.createNewFile();
+			try {
+				ConverterConfig.OUTPUT = new FileOutputStream(output);
+			} catch (FileNotFoundException e) {
+				/* how would this have happened...? */
+				Printer.log("Got a weird error: " + e.getMessage());
+			}
+		}
+
+		Workflow G = null;
+		if (ConverterConfig.INPUT_FORMAT == Format.GALAXY) {
+			try {
+				G = GalaxySpecification.getJSONParser().parse(new File(ConverterConfig.INPUT_PATH));
+			} catch (FileNotFoundException e) {
+				Printer.log("What, FileNotFoundException not caught by configureInput?");
+			}
+		} else {
+			Printer.log("Well, I tried, but I can't understand your input");
+		}
+
+		String outputString = null;
+
+		if (ConverterConfig.OUTPUT_FORMAT == Format.GALAXY) {
+			outputString = GalaxySpecification.getJSONGenerator().generate(G);
+
+		} else {
+			Printer.log("Well, I tried, but I don't know how to make that kind of a file");
+		}
+
+		if (outputString != null) {
+			Printer.output(outputString);
+		}
+
+		if (ConverterConfig.OUTPUT != null) {
+			ConverterConfig.OUTPUT.flush();
+			ConverterConfig.OUTPUT.close();
+		}
 	}
 
 	/**
@@ -55,7 +101,7 @@ public class PipelineConverter {
 
 		if (cmd.hasOption('f')) {
 			ConverterConfig.FORCE = true;
-			Printer.log("OK, forcing conversion...");			
+			Printer.log("OK, forcing conversion...");
 		}
 	}
 
@@ -65,11 +111,7 @@ public class PipelineConverter {
 	 */
 	static void configureInput(CommandLine cmd) {
 		String inputFileName = cmd.getOptionValue('i');
-		File inputFile = new File(inputFileName);
 
-		if (inputFile.isDirectory()) {
-			throw new InvalidInputException("Don't specify directory, specify a file");
-		}
 
 		String inputExt = FilenameUtils.getExtension(inputFileName);
 		ConverterConfig.INPUT_FORMAT = extToFormat(inputExt);
@@ -83,11 +125,22 @@ public class PipelineConverter {
 				ConverterConfig.GALAXY_INPUT_DIR = cmd.getOptionValue("galaxy-app-dir");
 			}
 		}
+
+		File inputFile = new File(inputFileName);
+
+		if (!inputFile.exists()) {
+			throw new InvalidInputException("No such file: " + ConverterConfig.INPUT_PATH);
+		}
+
+		if (inputFile.isDirectory()) {
+			throw new InvalidInputException("Don't specify directory, specify a file");
+		}
 	}
 
 	/**
 	 * Checks and configures output
 	 * @param cmd The CommandLine object that's been parsed already
+	 * @throws IOException
 	 */
 	static void configureOutput(CommandLine cmd) {
 		String outputFileName = null;
@@ -127,8 +180,31 @@ public class PipelineConverter {
 		}
 
 		if ((ConverterConfig.OUTPUT == null && ConverterConfig.OUTPUT_PATH == null) || ConverterConfig.OUTPUT_FORMAT == null) {
-			throw new InvalidInputException("You didn't specify an output path or format");
+			throw new InvalidInputException("You didn't specify an output path and/or format");
 		}
+
+		if (ConverterConfig.INPUT_PATH.equals(ConverterConfig.OUTPUT_PATH) || (ConverterConfig.INPUT_FORMAT == Format.GALAXY && ConverterConfig.OUTPUT_FORMAT == Format.GALAXY && ConverterConfig.GALAXY_INPUT_DIR.equals(ConverterConfig.GALAXY_OUTPUT_DIR))) {
+			throw new InvalidInputException("I won't let you overwrite your input file(s)");
+		}
+
+		if (ConverterConfig.INPUT_FORMAT == ConverterConfig.OUTPUT_FORMAT) {
+			String sameFormatErrorString = "Input and output formats are the same";
+			if (ConverterConfig.FORCE) {
+				Printer.log(sameFormatErrorString);
+			} else {
+				throw new InvalidInputException(sameFormatErrorString);
+			}
+		}
+
+		if (ConverterConfig.OUTPUT_PATH != null && (new File(ConverterConfig.OUTPUT_PATH)).exists()) {
+			String outputExistsErrorString = "Output file already exists";
+			if (ConverterConfig.FORCE) {
+				Printer.log(outputExistsErrorString);
+			} else {
+				throw new InvalidInputException(outputExistsErrorString); /* also detects directories by the same name, which is ok in Windows but not in Unix */
+			}
+		}
+
 	}
 
 	/**
@@ -197,7 +273,7 @@ public class PipelineConverter {
 		return options;
 	}
 
-	/**	
+	/**
 	 * Convenience method for printing help.
 	 * 
 	 * @param options Options object to print.
