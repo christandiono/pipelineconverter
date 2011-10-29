@@ -236,7 +236,7 @@ public class PipelineConverter {
 	static Options makeOptions() {
 		Options options = new Options();
 
-		Option toStdout = new Option("c", false, "print output to stdout instead of to file");
+		Option toStdout = new Option("c", false, "print output to stdout instead of to file (requires --output-format)");
 
 		Option force = new Option("f", "force", false, "force (attempt to ignore errors)");
 
@@ -244,10 +244,10 @@ public class PipelineConverter {
 		input.setArgs(1);
 		input.setRequired(true);
 
-		Option output = new Option("o", "output", true, "output file (if --output-format not specified)");
+		Option output = new Option("o", "output", true, "output file (if -c and --output-format not specified)");
 		output.setArgs(1);
 
-		Option outputFormat = new Option("p", "output-format", false, "output file format (if --output not specified)");
+		Option outputFormat = new Option("p", "output-format", false, "output file format (if --output not specified or -c specified)");
 		outputFormat.setArgs(1);
 
 		Option galaxyDir = new Option("g", "galaxy-app-dir", true, "input directory for Galaxy .xml files");
@@ -256,7 +256,7 @@ public class PipelineConverter {
 		Option galaxyOutputDir = new Option("j", "galaxy-output-app-dir", true, "output directory for Galaxy .xml files");
 		galaxyOutputDir.setArgs(1);
 
-		Option verbose = new Option("v", "verbose", false, "be verbose (print debug messages)");
+		Option verbose = new Option("v", "verbose", false, "be verbose (print debug messages to stderr)");
 
 		/* help option is actually ignored, because other options are required--missing a required option results in printing help */
 		Option help = new Option("h", "help", false, "print this help");
