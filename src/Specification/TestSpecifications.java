@@ -9,6 +9,7 @@ import Galaxy.Tree.GalaxyNode;
 import Galaxy.Tree.Tool.Tool;
 import Galaxy.Tree.Workflow.Workflow;
 import Galaxy.Toolbox.GalaxyToolDatabase;
+import Galaxy.Visitor.GalaxyToLoniConverter;
 import LONI.tree.Pipeline;
 
 public class TestSpecifications {
@@ -52,6 +53,29 @@ public class TestSpecifications {
 		}
 		
 	}
+	
+	public static void testGalaxyConvert(String path, String output){
+		System.out.println("==="+path+"===");
+		Workflow G;
+		try {
+			G = GalaxySpecification.getJSONParser().parse(new File(path));
+			GalaxyToLoniConverter glc = new GalaxyToLoniConverter();
+			Pipeline pipeline = (Pipeline) glc.visit(G);
+			
+			try {
+				LoniSpecification.getXMLGenerator().generate(pipeline, output);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public static void testLoniXML(String path, String output){
 		System.out.println("==="+path+"===");
 		Pipeline G;
@@ -84,6 +108,8 @@ public class TestSpecifications {
 		
 		testLoniXML("data/Loni/input/loni1.pipe", "data/Loni/output/loni1.pipe");
 		testLoniXML("data/Loni/input/loni2.pipe", "data/Loni/output/loni2.pipe");
+		
+		testGalaxyConvert("data/Galaxy/input/gal1.ga", "data/Galaxy/output/pipe1.pipe");
 		
 		
 	

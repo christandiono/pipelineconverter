@@ -5,6 +5,7 @@ import FileOps.Parser;
 import FileOps.XStream.XStreamWrapper;
 import Galaxy.Tree.Tool.Tool;
 import LONI.tree.Pipeline;
+import LONI.tree.Position;
 import LONI.tree.GraphObject.Module;
 import LONI.tree.GraphObject.ModuleGroup;
 
@@ -23,19 +24,17 @@ public class LoniSpecification {
 		xstream.bindAttributeToClassField(Pipeline.class, "version", "version");
 		xstream.bindAttributeToClassField(Pipeline.class, "pipelineModuleGroup", "moduleGroup");
 		xstream.bindElementToClass(ModuleGroup.class, "moduleGroup");
-		xstream.bindAttributeToClassField(ModuleGroup.class, "ID", "id");
-		xstream.bindAttributeToClassField(ModuleGroup.class, "Name", "name");
-		xstream.bindAttributeToClassField(ModuleGroup.class, "Package", "package");
-		xstream.bindAttributeToClassField(ModuleGroup.class, "Version", "version");
-		xstream.bindAttributeToClassField(ModuleGroup.class, "Description", "description");
-		xstream.bindAttributeToClassField(ModuleGroup.class, "PositionX", "posX");
-		xstream.bindAttributeToClassField(ModuleGroup.class, "PositionY", "posY");
-		xstream.bindGroupToList(ModuleGroup.class, "Modules");
+		xstream.bindAttributeToClassField(ModuleGroup.class, "id", "id");
+		xstream.bindAttributeToClassField(ModuleGroup.class, "name", "name");
+		xstream.bindAttributeToClassField(ModuleGroup.class, "myPackage", "package");
+		xstream.bindAttributeToClassField(ModuleGroup.class, "version", "version");
+		xstream.bindAttributeToClassField(ModuleGroup.class, "description", "description");
+		xstream.bindAttributeToClassField(Position.class, "posX", "posX");
+		xstream.bindAttributeToClassField(Position.class, "posY", "posY");
+		xstream.bindGroupToList(ModuleGroup.class, "modules");
 		xstream.bindElementToClass(Module.class, "module");
-		xstream.bindAttributeToClassField(Module.class, "PositionY", "posY");
-		xstream.bindAttributeToClassField(Module.class, "PositionX", "posX");
-		xstream.bindAttributeToClassField(Module.class, "ID", "id");
-		xstream.bindAttributeToClassField(Module.class, "Location", "location");
+		xstream.bindAttributeToClassField(Module.class, "id", "id");
+		xstream.bindAttributeToClassField(Module.class, "location", "location");
 	}
 
 	public static Parser<Pipeline> getXMLParser(){
