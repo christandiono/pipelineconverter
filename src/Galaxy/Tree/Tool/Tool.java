@@ -8,6 +8,7 @@ public class Tool extends GalaxyNode{
 	String fullName;
 	String version;
 	Inputs toolInputs;
+	Outputs toolOutputs;
 	Command toolCommand;
 	String help;
 	

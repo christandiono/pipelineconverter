@@ -1,6 +1,10 @@
 package LONI.tree.GraphObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import LONI.tree.LoniNode;
+import LONI.tree.Parameter;
 
 public class Module extends GraphObject {
 
@@ -26,6 +30,8 @@ public class Module extends GraphObject {
 	private final String MPIParallelEnv;
 	private final String MPINumSlots;
 	private final boolean preserveInputFilename;
+	private final List<Parameter> inputs;
+	private final List<Parameter> outputs;
 	
 	
 	public Module(int posX, int posY, String id, String name, String myPackage,
@@ -56,6 +62,27 @@ public class Module extends GraphObject {
 		MPIParallelEnv = mPIParallelEnv;
 		MPINumSlots = mPINumSlots;
 		this.preserveInputFilename = preserveInputFilename;
+		this.inputs = new ArrayList<Parameter>();
+		this.outputs = new ArrayList<Parameter>();
+	}
+	
+	public List<Parameter> getInputs(){
+		return this.inputs;
+	}
+	public List<Parameter> getOutputs(){
+		return this.outputs;
+	}
+	public void addInput(Parameter p){
+		this.inputs.add(p);
+	}
+	public void addOutput(Parameter p){
+		this.outputs.add(p);
+	}
+	public void addInputs(List<Parameter> p){
+		this.inputs.addAll(p);
+	}
+	public void addOutputs(List<Parameter>  p){
+		this.outputs.addAll(p);
 	}
 	
 	

@@ -1,9 +1,6 @@
 package Galaxy.Visitor;
 
-import Galaxy.Tree.Workflow.ExternalInput;
-import Galaxy.Tree.Workflow.ExternalOutput;
-import Galaxy.Tree.Workflow.InputConnection;
-import Galaxy.Tree.Workflow.Position;
+import Galaxy.Tree.Tool.*;
 import Galaxy.Tree.Workflow.Step;
 import Galaxy.Tree.Workflow.Workflow;
 
@@ -21,6 +18,14 @@ public class DFSVisitor {
 	public class StepVisitor{
 			public Object visit(Step s){
 				return null;
+			}
+			public Object visit(Parameter p){
+				return null;
+				
+			}
+			public Object visit(Data d){
+				return null;
+				
 			}
 		
 	};

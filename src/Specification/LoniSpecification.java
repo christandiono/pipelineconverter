@@ -5,6 +5,7 @@ import FileOps.Parser;
 import FileOps.XStream.XStreamHandler;
 import FileOps.XStream.XStreamWrapper;
 import Galaxy.Tree.Tool.Tool;
+import LONI.tree.Parameter;
 import LONI.tree.Pipeline;
 import LONI.tree.GraphObject.Module;
 import LONI.tree.GraphObject.ModuleGroup;
@@ -46,7 +47,22 @@ public class LoniSpecification {
 		xstream.bindAttributeToClassField(Module.class, "name", "name");
 		xstream.bindAttributeToClassField(Module.class, "posX", "posX");
 		xstream.bindAttributeToClassField(Module.class, "posY", "posY");
+		xstream.bindGroupToList(Module.class , "inputs");
+		xstream.bindGroupToList(Module.class , "outputs");
 		
+		xstream.bindElementToClass(Parameter.class, "input");
+		xstream.bindAttributeToClassField(Parameter.class, "name", "name");
+		xstream.bindAttributeToClassField(Parameter.class, "required", "required");
+		xstream.bindAttributeToClassField(Parameter.class, "enabled", "enabled");
+		xstream.bindAttributeToClassField(Parameter.class, "order", "order");
+		xstream.bindAttributeToClassField(Parameter.class, "id", "id");
+		xstream.bindAttributeToClassField(Parameter.class, "predefined", "predefined");
+		xstream.bindAttributeToClassField(Parameter.class, "isMetadata", "isMetadata");
+		xstream.bindAttributeToClassField(Parameter.class, "isListFile", "isListFile");
+		xstream.bindAttributeToClassField(Parameter.class, "isHideData", "isHideData");
+		xstream.bindAttributeToClassField(Parameter.class, "includeTransformedParameter", "includeTransformedParameter");
+		xstream.bindAttributeToClassField(Parameter.class, "prefix", "prefix");
+		xstream.bindAttributeToClassField(Parameter.class, "description", "description");
 		
 	}
 

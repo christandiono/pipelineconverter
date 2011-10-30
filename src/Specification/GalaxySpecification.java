@@ -14,16 +14,18 @@ import FileOps.GSON.GSONWrapper;
 import FileOps.XStream.XStreamWrapper;
 import Galaxy.Tree.GalaxyNode;
 import Galaxy.Tree.Tool.Command;
+import Galaxy.Tree.Tool.Data;
 import Galaxy.Tree.Tool.Inputs;
+import Galaxy.Tree.Tool.Outputs;
 import Galaxy.Tree.Tool.Parameter;
 import Galaxy.Tree.Tool.Tool;
 import Galaxy.Tree.Workflow.*;
 import Galaxy.Toolbox.GalaxyToolDatabase;
 
 public class GalaxySpecification {
+	public final static GalaxyToolDatabase database= new GalaxyToolDatabase();
 	private static GSONWrapper<Workflow> gson = new GSONWrapper<Workflow>(Workflow.class);
 	private static XStreamWrapper<Tool> xstream = new XStreamWrapper<Tool>(){
-		final GalaxyToolDatabase database= new GalaxyToolDatabase();
 		
 		public void generate(Tool tool, String path) throws IOException{
 			super.generate(tool, path);
@@ -52,11 +54,21 @@ public class GalaxySpecification {
 		xstream.bindAttributeToClassField(Tool.class, "id", "id");
 		xstream.bindAttributeToClassField(Tool.class, "fullName", "name");
 		xstream.bindAttributeToClassField(Tool.class, "version", "version");
+		xstream.bindAttributeToClassField(Tool.class, "toolCommand", "command");
+		xstream.bindAttributeToClassField(Tool.class, "toolInputs", "inputs");
+		xstream.bindAttributeToClassField(Tool.class, "toolOutputs", "outputs");
+		
 		xstream.bindElementToClass(Command.class, "command");
 		xstream.bindElementToClass(Inputs.class, "inputs");
 		xstream.bindGroupToList(Inputs.class, "inputList");
+		xstream.bindElementToClass(Outputs.class, "outputs");
+		xstream.bindGroupToList(Outputs.class, "outputList");
+		xstream.bindElementToClass(Data.class, "data");
 		xstream.bindElementToClass(Parameter.class, "param");
-		
+		xstream.bindAttributeToClassField(Parameter.class, "name", "name");
+		xstream.bindAttributeToClassField(Parameter.class, "type", "type");
+		xstream.bindAttributeToClassField(Parameter.class, "label", "label");
+		xstream.bindAttributeToClassField(Parameter.class, "help", "help");
 	}
 	
 	private static void initJSON(){
@@ -108,6 +120,9 @@ public class GalaxySpecification {
 		if(!initialized)
 			init();
 		return xstream;
+	}
+	public static GalaxyToolDatabase getDatabase(){
+		return database;
 	}
 	
 	
