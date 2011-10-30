@@ -11,15 +11,15 @@ import LONI.tree.GraphObject.*;
 public class LoniSpecification {
 	private static XStreamWrapper<Pipeline> xstream = new XStreamWrapper<Pipeline>();
 	private static boolean initialized = false;
-	
+
 	private static void init(){
 		initXML();
 		initialized = true;
-		
+
 	}
-	
+
 	private static void initXML(){
-		
+
 		xstream.bindElementToClass(Pipeline.class, "pipeline");
 		xstream.bindAttributeToClassField(Pipeline.class, "version", "version");
 		xstream.bindAttributeToClassField(Pipeline.class, "pipelineModuleGroup", "moduleGroup");
@@ -31,19 +31,21 @@ public class LoniSpecification {
 		xstream.bindAttributeToClassField(ModuleGroup.class, "description", "description");
 		xstream.bindAttributeToClassField(ModuleGroup.class, "posX", "posX");
 		xstream.bindAttributeToClassField(ModuleGroup.class, "posY", "posY");
-		
+
 		xstream.bindAttributeToClassField(Pipeline.class, "connections", "connections");
 		xstream.bindElementToClass(Connections.class, "connections");
 		/* Connections instance variables go here */
 
 		xstream.bindGroupToList(Connections.class, "connections");
-		
+
 		xstream.bindElementToClass(Connection.class, "connection");
 		//xstream.bindElementToClassField(ModuleGroup.class, "connections", "connections");
-	
+
 		xstream.bindElementToClass(Connection.class, "connection");
 		/* Connection instance variables go here */
-	
+		xstream.bindAttributeToClassField(Connection.class, "source", "source");
+		xstream.bindAttributeToClassField(Connection.class, "sink", "sink");
+
 		xstream.bindAttributeToClassField(DataModule.class, "fileTypes", "fileTypes");
 		xstream.bindElementToClass(FileTypes.class, "fileTypes");
 		/* fileTypes instnace variables go here */
@@ -53,7 +55,7 @@ public class LoniSpecification {
 		xstream.bindAttributeToClassField(FileType.class, "name", "name");
 		xstream.bindAttributeToClassField(FileType.class, "extension", "extension");
 		xstream.bindAttributeToClassField(FileType.class, "description", "description");
-		
+
 		xstream.bindGroupToList(ModuleGroup.class, "modules");
 		xstream.bindElementToClass(Module.class, "module");
 		xstream.bindAttributeToClassField(Module.class, "myPackage", "package");
@@ -68,14 +70,14 @@ public class LoniSpecification {
 		xstream.bindAttributeToClassField(Module.class, "posY", "posY");
 		xstream.bindGroupToList(Module.class , "inputs");
 		xstream.bindGroupToList(Module.class , "outputs");
-		
-		
-		
-		
-		
-		
 
-		
+
+
+
+
+
+
+
 		xstream.bindElementToClass(DataModule.class, "dataModule");
 		xstream.bindAttributeToClassField(DataModule.class, "myPackage", "package");
 		xstream.bindAttributeToClassField(DataModule.class, "id", "id");
@@ -93,12 +95,12 @@ public class LoniSpecification {
 		xstream.bindAttributeToClassField(DataModule.class, "dirSourceFilterType", "dirSourceFilterType");
 		xstream.bindAttributeToClassField(DataModule.class, "recursive", "recursive");
 		xstream.bindAttributeToClassField(DataModule.class, "metadata", "metadata");
-		
-		
+
+
 		xstream.bindElementToClass(Metadata.class, "metadata");
 		xstream.bindElementToClassField(Metadata.class, "data", "data");
 
-		
+
 		xstream.bindElementToClass(Parameter.class, "input");
 		xstream.bindAttributeToClassField(Parameter.class, "name", "name");
 		xstream.bindAttributeToClassField(Parameter.class, "required", "required");
@@ -112,7 +114,7 @@ public class LoniSpecification {
 		xstream.bindAttributeToClassField(Parameter.class, "includeTransformedParameter", "includeTransformedParameter");
 		xstream.bindAttributeToClassField(Parameter.class, "prefix", "prefix");
 		xstream.bindAttributeToClassField(Parameter.class, "description", "description");
-		
+
 	}
 
 	public static Parser<Pipeline> getXMLParser(){

@@ -5,12 +5,12 @@ use 5.10.0;
 use Switch;
 
 while (<STDIN>) {
-    $temp = $_;
+    my $temp = $_;
     $temp =~ s/^([\s]*)private final ([^\s]*) //g;
     $temp =~ s/;$//g;
     chomp($temp);
-    undef $fieldname;
-    undef $attrname;
+    my $fieldname;
+    my $attrname;
     $fieldname = $temp;
 
     switch ($fieldname) {
