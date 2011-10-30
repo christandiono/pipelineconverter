@@ -1,5 +1,6 @@
 package Galaxy.Visitor;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,7 +20,20 @@ public class GalaxyToLoniConverter extends DFSVisitor
 
 	public Pipeline visit(Workflow workflow) 
 	{
-		Pipeline pipeline = new Pipeline();
+		Pipeline pipeline;
+		String annotation = workflow.getAnnotation();
+		String version = workflow.getFormatVersion();
+		String name = workflow.getName();
+		
+		pipeline = new Pipeline(version);
+		
+		for(Step s : workflow.getSteps()){
+			Pair<Module, List<Connection>> dat;
+			dat = (Pair<Module, List<Connection>>) stepVisitor.visit(s);
+			dat.getElem1();
+			dat.getElem2();
+			
+		}
 		
 		return pipeline;
 	}
@@ -28,6 +42,7 @@ public class GalaxyToLoniConverter extends DFSVisitor
 			public Pair<Module, List<Connection>> visit(Step step){
 				Module genModule;
 				List<Connection> genConnection = new LinkedList<Connection>();
+				/*
 				genModule = new Module(step.getName(),
 									   "",
 									   step.getPosition().getFromLeft(),
@@ -39,6 +54,7 @@ public class GalaxyToLoniConverter extends DFSVisitor
 							src.getSourceId()+"_"+src.getSourceName(),
 							sink));
 				}
+				*/
 				return new Pair(genModule, genConnection);
 			}
 		};
