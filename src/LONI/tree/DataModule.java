@@ -3,6 +3,73 @@ package LONI.tree;
 public class DataModule extends LoniNode {
 
 
+	public DataModule(String id, String name, String myPackage, String version,
+			String description, int posX, int posY, int rotation, String type,
+			boolean source, boolean dirSource, boolean dirDump,
+			boolean useDirSourceFilters, int dirSourceFilterType,
+			boolean recursive) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.myPackage = myPackage;
+		this.version = version;
+		this.description = description;
+		this.posX = posX;
+		this.posY = posY;
+		this.rotation = rotation;
+		this.type = type;
+		this.source = source;
+		this.dirSource = dirSource;
+		this.dirDump = dirDump;
+		this.useDirSourceFilters = useDirSourceFilters;
+		this.dirSourceFilterType = dirSourceFilterType;
+		this.recursive = recursive;
+	}
+	public String getId() {
+		return id;
+	}
+	public String getName() {
+		return name;
+	}
+	public String getMyPackage() {
+		return myPackage;
+	}
+	public String getVersion() {
+		return version;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public int getPosX() {
+		return posX;
+	}
+	public int getPosY() {
+		return posY;
+	}
+	public int getRotation() {
+		return rotation;
+	}
+	public String getType() {
+		return type;
+	}
+	public boolean isSource() {
+		return source;
+	}
+	public boolean isDirSource() {
+		return dirSource;
+	}
+	public boolean isDirDump() {
+		return dirDump;
+	}
+	public boolean isUseDirSourceFilters() {
+		return useDirSourceFilters;
+	}
+	public int getDirSourceFilterType() {
+		return dirSourceFilterType;
+	}
+	public boolean isRecursive() {
+		return recursive;
+	}
 	private final String id;
 	private final String name;
 	private final String myPackage;
