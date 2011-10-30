@@ -34,9 +34,9 @@ public class GalaxyToLoniConverter extends DFSVisitor
 		String annotation = workflow.getAnnotation();
 		String version = workflow.getFormatVersion();
 		String name = workflow.getName();
-		//mgroup = new ModuleGroup(getModuleGroup(), 
-		//		name, "package", "version", annotation, 
-		//		"icon", 0, new LONI.tree.Position(0,0), false);
+		mgroup = new ModuleGroup(getModuleGroup(), 
+				name, "package", "version", annotation, 
+				"icon", 0, new LONI.tree.Position(0,0), false);
 		
 		/*
 		for(Step s : workflow.getSteps()){
@@ -49,7 +49,7 @@ public class GalaxyToLoniConverter extends DFSVisitor
 			
 		}
 		*/
-		pipeline = new Pipeline(version, null);
+		pipeline = new Pipeline(version, mgroup);
 		
 		return pipeline;
 	}

@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <pipeline version=".1">
   <moduleGroup id="MyWorkflow_1" name="MyWorkflow" package="THEPACKAGE" version="1.1.1" description="DESCRIPTION">
     <rotation>0</rotation>

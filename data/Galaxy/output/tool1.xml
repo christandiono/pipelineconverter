@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <tool id="liftOver1" name="Convert genome coordinates" version="1.0.3">
   <description> between assemblies and genomes</description>
 </tool>

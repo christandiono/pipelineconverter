@@ -10,6 +10,6 @@ public class Pipeline extends LoniNode {
 	
 	public Pipeline(String version, ModuleGroup myModuleGroup){
 		this.pipelineModuleGroup =  myModuleGroup;
-		this.version = version;
+		this.version = ".1";
 	}
 }

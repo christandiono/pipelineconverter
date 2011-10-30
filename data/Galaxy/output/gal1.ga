@@ -1,6 +1,6 @@
 {
   "name": "test",
-  "annotation": "",
+  "annotation": "hello there, i am cool",
   "format-version": "0.01",
   "a_galaxy_workflow": true,
   "steps": {}

@@ -1,8 +1,5 @@
 package FileOps.XStream;
 
-import FileOps.Parser;
-import FileOps.Generator;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -136,6 +133,7 @@ public class XStreamWrapper<T> implements Parser<T>, Generator<T>{
 	public void generate(T object, String path) throws IOException {
 		// TODO Auto-generated method stub
 		Writer writer = new BufferedWriter( new FileWriter(path));
+		writer.write("<?xml version=\"1.0\"?>\n");
 		xstream.toXML(object, writer);
 		writer.close();
 		
@@ -144,7 +142,8 @@ public class XStreamWrapper<T> implements Parser<T>, Generator<T>{
 	@Override
 	public String generate(T object) {
 		// TODO Auto-generated method stub
-		String xml = xstream.toXML(object);
+		String xml = "<?xml version=\"1.0\"?>\n";
+		xml = xstream.toXML(object);
 		return xml;
 	}
 
