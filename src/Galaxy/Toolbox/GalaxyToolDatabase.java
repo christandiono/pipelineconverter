@@ -24,6 +24,7 @@ import com.thoughtworks.xstream.io.StreamException;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 import CLInterface.ConverterConfig;
+import CLInterface.Printer;
 import Core.Pair;
 import FileOps.XStream.XStreamWrapper;
 import Galaxy.Tree.Tool.Tool;
@@ -166,11 +167,12 @@ public class GalaxyToolDatabase {
 		toolIndexParser.bindGroupToList(Toolbox.class, "sections");
 		toolIndexParser.bindGroupToList(Section.class, "entries");
 		
+		loadDatabase();
 	}
 	/**
 	 * Load the database index file and the file path - id mappings.
 	 */
-	public void loadDatabase(){
+	private void loadDatabase(){
 		try {
 			ToolIndexVisitor indexVisitor = new ToolIndexVisitor();
 			toolIndex = toolIndexParser.parse(new File(ConverterConfig.GALAXY_INPUT_DIR + INDEX_NAME));
@@ -178,8 +180,8 @@ public class GalaxyToolDatabase {
 		
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.err.println("Galaxy Directory not found: Cannot load tools");
-			
+			Printer.log("Galaxy Directory not found: Cannot load tools");
+			throw new RuntimeException(e);
 		}
 	}
 	/**

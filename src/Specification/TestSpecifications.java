@@ -78,8 +78,6 @@ public class TestSpecifications {
 		testGalaxyJSON("data/Galaxy/input/gal1.ga", "data/Galaxy/output/gal1.ga");
 		GalaxyToolDatabase tooldb;
 		tooldb = new GalaxyToolDatabase();
-		tooldb.loadDatabase();
-		tooldb.dumpDatabase();
 		testGalaxyJSON("data/Galaxy/input/gal2.ga", "data/Galaxy/output/gal2.ga");
 		
 		testGalaxyXML("data/Galaxy/input/tool1.xml", "data/Galaxy/output/tool1.xml");

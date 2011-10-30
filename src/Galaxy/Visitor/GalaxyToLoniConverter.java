@@ -20,6 +20,7 @@ public class GalaxyToLoniConverter extends DFSVisitor
 	public Pipeline visit(Workflow workflow) 
 	{
 		Pipeline pipeline = new Pipeline();
+		
 		return pipeline;
 	}
 	{

@@ -1,6 +1,9 @@
 package Specification;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -19,7 +22,20 @@ import Galaxy.Toolbox.GalaxyToolDatabase;
 
 public class GalaxySpecification {
 	private static GSONWrapper<Workflow> gson = new GSONWrapper<Workflow>(Workflow.class);
-	private static XStreamWrapper<Tool> xstream = new XStreamWrapper<Tool>();
+	private static XStreamWrapper<Tool> xstream = new XStreamWrapper<Tool>(){
+		final GalaxyToolDatabase database= new GalaxyToolDatabase();
+		
+		public void generate(Tool tool, String path) throws IOException{
+			super.generate(tool, path);
+			database.dumpDatabase();
+			
+		}
+		public String generate(Tool tool){
+			String s = super.generate(tool);
+			database.dumpDatabase();
+			return s;
+		}
+	};
 	
 	private static boolean initialized = false;
 	
