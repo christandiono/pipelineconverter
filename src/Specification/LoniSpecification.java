@@ -21,7 +21,7 @@ public class LoniSpecification {
 	private static void initXML(){
 		xstream.bindElementToClass(Pipeline.class, "pipeline");
 		xstream.bindAttributeToClassField(Pipeline.class, "version", "version");
-		xstream.bindAttributeToClassField(Pipeline.class, "workflow", "moduleGroup");
+		xstream.bindAttributeToClassField(Pipeline.class, "pipelineModuleGroup", "moduleGroup");
 		xstream.bindElementToClass(ModuleGroup.class, "moduleGroup");
 		xstream.bindAttributeToClassField(ModuleGroup.class, "ID", "id");
 		xstream.bindAttributeToClassField(ModuleGroup.class, "Name", "name");

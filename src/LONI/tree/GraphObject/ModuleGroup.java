@@ -36,5 +36,48 @@ public class ModuleGroup extends GraphObject {
 		connections = new Connections();
 		modules = new ArrayList<GraphObject>();
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getMyPackage() {
+		return myPackage;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public int getRotation() {
+		return rotation;
+	}
+
+	public boolean isNeedsProvenance() {
+		return needsProvenance;
+	}
+
+	public List<GraphObject> getModules() {
+		return modules;
+	}
+
+	public Connections getConnections() {
+		return connections;
+	}
+
+	
+
 	
 }

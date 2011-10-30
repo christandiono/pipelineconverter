@@ -13,4 +13,7 @@ public class Connections extends LoniNode {
 	public void addConnection(Connection connection){
 		connections.add(connection);
 	}
+	public void addConnections(List<Connection> connections){
+		this.connections.addAll(connections);
+	}
 }
