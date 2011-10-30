@@ -1,3 +1,5 @@
+package LONI.tree;
+
 import Core.Node;
 
 

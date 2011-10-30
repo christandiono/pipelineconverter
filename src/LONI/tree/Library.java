@@ -8,3 +8,4 @@ public class Library extends LoniNode {
 	private String myPackage;
 	private String uri;
 	private String compilationTime;
+}
