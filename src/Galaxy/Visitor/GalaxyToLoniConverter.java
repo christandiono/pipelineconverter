@@ -82,12 +82,12 @@ public class GalaxyToLoniConverter extends DFSVisitor
 				
 				posX = step.getPosition().getFromLeft();
 				posY = step.getPosition().getFromTop();
-				description = "Annotation: " + step.getAnnotation() + " " + "Tool Description: " + details.getDescription();
+				description = "Annotation: " + step.getAnnotation() + " " + "Tool Description: " + ((details == null) ? "" : details.getDescription());
 				id = step.getToolId();
 				name = step.getName();
 				package_ = "package";
 				version = step.getToolVersion();
-				executableVersion = details.getVersion();
+				executableVersion = ((details == null) ? "" : details.getVersion());
 				location = "pipeline://localhost/";
 				rotation = 0;
 				icon = "icon";
@@ -96,9 +96,12 @@ public class GalaxyToLoniConverter extends DFSVisitor
 				genModule = new Module(posX, posY, id, name, package_, version, executableVersion, description ,
 						location, rotation, icon, advancedOptions, false, false, false, false, "sourceCode", 
 						false, false, "mPIParallelEnv", "mPINumSlots", false);
+				List<LONI.tree.Parameter> inputs = null;
+				if (details != null) {
+					inputs = (List<LONI.tree.Parameter>) visit(details.getToolInputs());
+					genModule.addInputs(inputs);
+				}
 				
-				List<LONI.tree.Parameter> inputs = (List<LONI.tree.Parameter>) visit(details.getToolInputs());
-				genModule.addInputs(inputs);
 				
 				for(String sink : step.getConnectionSinks()){
 					InputConnection src = step.getConnectionSource(sink);
