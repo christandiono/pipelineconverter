@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <pipeline version=".1">
-  <moduleGroup id="mgrp0" name="test" package="package" version="version" description="hello there, i am cool">
-    <position posX="0" posY="0"/>
+  <moduleGroup posX="0" posY="0" id="mgrp0" name="test" package="package" version="version" description="hello there, i am cool">
     <icon>icon</icon>
     <rotation>0</rotation>
     <needsProvenance>false</needsProvenance>

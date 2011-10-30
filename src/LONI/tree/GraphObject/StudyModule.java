@@ -1,7 +1,6 @@
 package LONI.tree.GraphObject;
 
 import LONI.tree.LoniNode;
-import LONI.tree.Position;
 
 public class StudyModule extends GraphObject {
 
@@ -27,8 +26,8 @@ public class StudyModule extends GraphObject {
 			boolean isGroupAsOutput, int rotation, String type,
 			boolean dirSource, String importStudyRule, String derivedDataTag,
 			boolean useDirSourceFilters, int dirSourceFilterType,
-			boolean recursive, Position position) {
-		super(position);
+			boolean recursive, int posX, int posY) {
+		super(posX, posY);
 		this.id = id;
 		this.name = name;
 		this.myPackage = myPackage;

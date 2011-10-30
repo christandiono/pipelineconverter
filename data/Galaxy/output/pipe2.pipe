@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<pipeline version=".1">
+  <moduleGroup posX="0" posY="0" id="mgrp1" name="test" package="package" version="version" description="">
+    <icon>icon</icon>
+    <rotation>0</rotation>
+    <needsProvenance>false</needsProvenance>
+    <module posX="124" posY="200" id="microbial_import1" name="Get Microbial Data" package="package" version="1.0.0" executableVersion="1.0.0-exec" description="hello. This is a node that i like." location="pipeline://localhost/" rotation="0">
+      <icon>icon</icon>
+      <advancedOptions>advancedOptions</advancedOptions>
+      <smartModule>false</smartModule>
+      <isIDAModule>false</isIDAModule>
+      <isXNATModule>false</isXNATModule>
+      <isRepeatUntil>false</isRepeatUntil>
+      <sourceCode>sourceCode</sourceCode>
+      <requireNetAccess>false</requireNetAccess>
+      <MPIEnabled>false</MPIEnabled>
+      <MPIParallelEnv>mPIParallelEnv</MPIParallelEnv>
+      <MPINumSlots>mPINumSlots</MPINumSlots>
+      <preserveInputFilename>false</preserveInputFilename>
+    </module>
+    <module posX="121" posY="359" id="MAF_To_BED1" name="Maf to BED" package="package" version="1.0.0" executableVersion="1.0.0-exec" description="hello. I hate this node soooo much." location="pipeline://localhost/" rotation="0">
+      <icon>icon</icon>
+      <advancedOptions>advancedOptions</advancedOptions>
+      <smartModule>false</smartModule>
+      <isIDAModule>false</isIDAModule>
+      <isXNATModule>false</isXNATModule>
+      <isRepeatUntil>false</isRepeatUntil>
+      <sourceCode>sourceCode</sourceCode>
+      <requireNetAccess>false</requireNetAccess>
+      <MPIEnabled>false</MPIEnabled>
+      <MPIParallelEnv>mPIParallelEnv</MPIParallelEnv>
+      <MPINumSlots>mPINumSlots</MPINumSlots>
+      <preserveInputFilename>false</preserveInputFilename>
+    </module>
+    <module posX="335" posY="219" id="bed_to_bigBed" name="BED-to-bigBed" package="package" version="1.0.0" executableVersion="1.0.0-exec" description="this node is just ok." location="pipeline://localhost/" rotation="0">
+      <icon>icon</icon>
+      <advancedOptions>advancedOptions</advancedOptions>
+      <smartModule>false</smartModule>
+      <isIDAModule>false</isIDAModule>
+      <isXNATModule>false</isXNATModule>
+      <isRepeatUntil>false</isRepeatUntil>
+      <sourceCode>sourceCode</sourceCode>
+      <requireNetAccess>false</requireNetAccess>
+      <MPIEnabled>false</MPIEnabled>
+      <MPIParallelEnv>mPIParallelEnv</MPIParallelEnv>
+      <MPINumSlots>mPINumSlots</MPINumSlots>
+      <preserveInputFilename>false</preserveInputFilename>
+    </module>
+    <module posX="344" posY="355" id="bed_to_bigBed" name="BED-to-bigBed" package="package" version="1.0.0" executableVersion="1.0.0-exec" description="don&apos;t love this guy" location="pipeline://localhost/" rotation="0">
+      <icon>icon</icon>
+      <advancedOptions>advancedOptions</advancedOptions>
+      <smartModule>false</smartModule>
+      <isIDAModule>false</isIDAModule>
+      <isXNATModule>false</isXNATModule>
+      <isRepeatUntil>false</isRepeatUntil>
+      <sourceCode>sourceCode</sourceCode>
+      <requireNetAccess>false</requireNetAccess>
+      <MPIEnabled>false</MPIEnabled>
+      <MPIParallelEnv>mPIParallelEnv</MPIParallelEnv>
+      <MPINumSlots>mPINumSlots</MPINumSlots>
+      <preserveInputFilename>false</preserveInputFilename>
+    </module>
+    <connections>
+      <connections>
+        <LONI.tree.Connection>
+          <source>0_output</source>
+          <sink>input1</sink>
+        </LONI.tree.Connection>
+        <LONI.tree.Connection>
+          <source>1_out_file1</source>
+          <sink>input1</sink>
+        </LONI.tree.Connection>
+      </connections>
+    </connections>
+  </moduleGroup>
+</pipeline>

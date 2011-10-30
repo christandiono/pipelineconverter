@@ -5,7 +5,6 @@ import java.util.List;
 
 import LONI.tree.Connections;
 import LONI.tree.LoniNode;
-import LONI.tree.Position;
 
 
 
@@ -23,8 +22,8 @@ public class ModuleGroup extends GraphObject {
 	
 	public ModuleGroup(String id, String name, String myPackage,
 			String version, String description, String icon, int rotation,
-			Position position, boolean needsProvenance) {
-		super(position);
+			int posX, int posY, boolean needsProvenance) {
+		super(posX, posY);
 		this.id = id;
 		this.name = name;
 		this.myPackage = myPackage;

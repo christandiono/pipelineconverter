@@ -107,7 +107,9 @@ public class XStreamWrapper<T> implements Parser<T>, Generator<T>{
 	public void bindGroupToList(Class classWithArray, String arrayFieldName){
 		xstream.addImplicitArray(classWithArray, arrayFieldName);
 	}
-	
+	public void addHandler(XStreamHandler x){
+		xstream.registerConverter(x);
+	}
 	@Override
 	public T parse(String xml) {
 		// TODO Auto-generated method stub

@@ -98,7 +98,7 @@ public class GalaxyToolDatabase {
 			XStream xstream;
 			BufferedReader reader;
 			toolPath = relativePathToInputToolPath(relativePath);
-			System.out.println(toolPath);
+			
 			xstream = new XStream(new StaxDriver());
 			try {
 				reader = new BufferedReader(new FileReader(toolPath));

@@ -1,7 +1,6 @@
 package LONI.tree.GraphObject;
 
 import LONI.tree.LoniNode;
-import LONI.tree.Position;
 
 public class LoopGroup extends GraphObject {
 
@@ -17,9 +16,9 @@ public class LoopGroup extends GraphObject {
 	
 	public LoopGroup(String id, String name, String myPackage, String version,
 			String description, String icon, int rotation, boolean needsProvenance,
-			Position position)
+			int posX, int posY)
 	{
-		super(position);
+		super(posX, posY);
 		this.id = id;
 		this.name = name;
 		this.icon = icon;

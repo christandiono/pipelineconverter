@@ -2,10 +2,10 @@ package Specification;
 
 import FileOps.Generator;
 import FileOps.Parser;
+import FileOps.XStream.XStreamHandler;
 import FileOps.XStream.XStreamWrapper;
 import Galaxy.Tree.Tool.Tool;
 import LONI.tree.Pipeline;
-import LONI.tree.Position;
 import LONI.tree.GraphObject.Module;
 import LONI.tree.GraphObject.ModuleGroup;
 
@@ -20,6 +20,7 @@ public class LoniSpecification {
 	}
 	
 	private static void initXML(){
+		
 		xstream.bindElementToClass(Pipeline.class, "pipeline");
 		xstream.bindAttributeToClassField(Pipeline.class, "version", "version");
 		xstream.bindAttributeToClassField(Pipeline.class, "pipelineModuleGroup", "moduleGroup");
@@ -29,8 +30,9 @@ public class LoniSpecification {
 		xstream.bindAttributeToClassField(ModuleGroup.class, "myPackage", "package");
 		xstream.bindAttributeToClassField(ModuleGroup.class, "version", "version");
 		xstream.bindAttributeToClassField(ModuleGroup.class, "description", "description");
-		xstream.bindAttributeToClassField(Position.class, "posX", "posX");
-		xstream.bindAttributeToClassField(Position.class, "posY", "posY");
+		xstream.bindAttributeToClassField(ModuleGroup.class, "posX", "posX");
+		xstream.bindAttributeToClassField(ModuleGroup.class, "posY", "posY");
+		
 		xstream.bindGroupToList(ModuleGroup.class, "modules");
 		xstream.bindElementToClass(Module.class, "module");
 		xstream.bindAttributeToClassField(Module.class, "myPackage", "package");
@@ -38,6 +40,13 @@ public class LoniSpecification {
 		xstream.bindAttributeToClassField(Module.class, "location", "location");
 		xstream.bindAttributeToClassField(Module.class, "description", "description");
 		xstream.bindAttributeToClassField(Module.class, "rotation", "rotation");
+		xstream.bindAttributeToClassField(Module.class, "version", "version");
+		xstream.bindAttributeToClassField(Module.class, "name", "name");
+		xstream.bindAttributeToClassField(Module.class, "executableVersion", "executableVersion");
+		xstream.bindAttributeToClassField(Module.class, "name", "name");
+		xstream.bindAttributeToClassField(Module.class, "posX", "posX");
+		xstream.bindAttributeToClassField(Module.class, "posY", "posY");
+		
 		
 	}
 

@@ -1,7 +1,6 @@
 package LONI.tree.GraphObject;
 
 import LONI.tree.LoniNode;
-import LONI.tree.Position;
 
 public class Module extends GraphObject {
 
@@ -29,14 +28,14 @@ public class Module extends GraphObject {
 	private final boolean preserveInputFilename;
 	
 	
-	public Module(Position position, String id, String name, String myPackage,
+	public Module(int posX, int posY, String id, String name, String myPackage,
 			String version, String executableVersion, String description,
 			String location, int rotation, String icon, String advancedOptions,
 			boolean smartModule, boolean isIDAModule, boolean isXNATModule,
 			boolean isRepeatUntil, String sourceCode, boolean requireNetAccess,
 			boolean mPIEnabled, String mPIParallelEnv, String mPINumSlots,
 			boolean preserveInputFilename) {
-		super(position);
+		super(posX, posY);
 		this.id = id;
 		this.name = name;
 		this.myPackage = myPackage;

@@ -1,7 +1,6 @@
 package LONI.tree.GraphObject;
 
 import LONI.tree.LoniNode;
-import LONI.tree.Position;
 
 public class Annotation extends GraphObject {
 
@@ -17,17 +16,15 @@ public class Annotation extends GraphObject {
 	private String background;
 	private String foreground;
 	
-	public Annotation(Position position, String type, boolean expanded,
-			String name, String width, String height, String posX, String posY,
+	public Annotation(int posX, int posY, String type, boolean expanded,
+			String name, String width, String height, 
 			String background, String foreground) {
-		super(position);
+		super(posX, posY);
 		this.type = type;
 		this.expanded = expanded;
 		this.name = name;
 		this.width = width;
 		this.height = height;
-		this.posX = posX;
-		this.posY = posY;
 		this.background = background;
 		this.foreground = foreground;
 	}

@@ -1,7 +1,6 @@
 package LONI.tree.GraphObject;
 
 import LONI.tree.LoniNode;
-import LONI.tree.Position;
 
 public class ConditionalModule extends GraphObject {
 
@@ -20,8 +19,8 @@ public class ConditionalModule extends GraphObject {
 	
 	public ConditionalModule(String id, String name, String myPackage, String version, 
 			String executableVersion, String description, String location, int rotation, 
-			String icon, String advancedOptions, boolean hasMetadata, Position position) {
-		super(position);
+			String icon, String advancedOptions, boolean hasMetadata, int posX, int posY) {
+		super(posX, posY);
 		this.id = id;
 		this.name = name;
 		this.myPackage = myPackage;

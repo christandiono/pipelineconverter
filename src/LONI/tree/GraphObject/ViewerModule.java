@@ -1,7 +1,6 @@
 package LONI.tree.GraphObject;
 
 import LONI.tree.LoniNode;
-import LONI.tree.Position;
 
 public class ViewerModule extends GraphObject {
 
@@ -16,10 +15,10 @@ public class ViewerModule extends GraphObject {
 	private final int rotation;
 	private final String icon;
 	
-	public ViewerModule(Position position, String id, String name,
+	public ViewerModule(int posX, int posY, String id, String name,
 			String myPackage, String version, String description,
 			String location, int rotation, String icon) {
-		super(position);
+		super(posX, posY);
 		this.id = id;
 		this.name = name;
 		this.myPackage = myPackage;

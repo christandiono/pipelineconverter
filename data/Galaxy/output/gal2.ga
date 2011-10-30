@@ -7,7 +7,7 @@
     "0": {
       "id": 0,
       "name": "Get Microbial Data",
-      "annotation": "",
+      "annotation": "hello. This is a node that i like.",
       "tool_id": "microbial_import1",
       "tool_version": "1.0.0",
       "tool_state": "{\"GeneMark\": \"null\", \"kingdom\": \"null\", \"__page__\": 0, \"rRNA\": \"null\", \"sequence\": \"null\", \"Glimmer3\": \"null\", \"tRNA\": \"null\", \"GeneMarkHMM\": \"null\", \"CDS\": \"null\", \"org\": \"null\"}",
@@ -28,7 +28,7 @@
     "1": {
       "id": 1,
       "name": "Maf to BED",
-      "annotation": "",
+      "annotation": "hello. I hate this node soooo much.",
       "tool_id": "MAF_To_BED1",
       "tool_version": "1.0.0",
       "tool_state": "{\"__page__\": 0, \"input1\": \"null\", \"complete_blocks\": \"\\\"partial_allowed\\\"\", \"species\": \"{\\\"__class__\\\": \\\"UnvalidatedValue\\\", \\\"value\\\": null}\"}",
@@ -49,7 +49,7 @@
     "2": {
       "id": 2,
       "name": "BED-to-bigBed",
-      "annotation": "",
+      "annotation": "this node is just ok.",
       "tool_id": "bed_to_bigBed",
       "tool_version": "1.0.0",
       "tool_state": "{\"__page__\": 0, \"input1\": \"null\", \"settings\": \"{\\\"settingsType\\\": \\\"preset\\\", \\\"__current_case__\\\": 0}\"}",
@@ -75,7 +75,7 @@
     "3": {
       "id": 3,
       "name": "BED-to-bigBed",
-      "annotation": "",
+      "annotation": "don\u0027t love this guy",
       "tool_id": "bed_to_bigBed",
       "tool_version": "1.0.0",
       "tool_state": "{\"__page__\": 0, \"input1\": \"null\", \"settings\": \"{\\\"settingsType\\\": \\\"preset\\\", \\\"__current_case__\\\": 0}\"}",

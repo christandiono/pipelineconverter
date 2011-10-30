@@ -1,11 +1,12 @@
 package LONI.tree.GraphObject;
 
-import LONI.tree.Position;
 
 public class GraphObject {
-	private final Position position;
+	private final int posX;
+	private final int posY;
 	
-	public GraphObject(Position position){
-		this.position = position;
+	public GraphObject(int posX, int posY){
+		this.posX = posX;
+		this.posY = posY;
 	}
 }
