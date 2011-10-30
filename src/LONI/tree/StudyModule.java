@@ -1,9 +1,13 @@
+import LONI.tree.LoniNode;
+
+package LONI.tree;
+
 public class StudyModule extends LoniNode {
 
 
 	private String id;
 	private String name;
-	private String package;
+	private String myPackage;
 	private String version;
 	private String description;
 	private int posX;
