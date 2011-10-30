@@ -3,5 +3,5 @@ package LONI.tree;
 public class Annotations extends LoniNode {
 
 
-	private boolean visible;
+	private final boolean visible;
 }

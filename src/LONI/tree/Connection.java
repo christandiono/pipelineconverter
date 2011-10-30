@@ -3,6 +3,6 @@ package LONI.tree;
 public class Connection extends LoniNode {
 
 
-	private String source;
-	private String sink;
+	private final String source;
+	private final String sink;
 }

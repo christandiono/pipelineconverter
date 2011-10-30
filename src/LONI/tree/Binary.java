@@ -3,10 +3,10 @@ package LONI.tree;
 public class Binary extends LoniNode {
 
 
-	private String name;
-	private String description;
-	private String version;
-	private String myPackage;
-	private String uri;
-	private String compilationTime;
+	private final String name;
+	private final String description;
+	private final String version;
+	private final String myPackage;
+	private final String uri;
+	private final String compilationTime;
 }

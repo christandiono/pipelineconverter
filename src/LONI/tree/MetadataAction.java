@@ -3,6 +3,6 @@ package LONI.tree;
 public class MetadataAction extends LoniNode {
 
 
-	private String location;
-	private String action;
+	private final String location;
+	private final String action;
 }

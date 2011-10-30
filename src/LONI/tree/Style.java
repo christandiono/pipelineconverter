@@ -3,8 +3,8 @@ package LONI.tree;
 public class Style extends LoniNode {
 
 
-	private String name;
-	private String fontSize;
-	private boolean isBold;
-	private boolean isItalic;
+	private final String name;
+	private final String fontSize;
+	private final boolean isBold;
+	private final boolean isItalic;
 }

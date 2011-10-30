@@ -1,8 +1,8 @@
 package LONI.tree;
 
 public class Position {
-	private final int posX;
-	private final int posY;
+	private final final int posX;
+	private final final int posY;
 	
 	public Position(int x, int y){
 		posX = x;

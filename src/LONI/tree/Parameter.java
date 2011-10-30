@@ -3,18 +3,18 @@ package LONI.tree;
 public class Parameter extends LoniNode {
 
 
-	private String id;
-	private String name;
-	private String description;
-	private boolean enabled;
-	private boolean required;
-	private boolean predefined;
-	private boolean isMetadata;
-	private boolean isListFile;
-	private boolean isHideData;
-	private boolean includeTransformedParameter;
-	private int order;
-	private String prefix;
-	private boolean prefixSpaced;
-	private boolean prefixAllArgs;
+	private final String id;
+	private final String name;
+	private final String description;
+	private final boolean enabled;
+	private final boolean required;
+	private final boolean predefined;
+	private final boolean isMetadata;
+	private final boolean isListFile;
+	private final boolean isHideData;
+	private final boolean includeTransformedParameter;
+	private final int order;
+	private final String prefix;
+	private final boolean prefixSpaced;
+	private final boolean prefixAllArgs;
 }

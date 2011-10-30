@@ -3,14 +3,14 @@ package LONI.tree;
 public class LoopGroup extends LoniNode {
 
 
-	private String id;
-	private String name;
-	private String myPackage;
-	private String version;
-	private String description;
-	private String icon;
-	private int posX;
-	private int posY;
-	private int rotation;
-	private boolean needsProvenance;
+	private final String id;
+	private final String name;
+	private final String myPackage;
+	private final String version;
+	private final String description;
+	private final String icon;
+	private final int posX;
+	private final int posY;
+	private final int rotation;
+	private final boolean needsProvenance;
 }

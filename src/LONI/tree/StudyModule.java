@@ -3,20 +3,20 @@ package LONI.tree;
 public class StudyModule extends LoniNode {
 
 
-	private String id;
-	private String name;
-	private String myPackage;
-	private String version;
-	private String description;
-	private int posX;
-	private int posY;
-	private boolean isGroupAsOutput;
-	private int rotation;
-	private String type;
-	private boolean dirSource;
-	private String importStudyRule;
-	private String derivedDataTag;
-	private boolean useDirSourceFilters;
-	private int dirSourceFilterType;
-	private boolean recursive;
+	private final String id;
+	private final String name;
+	private final String myPackage;
+	private final String version;
+	private final String description;
+	private final int posX;
+	private final int posY;
+	private final boolean isGroupAsOutput;
+	private final int rotation;
+	private final String type;
+	private final boolean dirSource;
+	private final String importStudyRule;
+	private final String derivedDataTag;
+	private final boolean useDirSourceFilters;
+	private final int dirSourceFilterType;
+	private final boolean recursive;
 }

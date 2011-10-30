@@ -3,8 +3,8 @@ package LONI.tree;
 public class Format extends LoniNode {
 
 
-	private String type;
-	private int cardinality;
-	private String cardinalityBase;
-	private String transformationBase;
+	private final String type;
+	private final int cardinality;
+	private final String cardinalityBase;
+	private final String transformationBase;
 }

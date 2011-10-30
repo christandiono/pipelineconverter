@@ -3,8 +3,8 @@ package LONI.tree;
 public class Compiler extends LoniNode {
 
 
-	private String name;
-	private String version;
-	private String flags;
-	private String updates;
+	private final String name;
+	private final String version;
+	private final String flags;
+	private final String updates;
 }

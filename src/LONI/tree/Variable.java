@@ -3,9 +3,9 @@ package LONI.tree;
 public class Variable extends LoniNode {
 
 
-	private String name;
-	private String description;
-	private boolean required;
-	private boolean secret;
-	private int order;
+	private final String name;
+	private final String description;
+	private final boolean required;
+	private final boolean secret;
+	private final int order;
 }

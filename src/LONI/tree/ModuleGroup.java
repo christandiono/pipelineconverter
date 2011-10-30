@@ -2,15 +2,15 @@ package LONI.tree;
 
 public class ModuleGroup extends LoniNode {
 	
-	private String id;
-	private String name;
-	private String myPackage;
-	private String version;
-	private String description;
-	private String icon;
+	private final String id;
+	private final String name;
+	private final String myPackage;
+	private final String version;
+	private final String description;
+	private final String icon;
 	Position position;
-	private int rotation;
-	private boolean needsProvenance;
+	private final int rotation;
+	private final boolean needsProvenance;
 	
 	
 	public ModuleGroup(String id, String name, String myPackage,
