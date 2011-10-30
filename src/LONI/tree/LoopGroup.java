@@ -1,14 +1,14 @@
-package LONI.tree;
+public class LoopGroup extends LoniNode {
 
 
-public class LoopGroup extends LoniNode{
-	String Name;
-	String ID;
-	String Package;
-	String Version;
-	String Description;
-	Integer PositionX;
-	Integer PositionY;
-	Boolean NeedsProvenance;
-	//List<Loop> Loops;	
+	private String id;
+	private String name;
+	private String package;
+	private String version;
+	private String description;
+	private String icon;
+	private int posX;
+	private int posY;
+	private int rotation;
+	private boolean needsProvenance;
 }

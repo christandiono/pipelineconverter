@@ -1,4 +1,4 @@
-public class StudyModule extends LoniNode {
+public class DataModule extends LoniNode {
 
 
 	private String id;
@@ -8,12 +8,11 @@ public class StudyModule extends LoniNode {
 	private String description;
 	private int posX;
 	private int posY;
-	private boolean isGroupAsOutput;
 	private int rotation;
 	private String type;
+	private boolean source;
 	private boolean dirSource;
-	private String importStudyRule;
-	private String derivedDataTag;
+	private boolean dirDump;
 	private boolean useDirSourceFilters;
 	private int dirSourceFilterType;
 	private boolean recursive;
