@@ -14,7 +14,6 @@ import java.io.Writer;
 
 import javax.xml.stream.XMLStreamException;
 
-import com.sun.xml.internal.txw2.output.IndentingXMLStreamWriter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.reflection.AbstractReflectionConverter.UnknownFieldException;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
@@ -88,19 +87,23 @@ public class XStreamWrapper<T> implements Parser<T>, Generator<T>{
 	/**
 	 * Mark a field in a Class as a List of elements.
 	 * Example:
-	 * 	XML Snippet:
-	 * 		<modulegroup>
-	 * 			<module></module>
-	 * 			<module></module>
-	 * 		</modulegroup>
-	 * 	Class Snippet:
+	 * 	<p>XML Snippet:
+	 * <pre>
+	 * 		&lt;modulegroup&gt;
+	 * 			&lt;module>&lt;/module&gt;
+	 * 			&lt;module>&lt;/module&gt;
+	 * 		&lt;/modulegroup&gt;
+	 * </pre>
+	 * 	<p>Class Snippet:
+	 * <pre>
 	 * 		class Module{}
 	 * 		class ModuleGroup{
-	 * 			List<Module> modules;
+	 * 			List&lt;Module&gt; modules;
 	 * 		}
 	 * bindElementToClass("module", Module.class);
 	 * bindElementToClass("modulegroup", Module.class);
-	 * bindGroupToList<ModuleGroup.class, "modules");
+	 * bindGroupToList(ModuleGroup.class, "modules");
+	 * </pre>
 	 * @param classWithArray Class the list of objects belongs to.
 	 * @param arrayFieldName Name of field that holds a listof objects.
 	 */
