@@ -4,9 +4,9 @@ import FileOps.Generator;
 import FileOps.Parser;
 import FileOps.XStream.XStreamWrapper;
 import Galaxy.Tree.Tool.Tool;
-import LONI.tree.ModuleGroup;
 import LONI.tree.Pipeline;
 import LONI.tree.GraphObject.Module;
+import LONI.tree.GraphObject.ModuleGroup;
 
 public class LoniSpecification {
 	private static XStreamWrapper<Pipeline> xstream = new XStreamWrapper<Pipeline>();

@@ -1,5 +1,7 @@
 package LONI.tree;
 
+import LONI.tree.GraphObject.ModuleGroup;
+
 
 
 public class Pipeline extends LoniNode {

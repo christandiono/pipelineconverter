@@ -2,7 +2,7 @@ package LONI.tree.GraphObject;
 
 import LONI.tree.LoniNode;
 
-public class ConditionalModule extends LoniNode {
+public class ConditionalModule extends GraphObject {
 
 
 	private final String id;
@@ -12,8 +12,6 @@ public class ConditionalModule extends LoniNode {
 	private final String executableVersion;
 	private final String description;
 	private final String location;
-	private final int posX;
-	private final int posY;
 	private final int rotation;
 	private final String icon;
 	private final String advancedOptions;

@@ -1,6 +1,9 @@
-package LONI.tree;
+package LONI.tree.GraphObject;
 
 import java.util.List;
+
+import LONI.tree.LoniNode;
+import LONI.tree.Position;
 
 
 
