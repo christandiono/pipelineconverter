@@ -1,5 +1,3 @@
-import LONI.tree.LoniNode;
-
 package LONI.tree;
 
 public class Binary extends LoniNode {

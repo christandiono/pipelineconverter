@@ -1,5 +1,3 @@
-import LONI.tree.LoniNode;
-
 package LONI.tree;
 
 public class Module extends LoniNode {
