@@ -1,14 +1,20 @@
 package Taverna.Tree.Layers;
 import Taverna.Tree.TavernaNode;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Properties extends TavernaNode {
-	private final Property property;
+	private List<Property> properties;
 	
-	public Properties(Property property){
-		this.property = property;
+	public Properties(){
+		properties = new ArrayList<Property>();
 	}
 
-	public Property getProperty() {
-		return property;
+	public List<Property> getProperty() {
+		return properties;
+	}
+	
+	public void addProperty(Property property) {
+		properties.add(property);
 	}
 }
