@@ -31,7 +31,7 @@ public class XStreamWrapper<T> implements Parser<T>, Generator<T>{
 	XStream xstream;
 	
 	public XStreamWrapper(){
-		xstream =new XStream(new DomDriver()); 
+		xstream = new XStream(new DomDriver()); 
 	}
 	/**
 	 * Bind an element in the XML file to a class.
@@ -112,18 +112,16 @@ public class XStreamWrapper<T> implements Parser<T>, Generator<T>{
 	}
 	@Override
 	public T parse(String xml) {
-		// TODO Auto-generated method stub
-		T parsedObject=(T) xstream.fromXML(xml);
+		T parsedObject = (T) xstream.fromXML(xml);
 		return parsedObject;
 	}
 	
-
 	@Override
 	public T parse(File xml) throws FileNotFoundException {
 		// TODO Auto-generated method stub
 		Reader reader = new BufferedReader( new FileReader(xml.getPath()));
 		try{
-			T parsedObject=(T) xstream.fromXML(reader);
+			T parsedObject = (T) xstream.fromXML(reader);
 			return parsedObject;
 		}
 		catch(UnknownFieldException e){

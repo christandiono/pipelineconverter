@@ -11,6 +11,7 @@ import Galaxy.Tree.Workflow.Workflow;
 import Galaxy.Toolbox.GalaxyToolDatabase;
 import Galaxy.Visitor.GalaxyToLoniConverter;
 import LONI.tree.Pipeline;
+import Taverna.Tree.*;
 
 public class TestSpecifications {
 
@@ -35,6 +36,22 @@ public class TestSpecifications {
 		}
 		
 	}
+	
+	public static void testTavernaXML(String path, String output){
+		System.out.println("===" + path + "===");
+		Taverna.Tree.Workflow w;
+		try{
+			w = TavernaSpecification.getXMLParser().parse(new File(path));
+			try{
+				TavernaSpecification.getXMLGenerator().generate(w, output);
+			} catch (IOException e){
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e){
+			e.printStackTrace();
+		}
+	}
+	
 	public static void testGalaxyXML(String path, String output){
 		System.out.println("==="+path+"===");
 		Tool G;
@@ -51,7 +68,6 @@ public class TestSpecifications {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public static void testGalaxyConvert(String path, String output){
@@ -92,10 +108,11 @@ public class TestSpecifications {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
+	
 	public static void main(String[] args){
 		//testJSON("data/test2.ga");
+		
 		ConverterConfig.GALAXY_INPUT_DIR = "/home/viper/documents/CS130/galaxy/galaxy-dist/";
 		ConverterConfig.GALAXY_OUTPUT_DIR = "/home/viper/workspace/pipelineconverter/data/Galaxy/output/db/";
 		
@@ -110,9 +127,8 @@ public class TestSpecifications {
 		testLoniXML("data/Loni/input/loni2.pipe", "data/Loni/output/loni2.pipe");
 		
 		testGalaxyConvert("data/Galaxy/input/gal1.ga", "data/Galaxy/output/pipe1.pipe");
+
 		testGalaxyConvert("data/Galaxy/input/gal2.ga", "data/Galaxy/output/pipe2.pipe");
-		
-		
-	
+
 	}
 }

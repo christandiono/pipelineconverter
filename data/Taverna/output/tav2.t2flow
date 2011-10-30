@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<workflow producedBy="taverna-2.3.0" version="1" xmlns="http://taverna.sf.net/2008/xml/t2flow">
+  <dataflow>
+    <name>Workflow2</name>
+    <inputPorts/>
+    <outputPorts/>
+    <processors/>
+    <conditions/>
+    <datalinks/>
+  </dataflow>
+</workflow>
