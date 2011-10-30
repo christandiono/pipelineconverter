@@ -1,15 +1,15 @@
 package LONI.tree.GraphObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import LONI.tree.Connections;
 import LONI.tree.LoniNode;
 import LONI.tree.Position;
 
 
 
 public class ModuleGroup extends GraphObject {
-	
-
 	private final String id;
 	private final String name;
 	private final String myPackage;
@@ -18,6 +18,8 @@ public class ModuleGroup extends GraphObject {
 	private final String icon;
 	private final int rotation;
 	private final boolean needsProvenance;
+	List<GraphObject> modules;
+	Connections connections;
 	
 	public ModuleGroup(String id, String name, String myPackage,
 			String version, String description, String icon, int rotation,
@@ -31,6 +33,8 @@ public class ModuleGroup extends GraphObject {
 		this.icon = icon;
 		this.rotation = rotation;
 		this.needsProvenance = needsProvenance;
+		connections = new Connections();
+		modules = new ArrayList<GraphObject>();
 	}
 	
 }
