@@ -110,6 +110,7 @@ public class TestSpecifications {
 		testLoniXML("data/Loni/input/loni2.pipe", "data/Loni/output/loni2.pipe");
 		
 		testGalaxyConvert("data/Galaxy/input/gal1.ga", "data/Galaxy/output/pipe1.pipe");
+		testGalaxyConvert("data/Galaxy/input/gal2.ga", "data/Galaxy/output/pipe2.pipe");
 		
 		
 	

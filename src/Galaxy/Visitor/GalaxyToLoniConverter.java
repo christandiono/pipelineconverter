@@ -38,17 +38,16 @@ public class GalaxyToLoniConverter extends DFSVisitor
 				name, "package", "version", annotation, 
 				"icon", 0, new LONI.tree.Position(0,0), false);
 		
-		/*
+		
 		for(Step s : workflow.getSteps()){
 			Pair<Module, List<Connection>> dat;
 			dat = (Pair<Module, List<Connection>>) stepVisitor.visit(s);
-			dat.getElem1();
-			dat.getElem2();
-			mgroup.getConnections().addConnections(dat.getElem2());
 			
+			//mgroup.getConnections().addConnections(dat.getElem2());
+			mgroup.getModules().add(dat.getElem1());
 			
 		}
-		*/
+		
 		pipeline = new Pipeline(version, mgroup);
 		
 		return pipeline;
@@ -62,7 +61,7 @@ public class GalaxyToLoniConverter extends DFSVisitor
 				LONI.tree.Position position = new LONI.tree.Position(0,0);
 				genModule = new Module(position, step.getToolId(), step.getName(), 
 						"package", step.getToolVersion(), step.getAnnotation(), "executableVersion" ,
-						"location", 0, "icon", "advancedOptions", false, false, false, false, "sourceCode", 
+						"pipeline://localhost/", 0, "icon", "advancedOptions", false, false, false, false, "sourceCode", 
 						false, false, "mPIParallelEnv", "mPINumSlots", false);
 				
 				for(String sink : step.getConnectionSinks()){

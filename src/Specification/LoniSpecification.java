@@ -35,6 +35,7 @@ public class LoniSpecification {
 		xstream.bindElementToClass(Module.class, "module");
 		xstream.bindAttributeToClassField(Module.class, "id", "id");
 		xstream.bindAttributeToClassField(Module.class, "location", "location");
+		
 	}
 
 	public static Parser<Pipeline> getXMLParser(){
