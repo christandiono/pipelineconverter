@@ -5,12 +5,8 @@ import FileOps.Parser;
 import FileOps.XStream.XStreamHandler;
 import FileOps.XStream.XStreamWrapper;
 import Galaxy.Tree.Tool.Tool;
-import LONI.tree.Connection;
-import LONI.tree.Connections;
-import LONI.tree.Parameter;
-import LONI.tree.Pipeline;
-import LONI.tree.GraphObject.Module;
-import LONI.tree.GraphObject.ModuleGroup;
+import LONI.tree.*;
+import LONI.tree.GraphObject.*;
 
 public class LoniSpecification {
 	private static XStreamWrapper<Pipeline> xstream = new XStreamWrapper<Pipeline>();
@@ -45,6 +41,18 @@ public class LoniSpecification {
 		xstream.bindElementToClass(Connection.class, "connection");
 		//xstream.bindElementToClassField(ModuleGroup.class, "connections", "connections");
 	
+		xstream.bindElementToClass(Connection.class, "connection");
+		/* Connection instance variables go here */
+	
+		xstream.bindAttributeToClassField(DataModule.class, "fileTypes", "fileTypes");
+		xstream.bindElementToClass(FileTypes.class, "fileTypes");
+		/* fileTypes instnace variables go here */
+		xstream.bindGroupToList(FileTypes.class, "fileTypes");
+		xstream.bindElementToClass(FileType.class, "filetype");
+		/* fileType instance variables go here */
+		xstream.bindAttributeToClassField(FileType.class, "name", "name");
+		xstream.bindAttributeToClassField(FileType.class, "extension", "extension");
+		xstream.bindAttributeToClassField(FileType.class, "description", "description");
 		
 		xstream.bindGroupToList(ModuleGroup.class, "modules");
 		xstream.bindElementToClass(Module.class, "module");
@@ -56,11 +64,40 @@ public class LoniSpecification {
 		xstream.bindAttributeToClassField(Module.class, "version", "version");
 		xstream.bindAttributeToClassField(Module.class, "name", "name");
 		xstream.bindAttributeToClassField(Module.class, "executableVersion", "executableVersion");
-		xstream.bindAttributeToClassField(Module.class, "name", "name");
 		xstream.bindAttributeToClassField(Module.class, "posX", "posX");
 		xstream.bindAttributeToClassField(Module.class, "posY", "posY");
 		xstream.bindGroupToList(Module.class , "inputs");
 		xstream.bindGroupToList(Module.class , "outputs");
+		
+		
+		
+		
+		
+		
+
+		
+		xstream.bindElementToClass(DataModule.class, "dataModule");
+		xstream.bindAttributeToClassField(DataModule.class, "myPackage", "package");
+		xstream.bindAttributeToClassField(DataModule.class, "id", "id");
+		xstream.bindAttributeToClassField(DataModule.class, "description", "description");
+		xstream.bindAttributeToClassField(DataModule.class, "rotation", "rotation");
+		xstream.bindAttributeToClassField(DataModule.class, "version", "version");
+		xstream.bindAttributeToClassField(DataModule.class, "name", "name");
+		xstream.bindAttributeToClassField(DataModule.class, "posX", "posX");
+		xstream.bindAttributeToClassField(DataModule.class, "posY", "posY");
+		xstream.bindAttributeToClassField(DataModule.class, "type", "type");
+		xstream.bindAttributeToClassField(DataModule.class, "source", "source");
+		xstream.bindAttributeToClassField(DataModule.class, "dirSource", "dirSource");
+		xstream.bindAttributeToClassField(DataModule.class, "dirDump", "dirDump");
+		xstream.bindAttributeToClassField(DataModule.class, "useDirSourceFilters", "useDirSourceFilters");
+		xstream.bindAttributeToClassField(DataModule.class, "dirSourceFilterType", "dirSourceFilterType");
+		xstream.bindAttributeToClassField(DataModule.class, "recursive", "recursive");
+		xstream.bindAttributeToClassField(DataModule.class, "metadata", "metadata");
+		
+		
+		xstream.bindElementToClass(Metadata.class, "metadata");
+		xstream.bindElementToClassField(Metadata.class, "data", "data");
+
 		
 		xstream.bindElementToClass(Parameter.class, "input");
 		xstream.bindAttributeToClassField(Parameter.class, "name", "name");

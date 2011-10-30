@@ -10,6 +10,106 @@ public class Module extends GraphObject {
 
 
 	
+	public String getId() {
+		return id;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public String getMyPackage() {
+		return myPackage;
+	}
+
+
+	public String getVersion() {
+		return version;
+	}
+
+
+	public String getExecutableVersion() {
+		return executableVersion;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public String getLocation() {
+		return location;
+	}
+
+
+	public int getRotation() {
+		return rotation;
+	}
+
+
+	public String getIcon() {
+		return icon;
+	}
+
+
+	public String getAdvancedOptions() {
+		return advancedOptions;
+	}
+
+
+	public boolean isSmartModule() {
+		return smartModule;
+	}
+
+
+	public boolean isIDAModule() {
+		return isIDAModule;
+	}
+
+
+	public boolean isXNATModule() {
+		return isXNATModule;
+	}
+
+
+	public boolean isRepeatUntil() {
+		return isRepeatUntil;
+	}
+
+
+	public String getSourceCode() {
+		return sourceCode;
+	}
+
+
+	public boolean isRequireNetAccess() {
+		return requireNetAccess;
+	}
+
+
+	public boolean isMPIEnabled() {
+		return MPIEnabled;
+	}
+
+
+	public String getMPIParallelEnv() {
+		return MPIParallelEnv;
+	}
+
+
+	public String getMPINumSlots() {
+		return MPINumSlots;
+	}
+
+
+	public boolean isPreserveInputFilename() {
+		return preserveInputFilename;
+	}
+
+
 	private final String id;
 	private final String name;
 	private final String myPackage;

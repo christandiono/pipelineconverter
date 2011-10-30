@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline version=".1">
+        <connections>
+                <connection source="inputname_1.Output" sink="outputname_1.Input" />
+        </connections>
+        <moduleGroup id="MyWorkflow_1" name="MyWorkflow" package="THEPACKAGE" version="1.1.1" description="DESCRIPTION" posX="0" posY="0">
+                <dataModule id="inputname_1" name="inputname" package="inputpackage" version="inputpackageversion" description="inputdescription" posX="685" posY="359" type="File" source="true" loopIndex="false">
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <metadata>
+                                <data key="__creationDateKey" value="Sun Oct 30 02:05:18 PDT 2011" />
+                        </metadata>
+                        <output id="inputname_1.Output" name="Output" description="inputdescription" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </output>
+                </dataModule>
+                <dataModule id="outputname_1" name="outputname" package="outputpackage" version="outputpackageversion" description="output description" posX="737" posY="473" type="File" source="false" loopIndex="false" dirDump="false">
+                        <fileTypes>
+                                <filetype name="File" extension="" description="Any type of data file" />
+                        </fileTypes>
+                        <metadata>
+                                <data key="__creationDateKey" value="Sun Oct 30 02:05:22 PDT 2011" />
+                        </metadata>
+                        <input id="outputname_1.Input" name="Input" description="output description" required="true" enabled="true" order="-1">
+                                <format type="File" cardinality="1">
+                                        <fileTypes>
+                                                <filetype name="File" extension="" description="Any type of data file" />
+                                        </fileTypes>
+                                </format>
+                        </input>
+                </dataModule>
+        </moduleGroup>
+</pipeline>
+

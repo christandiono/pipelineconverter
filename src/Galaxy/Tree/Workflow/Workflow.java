@@ -47,5 +47,7 @@ public class Workflow extends GalaxyNode {
 		return steps.values();
 	}
 	
-	
+	public void addStep(int key, Step value) {
+		steps.put(key, value);
+	}
 }

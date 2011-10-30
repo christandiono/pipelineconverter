@@ -5,14 +5,14 @@ public class Position {
 	private final int unitsFromTopMargin;
 	
 	public Position(int unitsFromLeftMargin, int unitsFromTopMargin){
-		this.unitsFromLeftMargin = this.unitsFromLeftMargin;
-		this.unitsFromTopMargin = this.unitsFromTopMargin;
+		this.unitsFromLeftMargin = unitsFromLeftMargin;
+		this.unitsFromTopMargin = unitsFromTopMargin;
 	}
 	public Integer getFromLeft(){
-		return unitsFromLeftMargin;
+		return this.unitsFromLeftMargin;
 	}
 	public Integer getFromTop(){
-		return unitsFromTopMargin;
+		return this.unitsFromTopMargin;
 	}
 	
 }

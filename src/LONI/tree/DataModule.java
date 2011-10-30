@@ -3,11 +3,12 @@ package LONI.tree;
 public class DataModule extends LoniNode {
 
 
+
 	public DataModule(String id, String name, String myPackage, String version,
 			String description, int posX, int posY, int rotation, String type,
 			boolean source, boolean dirSource, boolean dirDump,
 			boolean useDirSourceFilters, int dirSourceFilterType,
-			boolean recursive) {
+			boolean recursive, FileTypes fileTypes, Metadata metadata) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -24,6 +25,11 @@ public class DataModule extends LoniNode {
 		this.useDirSourceFilters = useDirSourceFilters;
 		this.dirSourceFilterType = dirSourceFilterType;
 		this.recursive = recursive;
+		this.fileTypes = fileTypes;
+		this.metadata = metadata;
+	}
+	public FileTypes getFileTypes() {
+		return fileTypes;
 	}
 	public String getId() {
 		return id;
@@ -70,6 +76,9 @@ public class DataModule extends LoniNode {
 	public boolean isRecursive() {
 		return recursive;
 	}
+	public Metadata getMetadata() {
+		return metadata;
+	}
 	private final String id;
 	private final String name;
 	private final String myPackage;
@@ -85,4 +94,7 @@ public class DataModule extends LoniNode {
 	private final boolean useDirSourceFilters;
 	private final int dirSourceFilterType;
 	private final boolean recursive;
+	private final FileTypes fileTypes;
+	private final Metadata metadata;
+
 }
