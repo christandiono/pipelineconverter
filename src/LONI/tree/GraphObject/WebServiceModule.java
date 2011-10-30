@@ -4,7 +4,6 @@ import LONI.tree.LoniNode;
 
 public class WebServiceModule extends LoniNode {
 
-
 	private final String name;
 	private final String id;
 	private final String description;
@@ -16,6 +15,24 @@ public class WebServiceModule extends LoniNode {
 	private final String selectedOperation;
 	private final String executionServer;
 	private final int rotation;
-	private final int posX;
-	private final int posY;
+	
+	
+	public WebServiceModule(String name, String id, String description,
+			String version, String myPackage, String icon, String wsdlLocation,
+			String selectedInterface, String selectedOperation,
+			String executionServer, int rotation) {
+		super();
+		this.name = name;
+		this.id = id;
+		this.description = description;
+		this.version = version;
+		this.myPackage = myPackage;
+		this.icon = icon;
+		this.wsdlLocation = wsdlLocation;
+		this.selectedInterface = selectedInterface;
+		this.selectedOperation = selectedOperation;
+		this.executionServer = executionServer;
+		this.rotation = rotation;
+	}
+	
 }

@@ -1,17 +1,17 @@
 package LONI.tree.GraphObject;
 
 import LONI.tree.LoniNode;
+import LONI.tree.Position;
 
-public class StudyModule extends LoniNode {
+public class StudyModule extends GraphObject {
 
 
+	
 	private final String id;
 	private final String name;
 	private final String myPackage;
 	private final String version;
 	private final String description;
-	private final int posX;
-	private final int posY;
 	private final boolean isGroupAsOutput;
 	private final int rotation;
 	private final String type;
@@ -21,4 +21,27 @@ public class StudyModule extends LoniNode {
 	private final boolean useDirSourceFilters;
 	private final int dirSourceFilterType;
 	private final boolean recursive;
+	
+	public StudyModule(String id, String name, String myPackage,
+			String version, String description, 
+			boolean isGroupAsOutput, int rotation, String type,
+			boolean dirSource, String importStudyRule, String derivedDataTag,
+			boolean useDirSourceFilters, int dirSourceFilterType,
+			boolean recursive, Position position) {
+		super(position);
+		this.id = id;
+		this.name = name;
+		this.myPackage = myPackage;
+		this.version = version;
+		this.description = description;
+		this.isGroupAsOutput = isGroupAsOutput;
+		this.rotation = rotation;
+		this.type = type;
+		this.dirSource = dirSource;
+		this.importStudyRule = importStudyRule;
+		this.derivedDataTag = derivedDataTag;
+		this.useDirSourceFilters = useDirSourceFilters;
+		this.dirSourceFilterType = dirSourceFilterType;
+		this.recursive = recursive;
+	}
 }
