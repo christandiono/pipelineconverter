@@ -27,7 +27,7 @@ public class GalaxyToLoniConverter extends DFSVisitor
 	}
 
 
-	public Pipeline visit(Workflow workflow) 
+	public Object visit(Workflow workflow) 
 	{
 		Pipeline pipeline;
 		ModuleGroup mgroup;
