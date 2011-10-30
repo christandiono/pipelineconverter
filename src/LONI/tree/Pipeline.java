@@ -5,8 +5,8 @@ import LONI.tree.GraphObject.ModuleGroup;
 
 
 public class Pipeline extends LoniNode {
-	private final final String version;
-	private final final ModuleGroup pipelineModuleGroup;
+	private final String version;
+	private final ModuleGroup pipelineModuleGroup;
 	
 	public Pipeline(String version, String id, String name, String myPackage,
 					String moduleVersion, String description, String icon, 

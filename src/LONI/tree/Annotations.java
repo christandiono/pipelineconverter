@@ -2,7 +2,6 @@ package LONI.tree;
 
 public class Annotations extends LoniNode {
 
-
 	public boolean isVisible() {
 		return visible;
 	}
