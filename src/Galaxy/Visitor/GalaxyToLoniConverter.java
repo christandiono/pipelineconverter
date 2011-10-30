@@ -18,6 +18,7 @@ import Galaxy.Tree.Workflow.Workflow;
 
 
 import LONI.tree.Connection;
+import LONI.tree.Connections;
 import LONI.tree.Pipeline;
 import LONI.tree.GraphObject.Module;
 import LONI.tree.GraphObject.ModuleGroup;
@@ -45,17 +46,18 @@ public class GalaxyToLoniConverter extends DFSVisitor
 				name, "package", "version", annotation, 
 				"icon", 0, 0,0, false);
 		
+		Connections connections = new Connections();
 		
 		for(Step s : workflow.getSteps()){
 			Pair<Module, List<Connection>> dat;
 			dat = (Pair<Module, List<Connection>>) stepVisitor.visit(s);
 			
-			mgroup.getConnections().addConnections(dat.getElem2());
+			connections.addConnections(dat.getElem2());
 			mgroup.getModules().add(dat.getElem1());
 			
 		}
 		
-		pipeline = new Pipeline(version, mgroup);
+		pipeline = new Pipeline(version, mgroup, connections);
 		
 		return pipeline;
 	}

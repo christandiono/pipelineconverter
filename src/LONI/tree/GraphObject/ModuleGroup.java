@@ -18,7 +18,7 @@ public class ModuleGroup extends GraphObject {
 	private final int rotation;
 	private final boolean needsProvenance;
 	List<GraphObject> modules;
-	Connections connections;
+	
 	
 	public ModuleGroup(String id, String name, String myPackage,
 			String version, String description, String icon, int rotation,
@@ -32,7 +32,6 @@ public class ModuleGroup extends GraphObject {
 		this.icon = icon;
 		this.rotation = rotation;
 		this.needsProvenance = needsProvenance;
-		connections = new Connections();
 		modules = new ArrayList<GraphObject>();
 	}
 
@@ -72,9 +71,6 @@ public class ModuleGroup extends GraphObject {
 		return modules;
 	}
 
-	public Connections getConnections() {
-		return connections;
-	}
 
 	
 

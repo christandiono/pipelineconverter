@@ -5,6 +5,8 @@ import FileOps.Parser;
 import FileOps.XStream.XStreamHandler;
 import FileOps.XStream.XStreamWrapper;
 import Galaxy.Tree.Tool.Tool;
+import LONI.tree.Connection;
+import LONI.tree.Connections;
 import LONI.tree.Parameter;
 import LONI.tree.Pipeline;
 import LONI.tree.GraphObject.Module;
@@ -33,6 +35,16 @@ public class LoniSpecification {
 		xstream.bindAttributeToClassField(ModuleGroup.class, "description", "description");
 		xstream.bindAttributeToClassField(ModuleGroup.class, "posX", "posX");
 		xstream.bindAttributeToClassField(ModuleGroup.class, "posY", "posY");
+		
+		xstream.bindAttributeToClassField(Pipeline.class, "connections", "connections");
+		xstream.bindElementToClass(Connections.class, "connections");
+		/* Connections instance variables go here */
+
+		xstream.bindGroupToList(Connections.class, "connections");
+		
+		xstream.bindElementToClass(Connection.class, "connection");
+		//xstream.bindElementToClassField(ModuleGroup.class, "connections", "connections");
+	
 		
 		xstream.bindGroupToList(ModuleGroup.class, "modules");
 		xstream.bindElementToClass(Module.class, "module");
