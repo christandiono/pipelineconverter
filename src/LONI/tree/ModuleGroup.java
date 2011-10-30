@@ -1,7 +1,12 @@
 package LONI.tree;
 
+import java.util.List;
+
+
+
 public class ModuleGroup extends LoniNode {
 	
+
 	private final String id;
 	private final String name;
 	private final String myPackage;
@@ -12,11 +17,9 @@ public class ModuleGroup extends LoniNode {
 	private final int rotation;
 	private final boolean needsProvenance;
 	
-	
 	public ModuleGroup(String id, String name, String myPackage,
 			String version, String description, String icon, int rotation,
-			Position position,
-			boolean needsProvenance) {
+			Position position, boolean needsProvenance) {
 		super();
 		this.id = id;
 		this.name = name;

@@ -1,9 +1,11 @@
 package LONI.tree;
 
+
+
 public class Pipeline extends LoniNode {
 	private final final String version;
 	private final final ModuleGroup pipelineModuleGroup;
-	List<>
+	
 	public Pipeline(String version, String id, String name, String myPackage,
 					String moduleVersion, String description, String icon, 
 					Position position, int rotation,

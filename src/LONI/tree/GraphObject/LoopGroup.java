@@ -1,6 +1,8 @@
-package LONI.tree;
+package LONI.tree.GraphObject;
 
-public class ViewerModule extends LoniNode {
+import LONI.tree.LoniNode;
+
+public class LoopGroup extends LoniNode {
 
 
 	private final String id;
@@ -8,9 +10,9 @@ public class ViewerModule extends LoniNode {
 	private final String myPackage;
 	private final String version;
 	private final String description;
-	private final String location;
+	private final String icon;
 	private final int posX;
 	private final int posY;
 	private final int rotation;
-	private final String icon;
+	private final boolean needsProvenance;
 }

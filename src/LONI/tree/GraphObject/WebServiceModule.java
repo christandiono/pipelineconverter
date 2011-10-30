@@ -1,4 +1,6 @@
-package LONI.tree;
+package LONI.tree.GraphObject;
+
+import LONI.tree.LoniNode;
 
 public class WebServiceModule extends LoniNode {
 

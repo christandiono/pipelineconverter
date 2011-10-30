@@ -13,6 +13,7 @@ import Galaxy.Tree.Workflow.Step;
 import Galaxy.Tree.Workflow.Workflow;
 
 import LONI.tree.*;
+import LONI.tree.GraphObject.Module;
 
 public class GalaxyToLoniConverter extends DFSVisitor
 {
