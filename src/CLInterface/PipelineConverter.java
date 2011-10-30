@@ -59,10 +59,10 @@ public class PipelineConverter {
 			}
 		}
 
-		Workflow G = null;
+		Workflow g = null;
 		if (ConverterConfig.INPUT_FORMAT == Format.GALAXY) {
 			try {
-				G = GalaxySpecification.getJSONParser().parse(new File(ConverterConfig.INPUT_PATH));
+				g = GalaxySpecification.getJSONParser().parse(new File(ConverterConfig.INPUT_PATH));
 			} catch (FileNotFoundException e) {
 				Printer.log("What, FileNotFoundException not caught by configureInput?");
 			}
@@ -73,7 +73,7 @@ public class PipelineConverter {
 		String outputString = null;
 
 		if (ConverterConfig.OUTPUT_FORMAT == Format.GALAXY) {
-			outputString = GalaxySpecification.getJSONGenerator().generate(G);
+			outputString = GalaxySpecification.getJSONGenerator().generate(g);
 
 		} else {
 			Printer.log("Well, I tried, but I don't know how to make that kind of a file");
