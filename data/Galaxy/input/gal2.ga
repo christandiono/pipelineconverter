@@ -5,7 +5,7 @@
     "name": "test", 
     "steps": {
         "0": {
-            "annotation": "", 
+            "annotation": "hello. This is a node that i like.", 
             "id": 0, 
             "input_connections": {}, 
             "inputs": [], 
@@ -29,7 +29,7 @@
             "user_outputs": []
         }, 
         "1": {
-            "annotation": "", 
+            "annotation": "hello. I hate this node soooo much.", 
             "id": 1, 
             "input_connections": {}, 
             "inputs": [], 
@@ -53,7 +53,7 @@
             "user_outputs": []
         }, 
         "2": {
-            "annotation": "", 
+            "annotation": "this node is just ok.", 
             "id": 2, 
             "input_connections": {
                 "input1": {
@@ -82,7 +82,7 @@
             "user_outputs": []
         }, 
         "3": {
-            "annotation": "", 
+            "annotation": "don't love this guy", 
             "id": 3, 
             "input_connections": {
                 "input1": {

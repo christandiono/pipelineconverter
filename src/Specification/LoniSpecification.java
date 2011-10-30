@@ -33,8 +33,11 @@ public class LoniSpecification {
 		xstream.bindAttributeToClassField(Position.class, "posY", "posY");
 		xstream.bindGroupToList(ModuleGroup.class, "modules");
 		xstream.bindElementToClass(Module.class, "module");
+		xstream.bindAttributeToClassField(Module.class, "myPackage", "package");
 		xstream.bindAttributeToClassField(Module.class, "id", "id");
 		xstream.bindAttributeToClassField(Module.class, "location", "location");
+		xstream.bindAttributeToClassField(Module.class, "description", "description");
+		xstream.bindAttributeToClassField(Module.class, "rotation", "rotation");
 		
 	}
 

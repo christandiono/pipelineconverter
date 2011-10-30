@@ -60,7 +60,7 @@ public class GalaxyToLoniConverter extends DFSVisitor
 				
 				LONI.tree.Position position = new LONI.tree.Position(0,0);
 				genModule = new Module(position, step.getToolId(), step.getName(), 
-						"package", step.getToolVersion(), step.getAnnotation(), "executableVersion" ,
+						"package", step.getToolVersion(), "executableVersion", step.getAnnotation() ,
 						"pipeline://localhost/", 0, "icon", "advancedOptions", false, false, false, false, "sourceCode", 
 						false, false, "mPIParallelEnv", "mPINumSlots", false);
 				

@@ -82,6 +82,7 @@ public class XStreamWrapper<T> implements Parser<T>, Generator<T>{
 	public void bindAttributeToClassField(Class classToBind, String attributeName, String alias){
 		xstream.aliasAttribute(classToBind, attributeName, alias);
 		
+		
 	}
 	
 	/**

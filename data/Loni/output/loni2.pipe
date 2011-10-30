@@ -3,8 +3,7 @@
   <moduleGroup id="MyWorkflow_1" name="MyWorkflow" package="THEPACKAGE" version="1.1.1" description="DESCRIPTION">
     <rotation>0</rotation>
     <needsProvenance>false</needsProvenance>
-    <module id="_1" location="pipeline://localhost/">
-      <rotation>0</rotation>
+    <module id="_1" location="pipeline://localhost/" rotation="0">
       <smartModule>false</smartModule>
       <isIDAModule>false</isIDAModule>
       <isXNATModule>false</isXNATModule>
@@ -13,8 +12,7 @@
       <MPIEnabled>false</MPIEnabled>
       <preserveInputFilename>false</preserveInputFilename>
     </module>
-    <module id="_2" location="pipeline://localhost/">
-      <rotation>0</rotation>
+    <module id="_2" location="pipeline://localhost/" rotation="0">
       <smartModule>false</smartModule>
       <isIDAModule>false</isIDAModule>
       <isXNATModule>false</isXNATModule>
