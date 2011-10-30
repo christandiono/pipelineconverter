@@ -3,10 +3,10 @@ import Taverna.Tree.TavernaNode;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Map extends TavernaNode {
+public class TavMap extends TavernaNode {
 	private List<Mapping> mappings;
 	
-	public Map(){
+	public TavMap(){
 		this.mappings = new ArrayList<Mapping>();
 	}
 
@@ -15,7 +15,7 @@ public class Map extends TavernaNode {
 	}
 	
 	public void addMapping(Mapping mapping) {
-		mappings.add(mapping)
+		mappings.add(mapping);
 	}
 	
 }
