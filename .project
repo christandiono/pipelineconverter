@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>make_OTD_102811</name>
+			<type>1</type>
+			<location>/home/johnny5550822/Desktop/CS130/project/python_script/make_OTD_102811</location>
+		</link>
+	</linkedResources>
 </projectDescription>
