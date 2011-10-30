@@ -1,5 +1,4 @@
 package Taverna.Tree;
-import Taverna.Tree.TavernaNode;
 import java.util.List;
 import java.util.ArrayList;
 

@@ -1,6 +1,5 @@
 package Taverna.Tree.Layers;
 import Taverna.Tree.TavernaNode;
-import java.util.List;
 
 public class LoopConfig extends TavernaNode {
 	private final String conditionXML;
